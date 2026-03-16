@@ -1,0 +1,11 @@
+{
+  "assignment": {
+    "canvas_title": "👨‍💻 Code-Together 11: Probing Hash Tables",
+    "points_possible": 30,
+    "due_at": "",
+    "submission_types": ["online_url"],
+    "github_classroom": true,
+    "github_classroom_url": "",
+    "executable_name": "ct11-probing-hash-tables.exe"
+  }
+}
