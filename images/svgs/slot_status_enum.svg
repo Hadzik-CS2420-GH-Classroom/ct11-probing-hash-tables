@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 250" font-family="sans-serif">
+  <rect width="800" height="250" rx="12" fill="#1e1e2e"/>
+
+  <!-- Title -->
+  <text x="400" y="38" text-anchor="middle" fill="#cdd6f4" font-size="20" font-weight="bold">SlotStatus — Three States</text>
+
+  <!-- EMPTY box -->
+  <rect x="40" y="65" width="220" height="160" rx="10" fill="#6c7086" stroke="#585b70" stroke-width="2"/>
+  <text x="150" y="100" text-anchor="middle" fill="#1e1e2e" font-size="22" font-weight="bold">EMPTY</text>
+  <line x1="70" y1="115" x2="230" y2="115" stroke="#1e1e2e" stroke-width="1" opacity="0.5"/>
+  <text x="150" y="140" text-anchor="middle" fill="#1e1e2e" font-size="13">Slot has NEVER been used</text>
+  <text x="150" y="162" text-anchor="middle" fill="#1e1e2e" font-size="13">Search can STOP here</text>
+  <text x="150" y="184" text-anchor="middle" fill="#1e1e2e" font-size="13">(key can't be past this)</text>
+  <text x="150" y="210" text-anchor="middle" fill="#1e1e2e" font-size="12" font-style="italic">Default state</text>
+
+  <!-- OCCUPIED box -->
+  <rect x="290" y="65" width="220" height="160" rx="10" fill="#a6e3a1" stroke="#585b70" stroke-width="2"/>
+  <text x="400" y="100" text-anchor="middle" fill="#1e1e2e" font-size="22" font-weight="bold">OCCUPIED</text>
+  <line x1="320" y1="115" x2="480" y2="115" stroke="#1e1e2e" stroke-width="1" opacity="0.5"/>
+  <text x="400" y="140" text-anchor="middle" fill="#1e1e2e" font-size="13">Holds a live key-value pair</text>
+  <text x="400" y="162" text-anchor="middle" fill="#1e1e2e" font-size="13">Check key: match = found</text>
+  <text x="400" y="184" text-anchor="middle" fill="#1e1e2e" font-size="13">No match = keep probing</text>
+  <text x="400" y="210" text-anchor="middle" fill="#1e1e2e" font-size="12" font-style="italic">Set by insert()</text>
+
+  <!-- DELETED box -->
+  <rect x="540" y="65" width="220" height="160" rx="10" fill="#fab387" stroke="#585b70" stroke-width="2"/>
+  <text x="650" y="100" text-anchor="middle" fill="#1e1e2e" font-size="22" font-weight="bold">DELETED</text>
+  <line x1="570" y1="115" x2="730" y2="115" stroke="#1e1e2e" stroke-width="1" opacity="0.5"/>
+  <text x="650" y="140" text-anchor="middle" fill="#1e1e2e" font-size="13">Tombstone — was occupied</text>
+  <text x="650" y="162" text-anchor="middle" fill="#1e1e2e" font-size="13">Search must KEEP GOING</text>
+  <text x="650" y="184" text-anchor="middle" fill="#1e1e2e" font-size="13">(key might be past this)</text>
+  <text x="650" y="210" text-anchor="middle" fill="#1e1e2e" font-size="12" font-style="italic">Set by remove()</text>
+
+  <!-- X mark on DELETED -->
+  <text x="720" y="90" text-anchor="middle" fill="#1e1e2e" font-size="28" font-weight="bold" opacity="0.3">X</text>
+</svg>

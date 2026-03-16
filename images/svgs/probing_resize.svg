@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="sans-serif">
+  <defs>
+    <marker id="arrowBig" markerWidth="12" markerHeight="8" refX="11" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#89b4fa"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="500" rx="12" fill="#1e1e2e"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" fill="#cdd6f4" font-size="20" font-weight="bold">Resize — Rehash OCCUPIED, Clear Tombstones</text>
+
+  <!-- ===== BEFORE ===== -->
+  <text x="450" y="70" text-anchor="middle" fill="#f9e2af" font-size="16" font-weight="bold">Before: capacity = 7, size = 5, load factor = 0.71</text>
+  <text x="450" y="88" text-anchor="middle" fill="#a6adc8" font-size="12">(1 tombstone from removing Diana)</text>
+
+  <!-- 7-slot old array -->
+  <!-- Slot 0: empty -->
+  <rect x="95" y="105" width="100" height="46" rx="5" fill="#6c7086" stroke="#585b70" stroke-width="1.5"/>
+  <text x="145" y="133" text-anchor="middle" fill="#1e1e2e" font-size="11">[empty]</text>
+  <text x="145" y="101" text-anchor="middle" fill="#a6adc8" font-size="10">0</text>
+
+  <!-- Slot 1: Bob -->
+  <rect x="200" y="105" width="100" height="46" rx="5" fill="#a6e3a1" stroke="#585b70" stroke-width="1.5"/>
+  <text x="250" y="127" text-anchor="middle" fill="#1e1e2e" font-size="11" font-family="monospace">Bob, 82</text>
+  <text x="250" y="143" text-anchor="middle" fill="#1e1e2e" font-size="9">OCCUPIED</text>
+  <text x="250" y="101" text-anchor="middle" fill="#a6adc8" font-size="10">1</text>
+
+  <!-- Slot 2: empty -->
+  <rect x="305" y="105" width="100" height="46" rx="5" fill="#6c7086" stroke="#585b70" stroke-width="1.5"/>
+  <text x="355" y="133" text-anchor="middle" fill="#1e1e2e" font-size="11">[empty]</text>
+  <text x="355" y="101" text-anchor="middle" fill="#a6adc8" font-size="10">2</text>
+
+  <!-- Slot 3: Charlie -->
+  <rect x="410" y="105" width="100" height="46" rx="5" fill="#a6e3a1" stroke="#585b70" stroke-width="1.5"/>
+  <text x="460" y="127" text-anchor="middle" fill="#1e1e2e" font-size="11" font-family="monospace">Charlie, 91</text>
+  <text x="460" y="143" text-anchor="middle" fill="#1e1e2e" font-size="9">OCCUPIED</text>
+  <text x="460" y="101" text-anchor="middle" fill="#a6adc8" font-size="10">3</text>
+
+  <!-- Slot 4: Alice -->
+  <rect x="515" y="105" width="100" height="46" rx="5" fill="#a6e3a1" stroke="#585b70" stroke-width="1.5"/>
+  <text x="565" y="127" text-anchor="middle" fill="#1e1e2e" font-size="11" font-family="monospace">Alice, 95</text>
+  <text x="565" y="143" text-anchor="middle" fill="#1e1e2e" font-size="9">OCCUPIED</text>
+  <text x="565" y="101" text-anchor="middle" fill="#a6adc8" font-size="10">4</text>
+
+  <!-- Slot 5: DELETED (Diana) -->
+  <rect x="620" y="105" width="100" height="46" rx="5" fill="#fab387" stroke="#fab387" stroke-width="2"/>
+  <text x="670" y="127" text-anchor="middle" fill="#1e1e2e" font-size="11" font-weight="bold">[deleted]</text>
+  <text x="670" y="143" text-anchor="middle" fill="#1e1e2e" font-size="9">DELETED</text>
+  <text x="670" y="101" text-anchor="middle" fill="#a6adc8" font-size="10">5</text>
+
+  <!-- Slot 6: Eve -->
+  <rect x="725" y="105" width="100" height="46" rx="5" fill="#a6e3a1" stroke="#585b70" stroke-width="1.5"/>
+  <text x="775" y="127" text-anchor="middle" fill="#1e1e2e" font-size="11" font-family="monospace">Eve, 88</text>
+  <text x="775" y="143" text-anchor="middle" fill="#1e1e2e" font-size="9">OCCUPIED</text>
+  <text x="775" y="101" text-anchor="middle" fill="#a6adc8" font-size="10">6</text>
+
+  <!-- Big arrow: resize -->
+  <path d="M450,165 L450,215" stroke="#89b4fa" stroke-width="3" fill="none" marker-end="url(#arrowBig)"/>
+  <text x="530" y="195" text-anchor="middle" fill="#89b4fa" font-size="14" font-weight="bold">resize()</text>
+  <text x="530" y="212" text-anchor="middle" fill="#a6adc8" font-size="11">next_prime(7 * 2) = 17</text>
+
+  <!-- ===== AFTER ===== -->
+  <text x="450" y="248" text-anchor="middle" fill="#a6e3a1" font-size="16" font-weight="bold">After: capacity = 17, size = 5, load factor = 0.29</text>
+  <text x="450" y="266" text-anchor="middle" fill="#a6adc8" font-size="12">(tombstone cleared — only OCCUPIED entries rehashed)</text>
+
+  <!-- 17-slot new array (two rows) -->
+  <!-- Row 1: slots 0-8 -->
+  <!-- Slot 0: empty -->
+  <rect x="30" y="282" width="90" height="42" rx="4" fill="#6c7086" stroke="#585b70" stroke-width="1"/>
+  <text x="75" y="308" text-anchor="middle" fill="#1e1e2e" font-size="10">[empty]</text>
+  <text x="75" y="279" text-anchor="middle" fill="#a6adc8" font-size="9">0</text>
+
+  <!-- Slot 1: empty -->
+  <rect x="125" y="282" width="90" height="42" rx="4" fill="#6c7086" stroke="#585b70" stroke-width="1"/>
+  <text x="170" y="308" text-anchor="middle" fill="#1e1e2e" font-size="10">[empty]</text>
+  <text x="170" y="279" text-anchor="middle" fill="#a6adc8" font-size="9">1</text>
+
+  <!-- Slot 2: Alice -->
+  <rect x="220" y="282" width="90" height="42" rx="4" fill="#a6e3a1" stroke="#585b70" stroke-width="1"/>
+  <text x="265" y="302" text-anchor="middle" fill="#1e1e2e" font-size="10" font-family="monospace">Alice, 95</text>
+  <text x="265" y="317" text-anchor="middle" fill="#1e1e2e" font-size="8">OCCUPIED</text>
+  <text x="265" y="279" text-anchor="middle" fill="#a6adc8" font-size="9">2</text>
+
+  <!-- Slot 3: empty -->
+  <rect x="315" y="282" width="90" height="42" rx="4" fill="#6c7086" stroke="#585b70" stroke-width="1"/>
+  <text x="360" y="308" text-anchor="middle" fill="#1e1e2e" font-size="10">[empty]</text>
+  <text x="360" y="279" text-anchor="middle" fill="#a6adc8" font-size="9">3</text>
+
+  <!-- Slot 4: empty -->
+  <rect x="410" y="282" width="90" height="42" rx="4" fill="#6c7086" stroke="#585b70" stroke-width="1"/>
+  <text x="455" y="308" text-anchor="middle" fill="#1e1e2e" font-size="10">[empty]</text>
+  <text x="455" y="279" text-anchor="middle" fill="#a6adc8" font-size="9">4</text>
+
+  <!-- Slot 5: Bob -->
+  <rect x="505" y="282" width="90" height="42" rx="4" fill="#a6e3a1" stroke="#585b70" stroke-width="1"/>
+  <text x="550" y="302" text-anchor="middle" fill="#1e1e2e" font-size="10" font-family="monospace">Bob, 82</text>
+  <text x="550" y="317" text-anchor="middle" fill="#1e1e2e" font-size="8">OCCUPIED</text>
+  <text x="550" y="279" text-anchor="middle" fill="#a6adc8" font-size="9">5</text>
+
+  <!-- Slot 6: empty -->
+  <rect x="600" y="282" width="90" height="42" rx="4" fill="#6c7086" stroke="#585b70" stroke-width="1"/>
+  <text x="645" y="308" text-anchor="middle" fill="#1e1e2e" font-size="10">[empty]</text>
+  <text x="645" y="279" text-anchor="middle" fill="#a6adc8" font-size="9">6</text>
+
+  <!-- Slot 7: empty -->
+  <rect x="695" y="282" width="90" height="42" rx="4" fill="#6c7086" stroke="#585b70" stroke-width="1"/>
+  <text x="740" y="308" text-anchor="middle" fill="#1e1e2e" font-size="10">[empty]</text>
+  <text x="740" y="279" text-anchor="middle" fill="#a6adc8" font-size="9">7</text>
+
+  <!-- Slot 8: Charlie -->
+  <rect x="790" y="282" width="90" height="42" rx="4" fill="#a6e3a1" stroke="#585b70" stroke-width="1"/>
+  <text x="835" y="302" text-anchor="middle" fill="#1e1e2e" font-size="10" font-family="monospace">Charlie, 91</text>
+  <text x="835" y="317" text-anchor="middle" fill="#1e1e2e" font-size="8">OCCUPIED</text>
+  <text x="835" y="279" text-anchor="middle" fill="#a6adc8" font-size="9">8</text>
+
+  <!-- Row 2: slots 9-16 -->
+  <!-- Slot 9: empty -->
+  <rect x="30" y="340" width="90" height="42" rx="4" fill="#6c7086" stroke="#585b70" stroke-width="1"/>
+  <text x="75" y="366" text-anchor="middle" fill="#1e1e2e" font-size="10">[empty]</text>
+  <text x="75" y="337" text-anchor="middle" fill="#a6adc8" font-size="9">9</text>
+
+  <!-- Slot 10: empty -->
+  <rect x="125" y="340" width="90" height="42" rx="4" fill="#6c7086" stroke="#585b70" stroke-width="1"/>
+  <text x="170" y="366" text-anchor="middle" fill="#1e1e2e" font-size="10">[empty]</text>
+  <text x="170" y="337" text-anchor="middle" fill="#a6adc8" font-size="9">10</text>
+
+  <!-- Slot 11: empty -->
+  <rect x="220" y="340" width="90" height="42" rx="4" fill="#6c7086" stroke="#585b70" stroke-width="1"/>
+  <text x="265" y="366" text-anchor="middle" fill="#1e1e2e" font-size="10">[empty]</text>
+  <text x="265" y="337" text-anchor="middle" fill="#a6adc8" font-size="9">11</text>
+
+  <!-- Slot 12: Eve -->
+  <rect x="315" y="340" width="90" height="42" rx="4" fill="#a6e3a1" stroke="#585b70" stroke-width="1"/>
+  <text x="360" y="360" text-anchor="middle" fill="#1e1e2e" font-size="10" font-family="monospace">Eve, 88</text>
+  <text x="360" y="375" text-anchor="middle" fill="#1e1e2e" font-size="8">OCCUPIED</text>
+  <text x="360" y="337" text-anchor="middle" fill="#a6adc8" font-size="9">12</text>
+
+  <!-- Slots 13-16: empty -->
+  <rect x="410" y="340" width="90" height="42" rx="4" fill="#6c7086" stroke="#585b70" stroke-width="1"/>
+  <text x="455" y="366" text-anchor="middle" fill="#1e1e2e" font-size="10">[empty]</text>
+  <text x="455" y="337" text-anchor="middle" fill="#a6adc8" font-size="9">13</text>
+
+  <rect x="505" y="340" width="90" height="42" rx="4" fill="#6c7086" stroke="#585b70" stroke-width="1"/>
+  <text x="550" y="366" text-anchor="middle" fill="#1e1e2e" font-size="10">[empty]</text>
+  <text x="550" y="337" text-anchor="middle" fill="#a6adc8" font-size="9">14</text>
+
+  <rect x="600" y="340" width="90" height="42" rx="4" fill="#6c7086" stroke="#585b70" stroke-width="1"/>
+  <text x="645" y="366" text-anchor="middle" fill="#1e1e2e" font-size="10">[empty]</text>
+  <text x="645" y="337" text-anchor="middle" fill="#a6adc8" font-size="9">15</text>
+
+  <rect x="695" y="340" width="90" height="42" rx="4" fill="#6c7086" stroke="#585b70" stroke-width="1"/>
+  <text x="740" y="366" text-anchor="middle" fill="#1e1e2e" font-size="10">[empty]</text>
+  <text x="740" y="337" text-anchor="middle" fill="#a6adc8" font-size="9">16</text>
+
+  <!-- Summary boxes -->
+  <rect x="60" y="405" width="370" height="75" rx="8" fill="#313244" stroke="#a6e3a1" stroke-width="1.5"/>
+  <text x="245" y="428" text-anchor="middle" fill="#a6e3a1" font-size="13" font-weight="bold">Tombstones Cleared</text>
+  <text x="245" y="448" text-anchor="middle" fill="#a6adc8" font-size="12">Only OCCUPIED entries were rehashed</text>
+  <text x="245" y="465" text-anchor="middle" fill="#a6adc8" font-size="12">DELETED slots simply not copied</text>
+
+  <rect x="470" y="405" width="370" height="75" rx="8" fill="#313244" stroke="#89b4fa" stroke-width="1.5"/>
+  <text x="655" y="428" text-anchor="middle" fill="#89b4fa" font-size="13" font-weight="bold">Clusters Broken Up</text>
+  <text x="655" y="448" text-anchor="middle" fill="#a6adc8" font-size="12">New capacity (17) gives different modulo</text>
+  <text x="655" y="465" text-anchor="middle" fill="#a6adc8" font-size="12">Entries spread across more slots</text>
+</svg>
