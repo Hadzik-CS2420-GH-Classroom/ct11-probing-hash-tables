@@ -46,6 +46,7 @@ public:
 
     // ? SEE DIAGRAM: Linear Probing — Insert "Diana"  →  images/diagrams.md
     void insert(const std::string& key, int value);  // add or update a key-value pair
+    // ? SEE DIAGRAM: Linear Probing — Search          →  images/diagrams.md
     int* search(const std::string& key) const;        // find value by key (nullptr if missing)
     bool remove(const std::string& key);              // mark slot as DELETED (tombstone)
 
