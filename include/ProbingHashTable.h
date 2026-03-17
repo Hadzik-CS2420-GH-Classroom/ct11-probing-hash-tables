@@ -34,6 +34,10 @@
 class ProbingHashTable
 {
 public:
+    // ! DISCUSSION: explicit — prevents the compiler from silently converting an int
+    //   into a ProbingHashTable. Without it, a function expecting a ProbingHashTable
+    //   could accidentally accept a bare int (e.g., foo(10) where foo takes a table).
+    //   explicit forces the caller to construct the object intentionally.
     explicit ProbingHashTable(int capacity = 7); // 7 is prime — reduces hash
                                                  // collisions vs a round number
                                                  // like 8 or 10 (see hash())

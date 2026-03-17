@@ -78,3 +78,17 @@ Diagrams in the order they appear in the code, from `HashSlot.h` → `ProbingHas
 *`ProbingHashTable.cpp::resize()` — before/after growing the table and rehashing all entries*
 
 ![Resize — Rehash OCCUPIED, Clear Tombstones](svgs/probing_resize.svg)
+
+---
+
+## 12. Constructor — Allocating the Slot Array
+*`ProbingHashTable.cpp::ProbingHashTable()` — code + stack frame + initial heap state after new HashSlot[capacity_]*
+
+![Constructor — Allocating the Slot Array](svgs/constructor_allocation.svg)
+
+---
+
+## 13. insert() — Three Probe Outcomes
+*`ProbingHashTable.cpp::insert()` — code alongside the three slot states and what each does*
+
+![insert() — Three Probe Outcomes](svgs/insert_implementation.svg)

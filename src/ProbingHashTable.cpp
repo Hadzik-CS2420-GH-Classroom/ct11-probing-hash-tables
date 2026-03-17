@@ -13,7 +13,7 @@
 #include <iostream>
 
 // =============================================================================
-// Helper — next_prime
+// Helper — next_prime                                          [same as CT10]
 // =============================================================================
 //
 // - Returns the smallest prime >= n
@@ -36,7 +36,7 @@ int ProbingHashTable::next_prime(int n) {
 // 1. Constructor
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: Probing Hash Table — Flat Array of HashSlots  →  images/diagrams.md
+// ? SEE DIAGRAM: Constructor — Allocating the Slot Array  →  images/diagrams.md
 //
 // ! DISCUSSION: The slot array — new HashSlot[capacity_]
 //   - new allocates a contiguous array of HashSlot structs on the heap
@@ -51,7 +51,9 @@ int ProbingHashTable::next_prime(int n) {
 //
 ProbingHashTable::ProbingHashTable(int capacity)
     : size_(0), capacity_(capacity) {
-    table_ = new HashSlot[capacity_];   // default constructor sets all to EMPTY
+    table_ = new HashSlot[capacity_];   // no type needed — table_ is already declared
+                                        // as HashSlot* in ProbingHashTable.h; new
+                                        // HashSlot[n] returns HashSlot*, which matches
 }
 
 // ---------------------------------------------------------------------------
@@ -69,7 +71,7 @@ ProbingHashTable::~ProbingHashTable() {
 }
 
 // ---------------------------------------------------------------------------
-// 3. hash() — custom hash function
+// 3. hash() — custom hash function                             [same as CT10]
 // ---------------------------------------------------------------------------
 //
 // ? SEE DIAGRAM: Linear Probing — Insert "Diana"  →  images/diagrams.md
@@ -96,7 +98,8 @@ size_t ProbingHashTable::hash(const std::string& key) const {
 // 4. insert() — add or update a key-value pair
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: Linear Probing — Insert "Diana"  →  images/diagrams.md
+// ? SEE DIAGRAM: insert() — Three Probe Outcomes              →  images/diagrams.md
+// ? SEE DIAGRAM: Linear Probing — Insert "Diana"              →  images/diagrams.md
 // ? SEE DIAGRAM: Primary Clustering — Why Probing Slows Down  →  images/diagrams.md
 //
 // ! DISCUSSION: Check load factor BEFORE inserting (not after, like chaining).
@@ -223,7 +226,7 @@ bool ProbingHashTable::remove(const std::string& key) {
 }
 
 // ---------------------------------------------------------------------------
-// 7. load_factor()
+// 7. load_factor()                                             [same as CT10]
 // ---------------------------------------------------------------------------
 //
 // ? SEE DIAGRAM: Resize — Rehash OCCUPIED, Clear Tombstones  →  images/diagrams.md
