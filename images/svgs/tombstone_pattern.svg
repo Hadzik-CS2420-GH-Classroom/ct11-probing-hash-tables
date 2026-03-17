@@ -57,14 +57,14 @@
   <text x="545" y="298" text-anchor="middle" fill="#fff" font-size="11">OCCUPIED</text>
   <text x="545" y="254" text-anchor="middle" fill="#555" font-size="11">6</text>
 
-  <!-- Search arrow: probes past tombstone -->
+  <!-- Search annotations: horizontal arrows between columns -->
   <text x="265" y="325" text-anchor="middle" fill="#333" font-size="11">hash("Eve")=4</text>
   <text x="265" y="340" text-anchor="middle" fill="#333" font-size="11">Alice!=Eve</text>
-  <path d="M310,335 Q340,350 380,335" stroke="#333" stroke-width="1.5" fill="none" marker-end="url(#arrowW)"/>
+  <line x1="312" y1="332" x2="352" y2="332" stroke="#333" stroke-width="1.5" marker-end="url(#arrowW)"/>
 
   <text x="405" y="325" text-anchor="middle" fill="#e67e22" font-size="11" font-weight="bold">DELETED</text>
   <text x="405" y="340" text-anchor="middle" fill="#e67e22" font-size="11">keep probing!</text>
-  <path d="M450,335 Q475,350 515,335" stroke="#333" stroke-width="1.5" fill="none" marker-end="url(#arrowW)"/>
+  <line x1="452" y1="332" x2="492" y2="332" stroke="#333" stroke-width="1.5" marker-end="url(#arrowW)"/>
 
   <text x="545" y="325" text-anchor="middle" fill="#2ecc71" font-size="11" font-weight="bold">Eve==Eve</text>
   <text x="545" y="340" text-anchor="middle" fill="#2ecc71" font-size="11">FOUND!</text>
@@ -90,10 +90,10 @@
   <text x="545" y="478" text-anchor="middle" fill="#fff" font-size="11">OCCUPIED</text>
   <text x="545" y="434" text-anchor="middle" fill="#555" font-size="11">6</text>
 
-  <!-- Search arrow: STOPS at EMPTY -->
+  <!-- Search annotations: horizontal arrow, then stops at EMPTY -->
   <text x="265" y="505" text-anchor="middle" fill="#333" font-size="11">hash("Eve")=4</text>
   <text x="265" y="520" text-anchor="middle" fill="#333" font-size="11">Alice!=Eve</text>
-  <path d="M310,515 Q340,530 380,515" stroke="#333" stroke-width="1.5" fill="none" marker-end="url(#arrowW)"/>
+  <line x1="312" y1="512" x2="352" y2="512" stroke="#e74c3c" stroke-width="1.5" marker-end="url(#arrowR2)"/>
 
   <text x="405" y="505" text-anchor="middle" fill="#e74c3c" font-size="11" font-weight="bold">EMPTY!</text>
   <text x="405" y="520" text-anchor="middle" fill="#e74c3c" font-size="11">STOP — return nullptr</text>
