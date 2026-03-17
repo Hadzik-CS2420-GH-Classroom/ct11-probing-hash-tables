@@ -6,10 +6,10 @@
 // HashSlot — one entry in a probing hash table
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: images/probing_table_overview.png — big picture: flat array of HashSlots
-// ? SEE DIAGRAM: images/slot_status_enum.png — the three states: EMPTY, OCCUPIED, DELETED
+// ? SEE DIAGRAM: Probing Hash Table — Flat Array of HashSlots  →  images/diagrams.md
+// ? SEE DIAGRAM: SlotStatus — Three States                     →  images/diagrams.md
 //
-// ! DISCUSSION: Why three states instead of two? (see slot_status_enum diagram)
+// ! DISCUSSION: Why three states instead of two? (see "Slot Status Enum" in images/diagrams.md)
 //   Removing an entry can't leave EMPTY — it would break probe chains.
 //   DELETED (tombstone) tells search: "keep going, don't stop here."
 //

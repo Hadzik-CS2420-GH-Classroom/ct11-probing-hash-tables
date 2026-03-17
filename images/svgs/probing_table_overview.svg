@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
   <defs>
     <marker id="arrowPink" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
       <polygon points="0 0, 10 3.5, 0 7" fill="#8e44ad"/>
@@ -6,7 +7,7 @@
   </defs>
 
   <!-- Title -->
-  <text x="450" y="40" text-anchor="middle" fill="#1a1a1a" font-size="20" font-weight="bold">Probing Hash Table — Flat Array of HashSlots</text>
+  <text x="450" y="40" text-anchor="middle" fill="#1a1a1a" font-size="26" font-weight="bold">Probing Hash Table — Flat Array of HashSlots</text>
 
   <!-- Hash function box -->
   <rect x="50" y="70" width="200" height="50" rx="8" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>

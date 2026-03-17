@@ -7,9 +7,9 @@
 // ProbingHashTable — closed hashing / open addressing (linear probing)
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: images/probing_table_overview.png — flat array of HashSlots
-// ? SEE DIAGRAM: images/linear_probing_insert.png — collision resolved by scanning forward
-// ? SEE DIAGRAM: images/primary_clustering.png — occupied runs grow and merge
+// ? SEE DIAGRAM: Probing Hash Table — Flat Array of HashSlots  →  images/diagrams.md
+// ? SEE DIAGRAM: Probing vs. Chaining — Two Memory Layouts     →  images/diagrams.md
+// ? SEE DIAGRAM: Cache Locality — Why Probing Is Faster in Practice  →  images/diagrams.md
 //
 // ! DISCUSSION: Probing vs. Chaining — two different memory layouts.
 //   - ChainingHashTable uses ChainNode** — an array of pointers to linked lists
@@ -17,6 +17,7 @@
 //   - probing stores everything INSIDE the array itself — better cache locality
 //   - trade-off: probing is more sensitive to high load factors (clustering)
 //
+// ? SEE DIAGRAM: Load Factor Threshold — Why Resize at 0.75?  →  images/diagrams.md
 // ! DISCUSSION: Why a LOWER load factor threshold (0.75 vs 1.0)?
 //   - chaining can exceed 1.0 because chains can grow indefinitely
 //   - probing CANNOT exceed 1.0 — every entry must fit in the array
@@ -43,6 +44,7 @@ public:
     ProbingHashTable(ProbingHashTable&&) = delete;
     ProbingHashTable& operator=(ProbingHashTable&&) = delete;
 
+    // ? SEE DIAGRAM: Linear Probing — Insert "Diana"  →  images/diagrams.md
     void insert(const std::string& key, int value);  // add or update a key-value pair
     int* search(const std::string& key) const;        // find value by key (nullptr if missing)
     bool remove(const std::string& key);              // mark slot as DELETED (tombstone)
@@ -70,7 +72,8 @@ private:
     int size_;                  // number of OCCUPIED entries (excludes DELETED)
     int capacity_;              // total number of slots
 
-    // ? SEE DIAGRAM: images/probing_resize.png — before/after resize
+    // ? SEE DIAGRAM: Resize — Rehash OCCUPIED, Clear Tombstones  →  images/diagrams.md
+    // ? SEE DIAGRAM: Primary Clustering — Why Probing Slows Down  →  images/diagrams.md
     // ? load factor = size_ / capacity_ — triggers resize when exceeded
     static constexpr double MAX_LOAD_FACTOR = 0.75;
     static int next_prime(int n);

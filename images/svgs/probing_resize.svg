@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
   <defs>
     <marker id="arrowBig" markerWidth="12" markerHeight="8" refX="11" refY="4" orient="auto">
       <polygon points="0 0, 12 4, 0 8" fill="#3498db"/>
@@ -6,7 +7,7 @@
   </defs>
 
   <!-- Title -->
-  <text x="450" y="35" text-anchor="middle" fill="#1a1a1a" font-size="20" font-weight="bold">Resize — Rehash OCCUPIED, Clear Tombstones</text>
+  <text x="450" y="35" text-anchor="middle" fill="#1a1a1a" font-size="26" font-weight="bold">Resize — Rehash OCCUPIED, Clear Tombstones</text>
 
   <!-- ===== BEFORE ===== -->
   <text x="450" y="70" text-anchor="middle" fill="#f39c12" font-size="16" font-weight="bold">Before: capacity = 7, size = 5, load factor = 0.71</text>

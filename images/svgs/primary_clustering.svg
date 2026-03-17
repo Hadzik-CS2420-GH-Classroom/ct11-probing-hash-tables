@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
   <defs>
     <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
       <polygon points="0 0, 10 3.5, 0 7" fill="#e67e22"/>
@@ -6,7 +7,7 @@
   </defs>
 
   <!-- Title -->
-  <text x="450" y="35" text-anchor="middle" fill="#1a1a1a" font-size="20" font-weight="bold">Primary Clustering — Why Probing Slows Down</text>
+  <text x="450" y="35" text-anchor="middle" fill="#1a1a1a" font-size="26" font-weight="bold">Primary Clustering — Why Probing Slows Down</text>
   <text x="450" y="58" text-anchor="middle" fill="#555" font-size="14">Occupied runs grow and merge, making collisions more likely</text>
 
   <!-- Array of 11 slots -->

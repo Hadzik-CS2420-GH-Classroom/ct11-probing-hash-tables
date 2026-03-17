@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 370" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+
+  <!-- Title -->
+  <text x="450" y="32" text-anchor="middle" fill="#1a1a1a" font-size="26" font-weight="bold">Cache Locality -- Why Probing Is Faster in Practice</text>
+  <text x="450" y="52" text-anchor="middle" fill="#555" font-size="13">The CPU loads memory in 64-byte chunks (cache lines). Nearby data is free; far-away data stalls the CPU.</text>
+
+  <!-- Divider -->
+  <line x1="450" y1="63" x2="450" y2="300" stroke="#bdc3c7" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- ===== LEFT: CHAINING ===== -->
+  <text x="225" y="76" text-anchor="middle" fill="#3498db" font-size="15" font-weight="bold">Chaining -- nodes scattered in RAM</text>
+
+  <!-- RAM label -->
+  <text x="35" y="95" text-anchor="start" fill="#555" font-size="11" font-weight="bold">RAM (simplified):</text>
+
+  <!-- 12 memory cells at y=100, height=22. Blue at indices 1, 5, 9 -->
+  <rect x="35"  y="100" width="22" height="22" rx="2" fill="#ecf0f1" stroke="#ccc" stroke-width="1"/>
+  <rect x="60"  y="100" width="22" height="22" rx="2" fill="#d6eaf8" stroke="#3498db" stroke-width="2"/>
+  <rect x="85"  y="100" width="22" height="22" rx="2" fill="#ecf0f1" stroke="#ccc" stroke-width="1"/>
+  <rect x="110" y="100" width="22" height="22" rx="2" fill="#ecf0f1" stroke="#ccc" stroke-width="1"/>
+  <rect x="135" y="100" width="22" height="22" rx="2" fill="#ecf0f1" stroke="#ccc" stroke-width="1"/>
+  <rect x="160" y="100" width="22" height="22" rx="2" fill="#d6eaf8" stroke="#3498db" stroke-width="2"/>
+  <rect x="185" y="100" width="22" height="22" rx="2" fill="#ecf0f1" stroke="#ccc" stroke-width="1"/>
+  <rect x="210" y="100" width="22" height="22" rx="2" fill="#ecf0f1" stroke="#ccc" stroke-width="1"/>
+  <rect x="235" y="100" width="22" height="22" rx="2" fill="#ecf0f1" stroke="#ccc" stroke-width="1"/>
+  <rect x="260" y="100" width="22" height="22" rx="2" fill="#d6eaf8" stroke="#3498db" stroke-width="2"/>
+  <rect x="285" y="100" width="22" height="22" rx="2" fill="#ecf0f1" stroke="#ccc" stroke-width="1"/>
+  <rect x="310" y="100" width="22" height="22" rx="2" fill="#ecf0f1" stroke="#ccc" stroke-width="1"/>
+
+  <!-- Jump arcs BELOW cells, with cache miss labels -->
+  <path d="M 71,122 Q 116,138 171,122" stroke="#e74c3c" stroke-width="1.5" fill="none" stroke-dasharray="3,2"/>
+  <polygon points="171,122 166,117 173,116" fill="#e74c3c"/>
+  <text x="121" y="148" text-anchor="middle" fill="#e74c3c" font-size="10" font-weight="bold">cache miss</text>
+
+  <path d="M 171,122 Q 216,138 271,122" stroke="#e74c3c" stroke-width="1.5" fill="none" stroke-dasharray="3,2"/>
+  <polygon points="271,122 266,117 273,116" fill="#e74c3c"/>
+  <text x="221" y="148" text-anchor="middle" fill="#e74c3c" font-size="10" font-weight="bold">cache miss</text>
+
+  <!-- Address labels below blue cells -->
+  <text x="71"  y="164" text-anchor="middle" fill="#3498db" font-size="9" font-family="'Consolas',monospace">0x1F08</text>
+  <text x="171" y="164" text-anchor="middle" fill="#3498db" font-size="9" font-family="'Consolas',monospace">0x4A20</text>
+  <text x="271" y="164" text-anchor="middle" fill="#3498db" font-size="9" font-family="'Consolas',monospace">0x8C44</text>
+
+  <!-- Explanation -->
+  <text x="225" y="186" text-anchor="middle" fill="#3498db" font-size="12">Each node is a separate heap allocation.</text>
+  <text x="225" y="202" text-anchor="middle" fill="#3498db" font-size="12">Following a pointer jumps to a random address --</text>
+  <text x="225" y="218" text-anchor="middle" fill="#3498db" font-size="12">the CPU must fetch a new cache line each time.</text>
+  <text x="225" y="238" text-anchor="middle" fill="#e74c3c" font-size="13" font-weight="bold">~100-300 CPU cycles wasted per cache miss</text>
+
+  <!-- ===== RIGHT: PROBING ===== -->
+  <text x="675" y="76" text-anchor="middle" fill="#27ae60" font-size="15" font-weight="bold">Probing -- slots sequential in RAM</text>
+
+  <!-- RAM label -->
+  <text x="465" y="95" text-anchor="start" fill="#555" font-size="11" font-weight="bold">RAM (simplified):</text>
+
+  <!-- 7 consecutive cells at y=100, height=22, width=30, gap=3 -->
+  <rect x="465" y="100" width="30" height="22" rx="2" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+  <rect x="498" y="100" width="30" height="22" rx="2" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+  <rect x="531" y="100" width="30" height="22" rx="2" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+  <rect x="564" y="100" width="30" height="22" rx="2" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+  <rect x="597" y="100" width="30" height="22" rx="2" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+  <rect x="630" y="100" width="30" height="22" rx="2" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+  <rect x="663" y="100" width="30" height="22" rx="2" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Cache line bracket BELOW first 4 cells -->
+  <line x1="465" y1="126" x2="597" y2="126" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="465" y1="122" x2="465" y2="126" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="597" y1="122" x2="597" y2="126" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="531" y="140" text-anchor="middle" fill="#27ae60" font-size="10" font-weight="bold">one cache line (64 bytes)</text>
+  <text x="531" y="154" text-anchor="middle" fill="#27ae60" font-size="10">CPU loads all 4 slots at once</text>
+
+  <!-- Address labels: just show first, mid, last to avoid crowding -->
+  <text x="480" y="170" text-anchor="middle" fill="#27ae60" font-size="9" font-family="'Consolas',monospace">0x3000</text>
+  <text x="579" y="170" text-anchor="middle" fill="#27ae60" font-size="9" font-family="'Consolas',monospace">0x3060</text>
+  <text x="678" y="170" text-anchor="middle" fill="#27ae60" font-size="9" font-family="'Consolas',monospace">0x30C0</text>
+  <text x="579" y="182" text-anchor="middle" fill="#aaa" font-size="9">(+0x30 per slot)</text>
+
+  <!-- Explanation -->
+  <text x="675" y="200" text-anchor="middle" fill="#27ae60" font-size="12">All slots are adjacent -- one cache line fetch</text>
+  <text x="675" y="216" text-anchor="middle" fill="#27ae60" font-size="12">often covers the next 3-4 slots to probe.</text>
+  <text x="675" y="232" text-anchor="middle" fill="#27ae60" font-size="12">Subsequent probes are already in cache.</text>
+  <text x="675" y="252" text-anchor="middle" fill="#27ae60" font-size="13" font-weight="bold">~1-5 CPU cycles per cache hit</text>
+
+  <!-- Summary bar -->
+  <rect x="28" y="270" width="844" height="58" rx="8" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="225" y="291" text-anchor="middle" fill="#3498db" font-size="12" font-weight="bold">Chaining trade-off</text>
+  <text x="225" y="308" text-anchor="middle" fill="#555" font-size="12">Flexible load factor, but pointer chasing costs cache misses</text>
+  <line x1="450" y1="275" x2="450" y2="323" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="675" y="291" text-anchor="middle" fill="#27ae60" font-size="12" font-weight="bold">Probing trade-off</text>
+  <text x="675" y="308" text-anchor="middle" fill="#555" font-size="12">Better cache performance, but must resize at 0.75 load factor</text>
+</svg>

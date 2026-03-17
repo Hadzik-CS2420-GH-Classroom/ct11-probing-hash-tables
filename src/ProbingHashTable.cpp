@@ -36,7 +36,7 @@ int ProbingHashTable::next_prime(int n) {
 // 1. Constructor
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: images/probing_table_overview.png — flat array, all slots EMPTY
+// ? SEE DIAGRAM: Probing Hash Table — Flat Array of HashSlots  →  images/diagrams.md
 //
 // ! DISCUSSION: The slot array — new HashSlot[capacity_]
 //   - new allocates a contiguous array of HashSlot structs on the heap
@@ -72,7 +72,7 @@ ProbingHashTable::~ProbingHashTable() {
 // 3. hash() — custom hash function
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: images/linear_probing_insert.png — hash gives starting index
+// ? SEE DIAGRAM: Linear Probing — Insert "Diana"  →  images/diagrams.md
 //
 // ! DISCUSSION: Same algorithm as ChainingHashTable — the hash function
 //   doesn't care how collisions are resolved.
@@ -96,8 +96,8 @@ size_t ProbingHashTable::hash(const std::string& key) const {
 // 4. insert() — add or update a key-value pair
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: images/linear_probing_insert.png — probe forward on collision
-// ? SEE DIAGRAM: images/primary_clustering.png — why probing gets slower as table fills
+// ? SEE DIAGRAM: Linear Probing — Insert "Diana"  →  images/diagrams.md
+// ? SEE DIAGRAM: Primary Clustering — Why Probing Slows Down  →  images/diagrams.md
 //
 // ! DISCUSSION: Check load factor BEFORE inserting (not after, like chaining).
 //   - probing cannot work when the table is full — there's nowhere to probe to
@@ -145,8 +145,8 @@ void ProbingHashTable::insert(const std::string& key, int value) {
 // 5. search() — find a value by key
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: images/linear_probing_search.png — found vs. not found
-// ? SEE DIAGRAM: images/tombstone_pattern.png — probing past a DELETED tombstone
+// ? SEE DIAGRAM: Linear Probing — Search  →  images/diagrams.md
+// ? SEE DIAGRAM: Tombstone Pattern — Why DELETED, Not EMPTY  →  images/diagrams.md
 //
 // ! DISCUSSION: Three slot states mean three different actions during search.
 //   - OCCUPIED + matching key → FOUND — return pointer to the value
@@ -185,7 +185,7 @@ int* ProbingHashTable::search(const std::string& key) const {
 // 6. remove() — mark a slot as DELETED (tombstone)
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: images/tombstone_pattern.png — before/after remove
+// ? SEE DIAGRAM: Tombstone Pattern — Why DELETED, Not EMPTY  →  images/diagrams.md
 //
 // ! DISCUSSION: Why not set the slot to EMPTY?
 //   - setting to EMPTY would break the probe sequence for keys that were
@@ -226,7 +226,7 @@ bool ProbingHashTable::remove(const std::string& key) {
 // 7. load_factor()
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: images/probing_resize.png — before/after rehash
+// ? SEE DIAGRAM: Resize — Rehash OCCUPIED, Clear Tombstones  →  images/diagrams.md
 //
 // ! DISCUSSION: load_factor = size / capacity (cast to double!).
 //   - for probing, load factor CANNOT exceed 1.0 (every entry is in the array)
@@ -243,7 +243,7 @@ double ProbingHashTable::load_factor() const {
 // 8. resize()
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: images/probing_resize.png — before/after rehash
+// ? SEE DIAGRAM: Resize — Rehash OCCUPIED, Clear Tombstones  →  images/diagrams.md
 //
 // ! DISCUSSION: Resize is O(n) — every OCCUPIED entry must be rehashed.
 //   - save the old array, allocate a new larger prime array

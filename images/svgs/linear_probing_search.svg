@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
   <defs>
     <marker id="arrowY" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
       <polygon points="0 0, 10 3.5, 0 7" fill="#f39c12"/>
@@ -9,7 +10,7 @@
   </defs>
 
   <!-- Title -->
-  <text x="450" y="35" text-anchor="middle" fill="#1a1a1a" font-size="20" font-weight="bold">Linear Probing — Search</text>
+  <text x="450" y="35" text-anchor="middle" fill="#1a1a1a" font-size="26" font-weight="bold">Linear Probing — Search</text>
 
   <!-- ===== SCENARIO 1: Search for Eve (FOUND) ===== -->
   <text x="450" y="70" text-anchor="middle" fill="#2ecc71" font-size="16" font-weight="bold">Scenario 1: search("Eve") — FOUND</text>

@@ -88,7 +88,7 @@ int main() {
     // TODO 5: Remove Diana — demonstrate tombstone pattern
     // -----------------------------------------------------------------------
     //
-    // ? SEE DIAGRAM: images/tombstone_pattern.png — before/after remove
+    // ? SEE DIAGRAM: Tombstone Pattern — Why DELETED, Not EMPTY  →  images/diagrams.md
     //
     // ! DISCUSSION: Diana's slot becomes [deleted] — a tombstone.
     //   - the slot is NOT set to EMPTY — that would break probe sequences
@@ -124,7 +124,7 @@ int main() {
     // TODO 7: Insert Frank and Grace — trigger resize, tombstones cleared
     // -----------------------------------------------------------------------
     //
-    // ? SEE DIAGRAM: images/probing_resize.png — before/after resize
+    // ? SEE DIAGRAM: Resize — Rehash OCCUPIED, Clear Tombstones  →  images/diagrams.md
     //
     // ! DISCUSSION: Adding two more students pushes load factor past 0.75.
     //   - before insert: size=4, capacity=7, load factor=0.57
