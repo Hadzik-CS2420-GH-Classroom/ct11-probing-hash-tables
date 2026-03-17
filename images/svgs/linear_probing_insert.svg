@@ -1,89 +1,131 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" font-family="'Segoe UI', Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 370" font-family="'Segoe UI', Arial, sans-serif">
   <rect width="100%" height="100%" fill="white"/>
   <defs>
-    <marker id="arrowYellow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
       <polygon points="0 0, 10 3.5, 0 7" fill="#f39c12"/>
-    </marker>
-    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#2ecc71"/>
     </marker>
   </defs>
 
   <!-- Title -->
-  <text x="450" y="35" text-anchor="middle" fill="#1a1a1a" font-size="26" font-weight="bold">Linear Probing — Insert "Diana"</text>
-  <text x="450" y="58" text-anchor="middle" fill="#555" font-size="14">hash("Diana") = 4, but slot 4 is taken — scan forward until EMPTY</text>
+  <text x="450" y="32" text-anchor="middle" fill="#1a1a1a" font-size="26" font-weight="bold">Linear Probing — Insert "Diana"</text>
+  <text x="450" y="54" text-anchor="middle" fill="#555" font-size="13">hash("Diana") = 4, but slot 4 is occupied — scan forward until EMPTY</text>
 
-  <!-- Hash function -->
-  <rect x="30" y="80" width="200" height="42" rx="8" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
-  <text x="130" y="106" text-anchor="middle" fill="#8e44ad" font-size="14" font-family="'Consolas', monospace">hash("Diana") = 4</text>
+  <!-- ===== BEFORE array ===== -->
+  <text x="30" y="74" text-anchor="start" fill="#888" font-size="12" font-weight="bold" font-style="italic">Before insert:</text>
 
-  <!-- Array slots — 7 slots × 120px, no gaps, x=30..870 -->
+  <!-- Slot index labels -->
+  <text x="90"  y="88" text-anchor="middle" fill="#aaa" font-size="11">0</text>
+  <text x="210" y="88" text-anchor="middle" fill="#aaa" font-size="11">1</text>
+  <text x="330" y="88" text-anchor="middle" fill="#aaa" font-size="11">2</text>
+  <text x="450" y="88" text-anchor="middle" fill="#aaa" font-size="11">3</text>
+  <text x="570" y="88" text-anchor="middle" fill="#aaa" font-size="11">4</text>
+  <text x="690" y="88" text-anchor="middle" fill="#aaa" font-size="11">5</text>
+  <text x="810" y="88" text-anchor="middle" fill="#aaa" font-size="11">6</text>
 
-  <!-- Slot 0: empty  center=90 -->
-  <rect x="30"  y="160" width="120" height="50" rx="6" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
-  <text x="90"  y="190" text-anchor="middle" fill="#999" font-size="14" font-style="italic">[empty]</text>
-  <text x="90"  y="145" text-anchor="middle" fill="#555" font-size="12">0</text>
+  <!-- Slot 0: empty -->
+  <rect x="30"  y="94" width="120" height="50" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="90"  y="124" text-anchor="middle" fill="#bbb" font-size="13" font-style="italic">[empty]</text>
 
-  <!-- Slot 1: Bob  center=210 -->
-  <rect x="150" y="160" width="120" height="50" rx="6" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
-  <text x="210" y="183" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas', monospace">Bob</text>
-  <text x="210" y="200" text-anchor="middle" fill="#fff" font-size="11">82</text>
-  <text x="210" y="145" text-anchor="middle" fill="#555" font-size="12">1</text>
+  <!-- Slot 1: Bob -->
+  <rect x="150" y="94" width="120" height="50" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="210" y="116" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Bob</text>
+  <text x="210" y="133" text-anchor="middle" fill="#d5f5e3" font-size="11">82</text>
 
-  <!-- Slot 2: empty  center=330 -->
-  <rect x="270" y="160" width="120" height="50" rx="6" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
-  <text x="330" y="190" text-anchor="middle" fill="#999" font-size="14" font-style="italic">[empty]</text>
-  <text x="330" y="145" text-anchor="middle" fill="#555" font-size="12">2</text>
+  <!-- Slot 2: empty -->
+  <rect x="270" y="94" width="120" height="50" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="330" y="124" text-anchor="middle" fill="#bbb" font-size="13" font-style="italic">[empty]</text>
 
-  <!-- Slot 3: Charlie  center=450 -->
-  <rect x="390" y="160" width="120" height="50" rx="6" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
-  <text x="450" y="183" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas', monospace">Charlie</text>
-  <text x="450" y="200" text-anchor="middle" fill="#fff" font-size="11">91</text>
-  <text x="450" y="145" text-anchor="middle" fill="#555" font-size="12">3</text>
+  <!-- Slot 3: Charlie -->
+  <rect x="390" y="94" width="120" height="50" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="450" y="116" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Charlie</text>
+  <text x="450" y="133" text-anchor="middle" fill="#d5f5e3" font-size="11">91</text>
 
-  <!-- Slot 4: Alice — COLLISION  center=570 -->
-  <rect x="510" y="160" width="120" height="50" rx="6" fill="#2ecc71" stroke="#e74c3c" stroke-width="3"/>
-  <text x="570" y="183" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas', monospace">Alice</text>
-  <text x="570" y="200" text-anchor="middle" fill="#fff" font-size="11">95</text>
-  <text x="570" y="145" text-anchor="middle" fill="#555" font-size="12">4</text>
+  <!-- Slot 4: Alice — collision, red border -->
+  <rect x="510" y="94" width="120" height="50" rx="5" fill="#2ecc71" stroke="#e74c3c" stroke-width="2.5"/>
+  <text x="570" y="116" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Alice</text>
+  <text x="570" y="133" text-anchor="middle" fill="#d5f5e3" font-size="11">95</text>
 
-  <!-- Slot 5: Eve — also occupied  center=690 -->
-  <rect x="630" y="160" width="120" height="50" rx="6" fill="#2ecc71" stroke="#e74c3c" stroke-width="3"/>
-  <text x="690" y="183" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas', monospace">Eve</text>
-  <text x="690" y="200" text-anchor="middle" fill="#fff" font-size="11">88</text>
-  <text x="690" y="145" text-anchor="middle" fill="#555" font-size="12">5</text>
+  <!-- Slot 5: Eve — also occupied, red border -->
+  <rect x="630" y="94" width="120" height="50" rx="5" fill="#2ecc71" stroke="#e74c3c" stroke-width="2.5"/>
+  <text x="690" y="116" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Eve</text>
+  <text x="690" y="133" text-anchor="middle" fill="#d5f5e3" font-size="11">88</text>
 
-  <!-- Slot 6: Diana inserted here  center=810 -->
-  <rect x="750" y="160" width="120" height="50" rx="6" fill="#2ecc71" stroke="#27ae60" stroke-width="3"/>
-  <text x="810" y="183" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas', monospace">Diana</text>
-  <text x="810" y="200" text-anchor="middle" fill="#fff" font-size="11">78</text>
-  <text x="810" y="145" text-anchor="middle" fill="#555" font-size="12">6</text>
+  <!-- Slot 6: empty — target slot -->
+  <rect x="750" y="94" width="120" height="50" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="810" y="124" text-anchor="middle" fill="#bbb" font-size="13" font-style="italic">[empty]</text>
 
-  <!-- Arrow from hash function to slot 4 -->
-  <path d="M230,101 L570,101 L570,155" stroke="#f39c12" stroke-width="2" fill="none" marker-end="url(#arrowYellow)" stroke-dasharray="6,3"/>
+  <!-- ===== Probe annotations ===== -->
 
-  <!-- Step 1: slot 4 occupied -->
-  <text x="570" y="240" text-anchor="middle" fill="#e74c3c" font-size="13" font-weight="bold">OCCUPIED!</text>
-  <text x="570" y="255" text-anchor="middle" fill="#e74c3c" font-size="11">Alice ≠ Diana</text>
+  <!-- Slot 4: OCCUPIED -->
+  <text x="570" y="160" text-anchor="middle" fill="#e74c3c" font-size="12" font-weight="bold">OCCUPIED</text>
+  <text x="570" y="174" text-anchor="middle" fill="#e74c3c" font-size="10">Alice ≠ Diana</text>
 
   <!-- Arrow 4 → 5 -->
-  <path d="M600,265 Q625,285 660,265" stroke="#f39c12" stroke-width="2" fill="none" marker-end="url(#arrowYellow)"/>
-  <text x="630" y="295" text-anchor="middle" fill="#f39c12" font-size="11">probe +1</text>
+  <path d="M 610,165 Q 650,184 672,165" stroke="#f39c12" stroke-width="1.5" fill="none" marker-end="url(#arrowOrange)"/>
+  <text x="641" y="196" text-anchor="middle" fill="#f39c12" font-size="10">probe +1</text>
 
-  <!-- Step 2: slot 5 occupied -->
-  <text x="690" y="240" text-anchor="middle" fill="#e74c3c" font-size="13" font-weight="bold">OCCUPIED!</text>
-  <text x="690" y="255" text-anchor="middle" fill="#e74c3c" font-size="11">Eve ≠ Diana</text>
+  <!-- Slot 5: OCCUPIED -->
+  <text x="690" y="160" text-anchor="middle" fill="#e74c3c" font-size="12" font-weight="bold">OCCUPIED</text>
+  <text x="690" y="174" text-anchor="middle" fill="#e74c3c" font-size="10">Eve ≠ Diana</text>
 
   <!-- Arrow 5 → 6 -->
-  <path d="M720,265 Q745,285 780,265" stroke="#f39c12" stroke-width="2" fill="none" marker-end="url(#arrowYellow)"/>
-  <text x="750" y="295" text-anchor="middle" fill="#f39c12" font-size="11">probe +1</text>
+  <path d="M 730,165 Q 770,184 792,165" stroke="#f39c12" stroke-width="1.5" fill="none" marker-end="url(#arrowOrange)"/>
+  <text x="761" y="196" text-anchor="middle" fill="#f39c12" font-size="10">probe +1</text>
 
-  <!-- Step 3: slot 6 — inserted -->
-  <text x="810" y="240" text-anchor="middle" fill="#27ae60" font-size="13" font-weight="bold">EMPTY!</text>
-  <text x="810" y="255" text-anchor="middle" fill="#27ae60" font-size="11">Diana inserted ✓</text>
+  <!-- Slot 6: EMPTY -->
+  <text x="810" y="160" text-anchor="middle" fill="#27ae60" font-size="12" font-weight="bold">EMPTY ✓</text>
+  <text x="810" y="174" text-anchor="middle" fill="#27ae60" font-size="10">insert here</text>
 
-  <!-- Result box -->
-  <rect x="30" y="318" width="840" height="58" rx="8" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
-  <text x="450" y="342" text-anchor="middle" fill="#f39c12" font-size="15" font-weight="bold">Linear Probing: next_slot = (index + 1) % capacity</text>
-  <text x="450" y="363" text-anchor="middle" fill="#555" font-size="13">Scan forward one slot at a time until finding EMPTY or DELETED — then insert there</text>
+  <!-- ===== AFTER array ===== -->
+  <text x="30" y="216" text-anchor="start" fill="#888" font-size="12" font-weight="bold" font-style="italic">After insert:</text>
+
+  <!-- Slot index labels -->
+  <text x="90"  y="230" text-anchor="middle" fill="#aaa" font-size="11">0</text>
+  <text x="210" y="230" text-anchor="middle" fill="#aaa" font-size="11">1</text>
+  <text x="330" y="230" text-anchor="middle" fill="#aaa" font-size="11">2</text>
+  <text x="450" y="230" text-anchor="middle" fill="#aaa" font-size="11">3</text>
+  <text x="570" y="230" text-anchor="middle" fill="#aaa" font-size="11">4</text>
+  <text x="690" y="230" text-anchor="middle" fill="#aaa" font-size="11">5</text>
+  <text x="810" y="230" text-anchor="middle" fill="#aaa" font-size="11">6</text>
+
+  <!-- Slot 0: empty -->
+  <rect x="30"  y="236" width="120" height="50" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="90"  y="266" text-anchor="middle" fill="#bbb" font-size="13" font-style="italic">[empty]</text>
+
+  <!-- Slot 1: Bob -->
+  <rect x="150" y="236" width="120" height="50" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="210" y="258" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Bob</text>
+  <text x="210" y="275" text-anchor="middle" fill="#d5f5e3" font-size="11">82</text>
+
+  <!-- Slot 2: empty -->
+  <rect x="270" y="236" width="120" height="50" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="330" y="266" text-anchor="middle" fill="#bbb" font-size="13" font-style="italic">[empty]</text>
+
+  <!-- Slot 3: Charlie -->
+  <rect x="390" y="236" width="120" height="50" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="450" y="258" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Charlie</text>
+  <text x="450" y="275" text-anchor="middle" fill="#d5f5e3" font-size="11">91</text>
+
+  <!-- Slot 4: Alice — unchanged -->
+  <rect x="510" y="236" width="120" height="50" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="570" y="258" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Alice</text>
+  <text x="570" y="275" text-anchor="middle" fill="#d5f5e3" font-size="11">95</text>
+
+  <!-- Slot 5: Eve — unchanged -->
+  <rect x="630" y="236" width="120" height="50" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="690" y="258" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Eve</text>
+  <text x="690" y="275" text-anchor="middle" fill="#d5f5e3" font-size="11">88</text>
+
+  <!-- Slot 6: Diana — NEW, highlighted border -->
+  <rect x="750" y="236" width="120" height="50" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="3"/>
+  <text x="810" y="258" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Diana</text>
+  <text x="810" y="275" text-anchor="middle" fill="#d5f5e3" font-size="11">78</text>
+  <!-- NEW badge -->
+  <rect x="754" y="240" width="34" height="14" rx="3" fill="#27ae60"/>
+  <text x="771" y="251" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">NEW</text>
+
+  <!-- ===== Formula box ===== -->
+  <rect x="30" y="302" width="840" height="54" rx="8" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="450" y="325" text-anchor="middle" fill="#f39c12" font-size="15" font-weight="bold">Linear Probing: next_slot = (index + 1) % capacity</text>
+  <text x="450" y="344" text-anchor="middle" fill="#555" font-size="13">Scan forward one slot at a time until EMPTY or DELETED — insert at the first available slot</text>
 </svg>
