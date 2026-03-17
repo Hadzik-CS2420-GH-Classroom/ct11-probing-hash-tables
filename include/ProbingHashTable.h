@@ -48,6 +48,7 @@ public:
     void insert(const std::string& key, int value);  // add or update a key-value pair
     // ? SEE DIAGRAM: Linear Probing — Search          →  images/diagrams.md
     int* search(const std::string& key) const;        // find value by key (nullptr if missing)
+    // ? SEE DIAGRAM: Linear Probing — Remove           →  images/diagrams.md
     bool remove(const std::string& key);              // mark slot as DELETED (tombstone)
 
     // ! DISCUSSION: const after the parentheses — a promise not to modify the object.

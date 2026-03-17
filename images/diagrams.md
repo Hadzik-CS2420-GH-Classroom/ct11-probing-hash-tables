@@ -60,14 +60,21 @@ Diagrams in the order they appear in the code, from `HashSlot.h` → `ProbingHas
 
 ---
 
-## 9. Tombstone Pattern — Why DELETED, Not EMPTY
-*`ProbingHashTable.cpp::remove()` — marking a slot DELETED instead of EMPTY*
+## 9. Linear Probing — Remove
+*`ProbingHashTable.cpp::remove()` — probe forward to find the key, then mark the slot DELETED*
+
+![Linear Probing — Remove](svgs/linear_probing_remove.svg)
+
+---
+
+## 10. Tombstone Pattern — Why DELETED, Not EMPTY
+*`ProbingHashTable.cpp::remove()` — why marking EMPTY instead of DELETED would break search*
 
 ![Tombstone Pattern — Why DELETED, Not EMPTY](svgs/tombstone_pattern.svg)
 
 ---
 
-## 10. Resize — Rehash OCCUPIED, Clear Tombstones
+## 11. Resize — Rehash OCCUPIED, Clear Tombstones
 *`ProbingHashTable.cpp::resize()` — before/after growing the table and rehashing all entries*
 
 ![Resize — Rehash OCCUPIED, Clear Tombstones](svgs/probing_resize.svg)
