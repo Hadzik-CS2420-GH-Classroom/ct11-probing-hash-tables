@@ -46,17 +46,17 @@ Diagrams in the order they appear in the code, from `HashSlot.h` → `ProbingHas
 
 ---
 
-## 7. Primary Clustering — Why Probing Slows Down
-*`ProbingHashTable.cpp::insert()` — why occupied runs grow and slow things down*
-
-![Primary Clustering — Why Probing Slows Down](svgs/primary_clustering.svg)
-
----
-
-## 8. Linear Probing — Search
+## 7. Linear Probing — Search
 *`ProbingHashTable.cpp::search()` — found vs. not found, probing past tombstones*
 
 ![Linear Probing — Search](svgs/linear_probing_search.svg)
+
+---
+
+## 8. Primary Clustering — Why Probing Slows Down
+*`ProbingHashTable.cpp::insert()` — why occupied runs grow and slow things down*
+
+![Primary Clustering — Why Probing Slows Down](svgs/primary_clustering.svg)
 
 ---
 
