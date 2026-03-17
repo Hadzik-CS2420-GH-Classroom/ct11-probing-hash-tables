@@ -53,24 +53,24 @@ Diagrams in the order they appear in the code, from `HashSlot.h` → `ProbingHas
 
 ---
 
-## 8. Primary Clustering — Why Probing Slows Down
-*`ProbingHashTable.cpp::insert()` — why occupied runs grow and slow things down*
-
-![Primary Clustering — Why Probing Slows Down](svgs/primary_clustering.svg)
-
----
-
-## 9. Linear Probing — Remove
+## 8. Linear Probing — Remove
 *`ProbingHashTable.cpp::remove()` — probe forward to find the key, then mark the slot DELETED*
 
 ![Linear Probing — Remove](svgs/linear_probing_remove.svg)
 
 ---
 
-## 10. Tombstone Pattern — Why DELETED, Not EMPTY
+## 9. Tombstone Pattern — Why DELETED, Not EMPTY
 *`ProbingHashTable.cpp::remove()` — why marking EMPTY instead of DELETED would break search*
 
 ![Tombstone Pattern — Why DELETED, Not EMPTY](svgs/tombstone_pattern.svg)
+
+---
+
+## 10. Primary Clustering — Why Probing Slows Down
+*`ProbingHashTable.cpp::insert()` — why occupied runs grow and slow things down*
+
+![Primary Clustering — Why Probing Slows Down](svgs/primary_clustering.svg)
 
 ---
 
