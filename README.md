@@ -17,8 +17,8 @@ An in-class code-together activity introducing **linear probing (closed hashing 
 
 | File | Focus | TODOs |
 |---|---|---|
-| `ProbingHashTable.cpp` | Hash function, linear probing insert/search, tombstone remove, resize | 0 (given) |
-| `main.cpp` | Grade book demo: insert, search, tombstone remove, resize | 8 |
+| `ProbingHashTable.cpp` | Linear probing insert/search, tombstone remove, resize | 7 |
+| `main.cpp` | Grade book demo: insert, search, tombstone remove, resize | 0 (given) |
 
 ## Supporting Files
 
@@ -58,7 +58,7 @@ Walk through the complete implementation. All code is given — students follow 
 8. **resize()** — save old array; allocate new prime-sized array; rehash only OCCUPIED entries (tombstones cleared)
 9. **print()** — display each slot: entry, [empty], or [deleted]
 
-### 4. `main.cpp` — Professor's Grade Book (8 TODOs)
+### 4. `main.cpp` — Professor's Grade Book (walkthrough)
 
 1. **Insert students** — add 5 students with grades into the probing table
 2. **Print** — display the slot layout; notice primary clustering (consecutive occupied slots)
@@ -75,10 +75,10 @@ Maps CCD 2.6 (Hash Tables) topics to specific sections in this activity.
 
 | CCD Topic | Where It's Covered |
 |---|---|
-| **Hash tables** — purpose, structure, key-value mapping | `ProbingHashTable.h` (class declaration), `HashSlot.h` (slot struct), `main.cpp` TODOs 1-3 (grade book usage) |
+| **Hash tables** — purpose, structure, key-value mapping | `ProbingHashTable.h` (class declaration), `HashSlot.h` (slot struct), `main.cpp` sections 1-3 (grade book usage) |
 | **Hash algorithms** — hash functions, modulo mapping, distribution | `ProbingHashTable.cpp` section 3 (hash — same algorithm as CT10), DISCUSSION: hash function is independent of collision strategy |
-| **Array based (closed hashing)** — linear probing, quadratic probing | `ProbingHashTable.cpp` sections 4-6 (insert/search/remove with linear probing), `main.cpp` TODOs 1-8 (full probing demo); quadratic probing mentioned in DISCUSSION but not implemented |
-| **Optimizing hash tables** — load factor, resizing, choosing hash functions | `ProbingHashTable.cpp` sections 7-8 (load_factor + resize); DISCUSSION covers 0.75 threshold, primary clustering, tombstone cleanup during resize; `main.cpp` TODO 7 (resize demo) |
+| **Array based (closed hashing)** — linear probing, quadratic probing | `ProbingHashTable.cpp` sections 4-6 (insert/search/remove with linear probing), `main.cpp` sections 1-8 (full probing demo); quadratic probing mentioned in DISCUSSION but not implemented |
+| **Optimizing hash tables** — load factor, resizing, choosing hash functions | `ProbingHashTable.cpp` sections 7-8 (load_factor + resize); DISCUSSION covers 0.75 threshold, primary clustering, tombstone cleanup during resize; `main.cpp` section 7 (resize demo) |
 
 ## Key Concepts
 
@@ -95,13 +95,11 @@ Maps CCD 2.6 (Hash Tables) topics to specific sections in this activity.
 | Category | Points | What is tested |
 |---|---|---|
 | Build | 2 | Project compiles without errors |
-| `hash()` | 3 | Consistent results, values within range |
-| Probing insert | 4 | Linear probing finds open slot, handles duplicates, handles collisions |
-| Probing search | 4 | Finds existing keys, returns nullptr for missing, handles collisions |
-| Probing remove (tombstone) | 5 | Sets tombstone, doesn't break probe sequences, returns false for missing |
-| Probing resize | 4 | Triggers on high load, all entries survive, tombstones cleared |
-| Tombstone correctness | 5 | Search probes past tombstone, insert reuses tombstone slot, multiple tombstones |
-| Print | 3 | Handles empty table, shows entries, shows tombstones |
+| `hash()` | 4 | Consistent results, values within range |
+| Probing insert | 6 | Linear probing finds open slot, handles duplicates, handles collisions |
+| Probing search | 4 | Finds existing keys, finds after collision |
+| Probing remove / tombstone | 8 | Sets tombstone, doesn't break probe sequences, returns false for missing, search probes past tombstone |
+| Probing resize | 6 | Triggers on high load, tombstones cleared |
 
 ## Comment Conventions
 
@@ -111,4 +109,4 @@ Uses [Better Comments](https://marketplace.visualstudio.com/items?itemName=OmarR
 |---|---|---|
 | `// !` | Important (red) | `DISCUSSION:` teaching notes for instructor walkthrough |
 | `// ?` | Question (blue) | `SEE DIAGRAM:` references to visual aids |
-| `// TODO:` | Task (orange) | Student exercises (main branch) |
+| `// TODO:` | Task (orange) | Student exercises in `ProbingHashTable.cpp` (main branch) |
