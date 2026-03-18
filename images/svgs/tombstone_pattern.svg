@@ -1,106 +1,103 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" font-family="sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
   <defs>
     <marker id="arrowW" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#cdd6f4"/>
-    </marker>
-    <marker id="arrowG2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#a6e3a1"/>
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
     </marker>
     <marker id="arrowR2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#f38ba8"/>
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c"/>
     </marker>
   </defs>
 
-  <rect width="900" height="600" rx="12" fill="#1e1e2e"/>
-
   <!-- Title -->
-  <text x="450" y="35" text-anchor="middle" fill="#cdd6f4" font-size="20" font-weight="bold">Tombstone Pattern — Why DELETED, Not EMPTY</text>
+  <text x="450" y="35" text-anchor="middle" fill="#1a1a1a" font-size="26" font-weight="bold">Tombstone Pattern — Why DELETED, Not EMPTY</text>
 
   <!-- ===== PANEL 1: Before Remove ===== -->
-  <rect x="30" y="55" width="840" height="130" rx="8" fill="#313244" stroke="#585b70" stroke-width="1"/>
-  <text x="450" y="80" text-anchor="middle" fill="#a6e3a1" font-size="16" font-weight="bold">Panel 1: Before remove("Diana")</text>
-  <text x="450" y="97" text-anchor="middle" fill="#a6adc8" font-size="12">All three entries inserted via probing — Alice at 4, Diana at 5, Eve at 6</text>
+  <rect x="30" y="55" width="840" height="140" rx="8" fill="#f4f6f7" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="450" y="80" text-anchor="middle" fill="#2ecc71" font-size="16" font-weight="bold">Panel 1: Before remove("Diana")</text>
+  <text x="450" y="97" text-anchor="middle" fill="#555" font-size="12">All three entries inserted via probing — Alice at 4, Diana at 5, Eve at 6</text>
 
-  <!-- Slots panel 1 -->
-  <rect x="200" y="110" width="130" height="50" rx="6" fill="#a6e3a1" stroke="#585b70" stroke-width="1.5"/>
-  <text x="265" y="132" text-anchor="middle" fill="#1e1e2e" font-size="13" font-family="monospace">Alice, 95</text>
-  <text x="265" y="150" text-anchor="middle" fill="#1e1e2e" font-size="11">OCCUPIED</text>
-  <text x="265" y="106" text-anchor="middle" fill="#a6adc8" font-size="11">4</text>
+  <!-- index labels — moved down 16px from subtitle -->
+  <text x="265" y="116" text-anchor="middle" fill="#555" font-size="11">4</text>
+  <text x="405" y="116" text-anchor="middle" fill="#555" font-size="11">5</text>
+  <text x="545" y="116" text-anchor="middle" fill="#555" font-size="11">6</text>
 
-  <rect x="340" y="110" width="130" height="50" rx="6" fill="#a6e3a1" stroke="#f9e2af" stroke-width="2.5"/>
-  <text x="405" y="132" text-anchor="middle" fill="#1e1e2e" font-size="13" font-family="monospace">Diana, 78</text>
-  <text x="405" y="150" text-anchor="middle" fill="#1e1e2e" font-size="11">OCCUPIED</text>
-  <text x="405" y="106" text-anchor="middle" fill="#a6adc8" font-size="11">5</text>
+  <rect x="200" y="122" width="130" height="50" rx="6" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="265" y="144" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Alice, 95</text>
+  <text x="265" y="161" text-anchor="middle" fill="#fff" font-size="11">OCCUPIED</text>
 
-  <rect x="480" y="110" width="130" height="50" rx="6" fill="#a6e3a1" stroke="#585b70" stroke-width="1.5"/>
-  <text x="545" y="132" text-anchor="middle" fill="#1e1e2e" font-size="13" font-family="monospace">Eve, 88</text>
-  <text x="545" y="150" text-anchor="middle" fill="#1e1e2e" font-size="11">OCCUPIED</text>
-  <text x="545" y="106" text-anchor="middle" fill="#a6adc8" font-size="11">6</text>
+  <rect x="340" y="122" width="130" height="50" rx="6" fill="#2ecc71" stroke="#f39c12" stroke-width="2.5"/>
+  <text x="405" y="144" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Diana, 78</text>
+  <text x="405" y="161" text-anchor="middle" fill="#fff" font-size="11">OCCUPIED</text>
+
+  <rect x="480" y="122" width="130" height="50" rx="6" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="545" y="144" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Eve, 88</text>
+  <text x="545" y="161" text-anchor="middle" fill="#fff" font-size="11">OCCUPIED</text>
 
   <!-- ===== PANEL 2: After Remove (DELETED tombstone) ===== -->
-  <rect x="30" y="200" width="840" height="160" rx="8" fill="#313244" stroke="#585b70" stroke-width="1"/>
-  <text x="450" y="225" text-anchor="middle" fill="#a6e3a1" font-size="16" font-weight="bold">Panel 2: After remove("Diana") — Correct (DELETED)</text>
-  <text x="450" y="242" text-anchor="middle" fill="#a6adc8" font-size="12">Diana's slot is DELETED (tombstone) — search for Eve still works!</text>
+  <rect x="30" y="210" width="840" height="160" rx="8" fill="#f4f6f7" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="450" y="235" text-anchor="middle" fill="#2ecc71" font-size="16" font-weight="bold">Panel 2: After remove("Diana") — Correct (DELETED)</text>
+  <text x="450" y="252" text-anchor="middle" fill="#555" font-size="12">Diana's slot is DELETED (tombstone) — search for Eve still works!</text>
 
-  <!-- Slots panel 2 -->
-  <rect x="200" y="258" width="130" height="50" rx="6" fill="#a6e3a1" stroke="#585b70" stroke-width="1.5"/>
-  <text x="265" y="280" text-anchor="middle" fill="#1e1e2e" font-size="13" font-family="monospace">Alice, 95</text>
-  <text x="265" y="298" text-anchor="middle" fill="#1e1e2e" font-size="11">OCCUPIED</text>
-  <text x="265" y="254" text-anchor="middle" fill="#a6adc8" font-size="11">4</text>
+  <text x="265" y="268" text-anchor="middle" fill="#555" font-size="11">4</text>
+  <text x="405" y="268" text-anchor="middle" fill="#555" font-size="11">5</text>
+  <text x="545" y="268" text-anchor="middle" fill="#555" font-size="11">6</text>
 
-  <rect x="340" y="258" width="130" height="50" rx="6" fill="#fab387" stroke="#fab387" stroke-width="2.5"/>
-  <text x="405" y="280" text-anchor="middle" fill="#1e1e2e" font-size="13" font-weight="bold">[deleted]</text>
-  <text x="405" y="298" text-anchor="middle" fill="#1e1e2e" font-size="11">DELETED</text>
-  <text x="405" y="254" text-anchor="middle" fill="#a6adc8" font-size="11">5</text>
+  <rect x="200" y="274" width="130" height="50" rx="6" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="265" y="296" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Alice, 95</text>
+  <text x="265" y="313" text-anchor="middle" fill="#fff" font-size="11">OCCUPIED</text>
 
-  <rect x="480" y="258" width="130" height="50" rx="6" fill="#a6e3a1" stroke="#a6e3a1" stroke-width="3"/>
-  <text x="545" y="280" text-anchor="middle" fill="#1e1e2e" font-size="13" font-family="monospace">Eve, 88</text>
-  <text x="545" y="298" text-anchor="middle" fill="#1e1e2e" font-size="11">OCCUPIED</text>
-  <text x="545" y="254" text-anchor="middle" fill="#a6adc8" font-size="11">6</text>
+  <rect x="340" y="274" width="130" height="50" rx="6" fill="#f39c12" stroke="#e67e22" stroke-width="2.5"/>
+  <text x="405" y="296" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">[deleted]</text>
+  <text x="405" y="313" text-anchor="middle" fill="#fff" font-size="11">DELETED</text>
 
-  <!-- Search arrow: probes past tombstone -->
-  <text x="265" y="325" text-anchor="middle" fill="#cdd6f4" font-size="11">hash("Eve")=4</text>
-  <text x="265" y="340" text-anchor="middle" fill="#cdd6f4" font-size="11">Alice!=Eve</text>
-  <path d="M310,335 Q340,350 380,335" stroke="#cdd6f4" stroke-width="1.5" fill="none" marker-end="url(#arrowW)"/>
+  <rect x="480" y="274" width="130" height="50" rx="6" fill="#2ecc71" stroke="#2ecc71" stroke-width="3"/>
+  <text x="545" y="296" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Eve, 88</text>
+  <text x="545" y="313" text-anchor="middle" fill="#fff" font-size="11">OCCUPIED</text>
 
-  <text x="405" y="325" text-anchor="middle" fill="#fab387" font-size="11" font-weight="bold">DELETED</text>
-  <text x="405" y="340" text-anchor="middle" fill="#fab387" font-size="11">keep probing!</text>
-  <path d="M450,335 Q475,350 515,335" stroke="#cdd6f4" stroke-width="1.5" fill="none" marker-end="url(#arrowW)"/>
+  <!-- Annotations (slot bottom = 324) -->
+  <text x="265" y="338" text-anchor="middle" fill="#333" font-size="11">hash("Eve")=4</text>
+  <text x="265" y="352" text-anchor="middle" fill="#333" font-size="11">Alice!=Eve</text>
+  <line x1="312" y1="345" x2="352" y2="345" stroke="#333" stroke-width="1.5" marker-end="url(#arrowW)"/>
 
-  <text x="545" y="325" text-anchor="middle" fill="#a6e3a1" font-size="11" font-weight="bold">Eve==Eve</text>
-  <text x="545" y="340" text-anchor="middle" fill="#a6e3a1" font-size="11">FOUND!</text>
+  <text x="405" y="338" text-anchor="middle" fill="#e67e22" font-size="11" font-weight="bold">DELETED</text>
+  <text x="405" y="352" text-anchor="middle" fill="#e67e22" font-size="11">keep probing!</text>
+  <line x1="452" y1="345" x2="492" y2="345" stroke="#333" stroke-width="1.5" marker-end="url(#arrowW)"/>
+
+  <text x="545" y="338" text-anchor="middle" fill="#2ecc71" font-size="11" font-weight="bold">Eve==Eve</text>
+  <text x="545" y="352" text-anchor="middle" fill="#2ecc71" font-size="11">FOUND!</text>
 
   <!-- ===== PANEL 3: What if we used EMPTY instead? (WRONG) ===== -->
-  <rect x="30" y="380" width="840" height="200" rx="8" fill="#313244" stroke="#f38ba8" stroke-width="2"/>
-  <text x="450" y="405" text-anchor="middle" fill="#f38ba8" font-size="16" font-weight="bold">Panel 3: What if we used EMPTY instead? (WRONG!)</text>
-  <text x="450" y="422" text-anchor="middle" fill="#a6adc8" font-size="12">If Diana's slot is set to EMPTY, search for Eve BREAKS</text>
+  <rect x="30" y="385" width="840" height="200" rx="8" fill="#fdedec" stroke="#e74c3c" stroke-width="2"/>
+  <text x="450" y="410" text-anchor="middle" fill="#e74c3c" font-size="16" font-weight="bold">Panel 3: What if we used EMPTY instead? (WRONG!)</text>
+  <text x="450" y="427" text-anchor="middle" fill="#555" font-size="12">If Diana's slot is set to EMPTY, search for Eve BREAKS</text>
 
-  <!-- Slots panel 3 -->
-  <rect x="200" y="438" width="130" height="50" rx="6" fill="#a6e3a1" stroke="#585b70" stroke-width="1.5"/>
-  <text x="265" y="460" text-anchor="middle" fill="#1e1e2e" font-size="13" font-family="monospace">Alice, 95</text>
-  <text x="265" y="478" text-anchor="middle" fill="#1e1e2e" font-size="11">OCCUPIED</text>
-  <text x="265" y="434" text-anchor="middle" fill="#a6adc8" font-size="11">4</text>
+  <text x="265" y="443" text-anchor="middle" fill="#555" font-size="11">4</text>
+  <text x="405" y="443" text-anchor="middle" fill="#555" font-size="11">5</text>
+  <text x="545" y="443" text-anchor="middle" fill="#555" font-size="11">6</text>
 
-  <rect x="340" y="438" width="130" height="50" rx="6" fill="#6c7086" stroke="#f38ba8" stroke-width="3"/>
-  <text x="405" y="460" text-anchor="middle" fill="#1e1e2e" font-size="13" font-weight="bold">[empty]</text>
-  <text x="405" y="478" text-anchor="middle" fill="#1e1e2e" font-size="11">EMPTY</text>
-  <text x="405" y="434" text-anchor="middle" fill="#a6adc8" font-size="11">5</text>
+  <rect x="200" y="449" width="130" height="50" rx="6" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="265" y="471" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Alice, 95</text>
+  <text x="265" y="488" text-anchor="middle" fill="#fff" font-size="11">OCCUPIED</text>
 
-  <rect x="480" y="438" width="130" height="50" rx="6" fill="#a6e3a1" stroke="#585b70" stroke-width="1.5"/>
-  <text x="545" y="460" text-anchor="middle" fill="#1e1e2e" font-size="13" font-family="monospace">Eve, 88</text>
-  <text x="545" y="478" text-anchor="middle" fill="#1e1e2e" font-size="11">OCCUPIED</text>
-  <text x="545" y="434" text-anchor="middle" fill="#a6adc8" font-size="11">6</text>
+  <rect x="340" y="449" width="130" height="50" rx="6" fill="#ecf0f1" stroke="#e74c3c" stroke-width="3"/>
+  <text x="405" y="471" text-anchor="middle" fill="#999" font-size="13" font-style="italic">[empty]</text>
+  <text x="405" y="488" text-anchor="middle" fill="#999" font-size="11">EMPTY</text>
 
-  <!-- Search arrow: STOPS at EMPTY -->
-  <text x="265" y="505" text-anchor="middle" fill="#cdd6f4" font-size="11">hash("Eve")=4</text>
-  <text x="265" y="520" text-anchor="middle" fill="#cdd6f4" font-size="11">Alice!=Eve</text>
-  <path d="M310,515 Q340,530 380,515" stroke="#cdd6f4" stroke-width="1.5" fill="none" marker-end="url(#arrowW)"/>
+  <rect x="480" y="449" width="130" height="50" rx="6" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="545" y="471" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Eve, 88</text>
+  <text x="545" y="488" text-anchor="middle" fill="#fff" font-size="11">OCCUPIED</text>
 
-  <text x="405" y="505" text-anchor="middle" fill="#f38ba8" font-size="11" font-weight="bold">EMPTY!</text>
-  <text x="405" y="520" text-anchor="middle" fill="#f38ba8" font-size="11">STOP — return nullptr</text>
+  <!-- Annotations (slot bottom = 499) -->
+  <text x="265" y="513" text-anchor="middle" fill="#333" font-size="11">hash("Eve")=4</text>
+  <text x="265" y="527" text-anchor="middle" fill="#333" font-size="11">Alice!=Eve</text>
+  <line x1="312" y1="520" x2="352" y2="520" stroke="#e74c3c" stroke-width="1.5" marker-end="url(#arrowR2)"/>
 
-  <!-- Big X over the wrong result -->
-  <text x="650" y="505" text-anchor="middle" fill="#f38ba8" font-size="15" font-weight="bold">Eve is at slot 6 but</text>
-  <text x="650" y="525" text-anchor="middle" fill="#f38ba8" font-size="15" font-weight="bold">search says "not found"!</text>
-  <text x="650" y="560" text-anchor="middle" fill="#f38ba8" font-size="36" font-weight="bold" opacity="0.5">BUG</text>
+  <text x="405" y="513" text-anchor="middle" fill="#e74c3c" font-size="11" font-weight="bold">EMPTY!</text>
+  <text x="405" y="527" text-anchor="middle" fill="#e74c3c" font-size="11">STOP — return nullptr</text>
+
+  <!-- Bug callout -->
+  <text x="650" y="513" text-anchor="middle" fill="#e74c3c" font-size="15" font-weight="bold">Eve is at slot 6 but</text>
+  <text x="650" y="533" text-anchor="middle" fill="#e74c3c" font-size="15" font-weight="bold">search says "not found"!</text>
+  <text x="650" y="567" text-anchor="middle" fill="#e74c3c" font-size="36" font-weight="bold" opacity="0.5">BUG</text>
 </svg>

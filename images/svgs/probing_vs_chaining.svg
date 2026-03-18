@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 455" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+  <text x="460" y="32" text-anchor="middle" fill="#1a1a1a" font-size="26" font-weight="bold">Probing vs. Chaining — Two Memory Layouts</text>
+  <text x="460" y="52" text-anchor="middle" fill="#555" font-size="13">Same key-value data, two completely different structures in memory</text>
+  <line x1="455" y1="63" x2="455" y2="368" stroke="#bdc3c7" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <!-- LEFT: CHAINING -->
+  <text x="227" y="74" text-anchor="middle" fill="#3498db" font-size="16" font-weight="bold">Chaining -- ChainNode**</text>
+  <text x="58" y="92" text-anchor="middle" fill="#888" font-size="10" font-style="italic">bucket</text>
+  <rect x="28" y="97" width="62" height="34" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="59" y="118" text-anchor="middle" fill="#888" font-size="11">0</text>
+  <text x="97" y="118" text-anchor="start" fill="#bbb" font-size="11" font-style="italic">null</text>
+  <rect x="28" y="135" width="62" height="34" rx="4" fill="#d6eaf8" stroke="#3498db" stroke-width="1.5"/>
+  <text x="59" y="156" text-anchor="middle" fill="#3498db" font-size="11">1</text>
+  <line x1="90" y1="152" x2="110" y2="152" stroke="#3498db" stroke-width="1.5"/>
+  <polygon points="110,149 115,152 110,155" fill="#3498db"/>
+  <rect x="115" y="135" width="95" height="34" rx="4" fill="#fff" stroke="#3498db" stroke-width="1.5"/>
+  <text x="162" y="150" text-anchor="middle" fill="#333" font-size="11" font-family="'Consolas',monospace">Bob | 82</text>
+  <text x="162" y="163" text-anchor="middle" fill="#aaa" font-size="10">next -></text>
+  <text x="215" y="156" text-anchor="start" fill="#bbb" font-size="11" font-style="italic">null</text>
+  <rect x="28" y="173" width="62" height="34" rx="4" fill="#d6eaf8" stroke="#3498db" stroke-width="1.5"/>
+  <text x="59" y="194" text-anchor="middle" fill="#3498db" font-size="11">2</text>
+  <line x1="90" y1="190" x2="110" y2="190" stroke="#3498db" stroke-width="1.5"/>
+  <polygon points="110,187 115,190 110,193" fill="#3498db"/>
+  <rect x="115" y="173" width="95" height="34" rx="4" fill="#fff" stroke="#3498db" stroke-width="1.5"/>
+  <text x="162" y="188" text-anchor="middle" fill="#333" font-size="11" font-family="'Consolas',monospace">Alice | 95</text>
+  <text x="162" y="201" text-anchor="middle" fill="#aaa" font-size="10">next -></text>
+  <line x1="210" y1="190" x2="228" y2="190" stroke="#3498db" stroke-width="1.5"/>
+  <polygon points="228,187 233,190 228,193" fill="#3498db"/>
+  <rect x="233" y="173" width="95" height="34" rx="4" fill="#fff" stroke="#3498db" stroke-width="1.5"/>
+  <text x="280" y="188" text-anchor="middle" fill="#333" font-size="11" font-family="'Consolas',monospace">Eve | 88</text>
+  <text x="280" y="201" text-anchor="middle" fill="#aaa" font-size="10">next -></text>
+  <text x="333" y="194" text-anchor="start" fill="#bbb" font-size="11" font-style="italic">null</text>
+  <text x="115" y="218" text-anchor="start" fill="#e74c3c" font-size="10">^ collision: 2 keys hash to same bucket, chained together</text>
+  <rect x="28" y="225" width="62" height="34" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="59" y="246" text-anchor="middle" fill="#888" font-size="11">3</text>
+  <text x="97" y="246" text-anchor="start" fill="#bbb" font-size="11" font-style="italic">null</text>
+  <rect x="28" y="263" width="62" height="34" rx="4" fill="#d6eaf8" stroke="#3498db" stroke-width="1.5"/>
+  <text x="59" y="284" text-anchor="middle" fill="#3498db" font-size="11">4</text>
+  <line x1="90" y1="280" x2="110" y2="280" stroke="#3498db" stroke-width="1.5"/>
+  <polygon points="110,277 115,280 110,283" fill="#3498db"/>
+  <rect x="115" y="263" width="95" height="34" rx="4" fill="#fff" stroke="#3498db" stroke-width="1.5"/>
+  <text x="162" y="278" text-anchor="middle" fill="#333" font-size="11" font-family="'Consolas',monospace">Charlie | 91</text>
+  <text x="162" y="291" text-anchor="middle" fill="#aaa" font-size="10">next -></text>
+  <line x1="210" y1="280" x2="228" y2="280" stroke="#3498db" stroke-width="1.5"/>
+  <polygon points="228,277 233,280 228,283" fill="#3498db"/>
+  <rect x="233" y="263" width="95" height="34" rx="4" fill="#fff" stroke="#3498db" stroke-width="1.5"/>
+  <text x="280" y="278" text-anchor="middle" fill="#333" font-size="11" font-family="'Consolas',monospace">Diana | 78</text>
+  <text x="280" y="291" text-anchor="middle" fill="#aaa" font-size="10">next -></text>
+  <text x="333" y="284" text-anchor="start" fill="#bbb" font-size="11" font-style="italic">null</text>
+  <!-- RIGHT: PROBING -->
+  <text x="688" y="74" text-anchor="middle" fill="#27ae60" font-size="16" font-weight="bold">Probing -- HashSlot*</text>
+  <rect x="475" y="97"  width="160" height="34" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="494" y="118" text-anchor="middle" fill="#aaa" font-size="10">0</text>
+  <text x="570" y="118" text-anchor="middle" fill="#bbb" font-size="11" font-style="italic">[empty]</text>
+  <rect x="475" y="135" width="160" height="34" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="494" y="156" text-anchor="middle" fill="#fff" font-size="10">1</text>
+  <text x="570" y="151" text-anchor="middle" fill="#fff" font-size="11" font-family="'Consolas',monospace">Bob | 82</text>
+  <text x="570" y="163" text-anchor="middle" fill="#d5f5e3" font-size="9">OCCUPIED</text>
+  <rect x="475" y="173" width="160" height="34" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="494" y="194" text-anchor="middle" fill="#fff" font-size="10">2</text>
+  <text x="570" y="189" text-anchor="middle" fill="#fff" font-size="11" font-family="'Consolas',monospace">Alice | 95</text>
+  <text x="570" y="201" text-anchor="middle" fill="#d5f5e3" font-size="9">OCCUPIED</text>
+  <rect x="475" y="211" width="160" height="34" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="494" y="232" text-anchor="middle" fill="#aaa" font-size="10">3</text>
+  <text x="570" y="232" text-anchor="middle" fill="#bbb" font-size="11" font-style="italic">[empty]</text>
+  <rect x="475" y="249" width="160" height="34" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="494" y="270" text-anchor="middle" fill="#fff" font-size="10">4</text>
+  <text x="570" y="265" text-anchor="middle" fill="#fff" font-size="11" font-family="'Consolas',monospace">Charlie | 91</text>
+  <text x="570" y="277" text-anchor="middle" fill="#d5f5e3" font-size="9">OCCUPIED</text>
+  <rect x="475" y="287" width="160" height="34" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="494" y="308" text-anchor="middle" fill="#fff" font-size="10">5</text>
+  <text x="570" y="303" text-anchor="middle" fill="#fff" font-size="11" font-style="italic">[deleted]</text>
+  <text x="570" y="315" text-anchor="middle" fill="#fdebd0" font-size="9">DELETED</text>
+  <rect x="475" y="325" width="160" height="34" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="494" y="346" text-anchor="middle" fill="#fff" font-size="10">6</text>
+  <text x="570" y="341" text-anchor="middle" fill="#fff" font-size="11" font-family="'Consolas',monospace">Eve | 88</text>
+  <text x="570" y="353" text-anchor="middle" fill="#d5f5e3" font-size="9">OCCUPIED</text>
+  <line x1="642" y1="97"  x2="648" y2="97"  stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="648" y1="97"  x2="648" y2="359" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="648" y1="359" x2="642" y2="359" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="656" y="215" text-anchor="start" fill="#27ae60" font-size="11">one</text>
+  <text x="656" y="229" text-anchor="start" fill="#27ae60" font-size="11">contiguous</text>
+  <text x="656" y="243" text-anchor="start" fill="#27ae60" font-size="11">block</text>
+
+  <!-- Summary boxes -->
+  <rect x="28"  y="372" width="415" height="68" rx="8" fill="#eaf4fb" stroke="#3498db" stroke-width="1.5"/>
+  <text x="235" y="392" text-anchor="middle" fill="#3498db" font-size="12">Each node heap-allocated -- scattered in memory</text>
+  <text x="235" y="408" text-anchor="middle" fill="#3498db" font-size="12">Every -> is a pointer dereference</text>
+  <text x="235" y="424" text-anchor="middle" fill="#555"    font-size="12">Load can exceed 1.0 -- chains grow indefinitely</text>
+
+  <rect x="461" y="372" width="431" height="68" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="676" y="392" text-anchor="middle" fill="#27ae60" font-size="12">All data stored inline -- no pointers, no heap nodes</text>
+  <text x="676" y="408" text-anchor="middle" fill="#27ae60" font-size="12">No pointer dereferences during probing</text>
+  <text x="676" y="424" text-anchor="middle" fill="#555"    font-size="12">Load must stay below 1.0 -- resize at 0.75</text>
+</svg>

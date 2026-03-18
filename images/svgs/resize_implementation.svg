@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+
+  <!-- Title -->
+  <text x="450" y="32" text-anchor="middle" fill="#1a1a1a" font-size="26" font-weight="bold">resize() — Rehash and Clear Tombstones</text>
+  <text x="450" y="52" text-anchor="middle" fill="#555" font-size="13">Double capacity to next prime, rehash only OCCUPIED entries — tombstones disappear</text>
+
+  <!-- ===== Code box (left) ===== -->
+  <rect x="30" y="62" width="440" height="274" rx="8" fill="#2c3e50" stroke="#1a252f" stroke-width="1.5"/>
+
+  <!-- Step 1 highlight band -->
+  <rect x="30" y="95" width="440" height="50" fill="#3498db20"/>
+  <!-- Step 2 highlight band -->
+  <rect x="30" y="162" width="440" height="16" fill="#2ecc7120"/>
+  <!-- Step 3 highlight band -->
+  <rect x="30" y="195" width="440" height="50" fill="#f39c1220"/>
+
+  <!-- Code lines -->
+  <text x="50" y="81"  fill="#95a5a6" font-size="11" font-family="'Consolas',monospace">// ProbingHashTable.cpp</text>
+  <text x="50" y="98"  fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">void resize() {</text>
+
+  <text x="78" y="114" fill="#5dade2" font-size="12" font-family="'Consolas',monospace">// Step 1: save old, allocate new</text>
+  <text x="78" y="130" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">int old_capacity = capacity_;</text>
+  <text x="78" y="146" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">HashSlot* old_table = table_;</text>
+
+  <text x="78" y="162" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">capacity_ = next_prime(old_capacity * 2);</text>
+  <text x="78" y="178" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">table_ = new HashSlot[capacity_];</text>
+  <text x="78" y="194" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">size_ = 0;</text>
+
+  <text x="78" y="210" fill="#f39c12" font-size="12" font-family="'Consolas',monospace">// Step 2: rehash OCCUPIED only</text>
+  <text x="78" y="226" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">for (int i = 0; i &lt; old_capacity; ++i) {</text>
+  <text x="106" y="242" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">if (old_table[i].status == OCCUPIED)</text>
+  <text x="134" y="258" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">insert(old_table[i].key, .value);</text>
+  <text x="78" y="274" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">}</text>
+
+  <text x="78" y="290" fill="#2ecc71" font-size="12" font-family="'Consolas',monospace">// Step 3: free old array</text>
+  <text x="78" y="306" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">delete[] old_table;</text>
+  <text x="50" y="326" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">}</text>
+
+  <!-- ===== Right panel — three steps ===== -->
+
+  <!-- Step 1: save old, allocate new -->
+  <rect x="490" y="65" width="370" height="88" rx="7" fill="#eaf4fb" stroke="#3498db" stroke-width="1.5"/>
+  <text x="675" y="83" text-anchor="middle" fill="#2980b9" font-size="13" font-weight="bold">Step 1 — Save old, allocate new</text>
+  <text x="505" y="103" text-anchor="start" fill="#555" font-size="11">Save pointer to old array</text>
+  <text x="505" y="119" text-anchor="start" fill="#555" font-size="11">New capacity = next_prime(old * 2)</text>
+  <text x="505" y="135" text-anchor="start" fill="#555" font-size="11">Allocate fresh array, reset size_ = 0</text>
+  <text x="505" y="148" text-anchor="start" fill="#777" font-size="10">insert() will re-increment size_ for each entry</text>
+
+  <!-- Step 2: rehash OCCUPIED, skip tombstones -->
+  <rect x="490" y="163" width="370" height="98" rx="7" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/>
+  <text x="675" y="181" text-anchor="middle" fill="#e67e22" font-size="13" font-weight="bold">Step 2 — Rehash OCCUPIED only</text>
+  <!-- OCCUPIED slot -->
+  <rect x="505" y="190" width="85" height="28" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="547" y="208" text-anchor="middle" fill="#fff" font-size="10">OCCUPIED</text>
+  <text x="600" y="208" text-anchor="start" fill="#27ae60" font-size="11" font-weight="bold">→ insert() into new table</text>
+  <!-- DELETED slot -->
+  <rect x="505" y="224" width="85" height="28" rx="5" fill="#f39c12" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="547" y="242" text-anchor="middle" fill="#fff" font-size="10">DELETED</text>
+  <text x="600" y="242" text-anchor="start" fill="#e74c3c" font-size="11" font-weight="bold">→ skip (tombstone cleared!)</text>
+
+  <!-- Step 3: free old -->
+  <rect x="490" y="271" width="370" height="65" rx="7" fill="#eafaf1" stroke="#2ecc71" stroke-width="1.5"/>
+  <text x="675" y="289" text-anchor="middle" fill="#27ae60" font-size="13" font-weight="bold">Step 3 — Free old array</text>
+  <text x="505" y="309" text-anchor="start" fill="#555" font-size="11">delete[] old_table — no leaks</text>
+  <text x="505" y="325" text-anchor="start" fill="#555" font-size="11">New table is clean: lower load, no tombstones</text>
+
+  <!-- Note box -->
+  <rect x="30" y="348" width="840" height="26" rx="8" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="450" y="365" text-anchor="middle" fill="#555" font-size="12">O(n) — every OCCUPIED entry rehashed, but probe sequences are shorter afterward</text>
+</svg>

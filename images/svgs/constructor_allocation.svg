@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 330" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+  <defs>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2980b9"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="450" y="32" text-anchor="middle" fill="#1a1a1a" font-size="26" font-weight="bold">Constructor — Allocating the Slot Array</text>
+  <text x="450" y="52" text-anchor="middle" fill="#555" font-size="13">new HashSlot[capacity_] allocates a contiguous heap array — default ctor sets every slot to EMPTY</text>
+
+  <!-- ===== Code box (left) ===== -->
+  <rect x="30" y="62" width="390" height="148" rx="8" fill="#2c3e50" stroke="#1a252f" stroke-width="1.5"/>
+  <rect x="30" y="124" width="390" height="20" fill="#f39c1233"/>
+
+  <text x="50" y="82"  fill="#95a5a6" font-size="11" font-family="'Consolas',monospace">// ProbingHashTable.cpp</text>
+  <text x="50" y="101" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">ProbingHashTable(int capacity)</text>
+  <text x="78" y="118" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">: size_(0), capacity_(capacity) {</text>
+  <text x="78" y="138" fill="#f39c12" font-size="12" font-family="'Consolas',monospace" font-weight="bold">table_ = new HashSlot[capacity_];</text>
+  <text x="78" y="157" fill="#7f8c8d" font-size="12" font-family="'Consolas',monospace">// default ctor runs for each slot:</text>
+  <text x="78" y="174" fill="#7f8c8d" font-size="12" font-family="'Consolas',monospace">//   status=EMPTY, key="", value=0</text>
+  <text x="50" y="195" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">}</text>
+
+  <!-- ===== Stack frame grid (right) ===== -->
+  <rect x="455" y="62" width="390" height="148" rx="8" fill="#f4f6f7" stroke="#bdc3c7" stroke-width="1.5"/>
+  <!-- header -->
+  <rect x="455" y="62" width="390" height="27" rx="8" fill="#2980b9"/>
+  <rect x="455" y="75"  width="390" height="14" fill="#2980b9"/>
+  <text x="650" y="80" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Stack frame — after construction (capacity=7)</text>
+  <!-- vertical divider -->
+  <line x1="590" y1="89" x2="590" y2="210" stroke="#bdc3c7" stroke-width="1"/>
+  <!-- row dividers -->
+  <line x1="455" y1="128" x2="845" y2="128" stroke="#bdc3c7" stroke-width="1"/>
+  <line x1="455" y1="167" x2="845" y2="167" stroke="#bdc3c7" stroke-width="1"/>
+  <!-- labels -->
+  <text x="522" y="113" text-anchor="middle" fill="#555" font-size="12" font-family="'Consolas',monospace">table_</text>
+  <text x="522" y="152" text-anchor="middle" fill="#555" font-size="12" font-family="'Consolas',monospace">size_</text>
+  <text x="522" y="191" text-anchor="middle" fill="#555" font-size="12" font-family="'Consolas',monospace">capacity_</text>
+  <!-- values -->
+  <text x="715" y="110" text-anchor="middle" fill="#2980b9" font-size="12" font-weight="bold">● ── pointer to heap array ↓</text>
+  <text x="715" y="152" text-anchor="middle" fill="#27ae60" font-size="13" font-family="'Consolas',monospace" font-weight="bold">0</text>
+  <text x="715" y="191" text-anchor="middle" fill="#27ae60" font-size="13" font-family="'Consolas',monospace" font-weight="bold">7</text>
+
+  <!-- table_ label left of array with arrow pointing to slot 0 -->
+  <text x="30" y="268" text-anchor="start" fill="#2980b9" font-size="13" font-family="'Consolas',monospace" font-weight="bold">table_</text>
+  <line x1="88" y1="264" x2="456" y2="264" stroke="#2980b9" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- Index numbers aligned under stack frame -->
+  <text x="487" y="241" text-anchor="middle" fill="#aaa" font-size="11">0</text>
+  <text x="542" y="241" text-anchor="middle" fill="#aaa" font-size="11">1</text>
+  <text x="597" y="241" text-anchor="middle" fill="#aaa" font-size="11">2</text>
+  <text x="652" y="241" text-anchor="middle" fill="#aaa" font-size="11">3</text>
+  <text x="707" y="241" text-anchor="middle" fill="#aaa" font-size="11">4</text>
+  <text x="762" y="241" text-anchor="middle" fill="#aaa" font-size="11">5</text>
+  <text x="817" y="241" text-anchor="middle" fill="#aaa" font-size="11">6</text>
+
+  <!-- 7 EMPTY slots directly under stack frame -->
+  <rect x="460" y="246" width="55" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="487" y="270" text-anchor="middle" fill="#bbb" font-size="11" font-style="italic">[empty]</text>
+  <rect x="515" y="246" width="55" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="542" y="270" text-anchor="middle" fill="#bbb" font-size="11" font-style="italic">[empty]</text>
+  <rect x="570" y="246" width="55" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="597" y="270" text-anchor="middle" fill="#bbb" font-size="11" font-style="italic">[empty]</text>
+  <rect x="625" y="246" width="55" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="652" y="270" text-anchor="middle" fill="#bbb" font-size="11" font-style="italic">[empty]</text>
+  <rect x="680" y="246" width="55" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="707" y="270" text-anchor="middle" fill="#bbb" font-size="11" font-style="italic">[empty]</text>
+  <rect x="735" y="246" width="55" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="762" y="270" text-anchor="middle" fill="#bbb" font-size="11" font-style="italic">[empty]</text>
+  <rect x="790" y="246" width="55" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="817" y="270" text-anchor="middle" fill="#bbb" font-size="11" font-style="italic">[empty]</text>
+
+  <!-- Note box -->
+  <rect x="30" y="294" width="840" height="30" rx="8" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="450" y="314" text-anchor="middle" fill="#555" font-size="12">Unlike chaining (ChainNode**), no pointer array or heap nodes — all slots live contiguously in one block</text>
+</svg>

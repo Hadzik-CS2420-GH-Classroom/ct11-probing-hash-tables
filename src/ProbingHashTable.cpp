@@ -13,7 +13,7 @@
 #include <iostream>
 
 // =============================================================================
-// Helper — next_prime
+// Helper — next_prime                                          [same as CT10]
 // =============================================================================
 //
 // - Returns the smallest prime >= n
@@ -36,7 +36,7 @@ int ProbingHashTable::next_prime(int n) {
 // 1. Constructor
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: images/probing_table_overview.png — flat array, all slots EMPTY
+// ? SEE DIAGRAM: Constructor — Allocating the Slot Array  →  images/cpp_diagrams.md
 //
 // ! DISCUSSION: The slot array — new HashSlot[capacity_]
 //   - new allocates a contiguous array of HashSlot structs on the heap
@@ -51,7 +51,10 @@ int ProbingHashTable::next_prime(int n) {
 //
 ProbingHashTable::ProbingHashTable(int capacity)
     : size_(0), capacity_(capacity) {
-    table_ = new HashSlot[capacity_];   // default constructor sets all to EMPTY
+    // TODO: Allocate the slot array on the heap
+    //   - use new HashSlot[capacity_] to create a contiguous array
+    //   - HashSlot's default constructor handles initialization (all EMPTY)
+    //   - assign the result to table_
 }
 
 // ---------------------------------------------------------------------------
@@ -65,14 +68,15 @@ ProbingHashTable::ProbingHashTable(int capacity)
 //   - std::string members in each HashSlot are automatically destroyed
 //
 ProbingHashTable::~ProbingHashTable() {
-    delete[] table_;
+    // TODO: Free the slot array
+    //   - use delete[] to free the contiguous block
 }
 
 // ---------------------------------------------------------------------------
-// 3. hash() — custom hash function
+// 3. hash() — custom hash function                             [same as CT10]
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: images/linear_probing_insert.png — hash gives starting index
+// ? SEE DIAGRAM: Linear Probing — Insert "Diana"  →  images/header_diagrams.md
 //
 // ! DISCUSSION: Same algorithm as ChainingHashTable — the hash function
 //   doesn't care how collisions are resolved.
@@ -96,8 +100,9 @@ size_t ProbingHashTable::hash(const std::string& key) const {
 // 4. insert() — add or update a key-value pair
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: images/linear_probing_insert.png — probe forward on collision
-// ? SEE DIAGRAM: images/primary_clustering.png — why probing gets slower as table fills
+// ? SEE DIAGRAM: insert() — Three Probe Outcomes              →  images/cpp_diagrams.md
+// ? SEE DIAGRAM: Linear Probing — Insert "Diana"              →  images/header_diagrams.md
+// ? SEE DIAGRAM: Primary Clustering — Why Probing Slows Down  →  images/cpp_diagrams.md
 //
 // ! DISCUSSION: Check load factor BEFORE inserting (not after, like chaining).
 //   - probing cannot work when the table is full — there's nowhere to probe to
@@ -111,42 +116,26 @@ size_t ProbingHashTable::hash(const std::string& key) const {
 //   - OCCUPIED slot with a DIFFERENT key → keep probing: (index + 1) % capacity_
 //
 void ProbingHashTable::insert(const std::string& key, int value) {
-    // Resize BEFORE inserting if load factor would exceed threshold
-    if (static_cast<double>(size_ + 1) / capacity_ > MAX_LOAD_FACTOR) {
-        resize();
-    }
+    // TODO: Resize BEFORE inserting if load factor would exceed threshold
+    //   - check if (size_ + 1) / capacity_ > MAX_LOAD_FACTOR (cast to double!)
+    //   - if so, call resize()
 
-    size_t index = hash(key);
+    // TODO: Hash the key to get the starting index
 
-    // ? Linear probe: step forward one slot at a time, wrapping around
-    while (true) {
-        // ── Case 1: EMPTY or DELETED — place entry here ──
-        if (table_[index].status == SlotStatus::EMPTY ||
-            table_[index].status == SlotStatus::DELETED) {
-            table_[index].key = key;
-            table_[index].value = value;
-            table_[index].status = SlotStatus::OCCUPIED;
-            ++size_;
-            return;
-        }
-
-        // ── Case 2: OCCUPIED with same key — update value ──
-        if (table_[index].key == key) {
-            table_[index].value = value;        // key exists — update its value
-            return;                             // done, size doesn't change
-        }
-
-        // ── Case 3: OCCUPIED with different key — keep probing ──
-        index = (index + 1) % capacity_;        // ? wrap around to slot 0 if needed
-    }
+    // TODO: Linear probe — loop until you find a place for the entry
+    //   - Case 1: EMPTY or DELETED slot → place the entry here
+    //     set key, value, status = OCCUPIED, increment size_, return
+    //   - Case 2: OCCUPIED with same key → update the value, return
+    //   - Case 3: OCCUPIED with different key → advance: (index + 1) % capacity_
 }
 
 // ---------------------------------------------------------------------------
 // 5. search() — find a value by key
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: images/linear_probing_search.png — found vs. not found
-// ? SEE DIAGRAM: images/tombstone_pattern.png — probing past a DELETED tombstone
+// ? SEE DIAGRAM: search() — Three Slot Outcomes              →  images/cpp_diagrams.md
+// ? SEE DIAGRAM: Linear Probing — Search                     →  images/header_diagrams.md
+// ? SEE DIAGRAM: Tombstone Pattern — Why DELETED, Not EMPTY  →  images/cpp_diagrams.md
 //
 // ! DISCUSSION: Three slot states mean three different actions during search.
 //   - OCCUPIED + matching key → FOUND — return pointer to the value
@@ -161,31 +150,21 @@ void ProbingHashTable::insert(const std::string& key, int value) {
 //   - this is the fundamental reason tombstones exist
 //
 int* ProbingHashTable::search(const std::string& key) const {
-    size_t index = hash(key);
+    // TODO: Hash the key to get the starting index
 
-    // ? Linear probe: step forward, wrapping around
-    while (true) {
-        // EMPTY — key was never inserted past this point
-        if (table_[index].status == SlotStatus::EMPTY) {
-            return nullptr;                     // key not in table
-        }
-
-        // OCCUPIED — check if this is our key
-        if (table_[index].status == SlotStatus::OCCUPIED &&
-            table_[index].key == key) {
-            return &table_[index].value;        // found — return pointer to value
-        }
-
-        // OCCUPIED (different key) or DELETED — keep probing
-        index = (index + 1) % capacity_;        // ? wrap around to slot 0 if needed
-    }
+    // TODO: Linear probe — loop until you find the key or confirm it's missing
+    //   - EMPTY → return nullptr (key not in table — stop here)
+    //   - OCCUPIED + matching key → return &table_[index].value (found!)
+    //   - OCCUPIED (different key) or DELETED → advance: (index + 1) % capacity_
+    return nullptr;
 }
 
 // ---------------------------------------------------------------------------
 // 6. remove() — mark a slot as DELETED (tombstone)
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: images/tombstone_pattern.png — before/after remove
+// ? SEE DIAGRAM: remove() — Three Slot Outcomes              →  images/cpp_diagrams.md
+// ? SEE DIAGRAM: Tombstone Pattern — Why DELETED, Not EMPTY  →  images/cpp_diagrams.md
 //
 // ! DISCUSSION: Why not set the slot to EMPTY?
 //   - setting to EMPTY would break the probe sequence for keys that were
@@ -201,32 +180,21 @@ int* ProbingHashTable::search(const std::string& key) const {
 //     but to clean up tombstones and shorten probe sequences
 //
 bool ProbingHashTable::remove(const std::string& key) {
-    size_t index = hash(key);
+    // TODO: Hash the key to get the starting index
 
-    while (true) {
-        // EMPTY — key not in table
-        if (table_[index].status == SlotStatus::EMPTY) {
-            return false;
-        }
-
-        // OCCUPIED + matching key — set tombstone
-        if (table_[index].status == SlotStatus::OCCUPIED &&
-            table_[index].key == key) {
-            table_[index].status = SlotStatus::DELETED;     // tombstone
-            --size_;
-            return true;
-        }
-
-        // OCCUPIED (different key) or DELETED — keep probing
-        index = (index + 1) % capacity_;
-    }
+    // TODO: Linear probe — loop until you find the key or confirm it's missing
+    //   - EMPTY → return false (key not in table)
+    //   - OCCUPIED + matching key → set status to DELETED (tombstone!),
+    //     decrement size_, return true
+    //   - OCCUPIED (different key) or DELETED → advance: (index + 1) % capacity_
+    return false;
 }
 
 // ---------------------------------------------------------------------------
-// 7. load_factor()
+// 7. load_factor()                                             [same as CT10]
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: images/probing_resize.png — before/after rehash
+// ? SEE DIAGRAM: Resize — Rehash OCCUPIED, Clear Tombstones  →  images/header_diagrams.md
 //
 // ! DISCUSSION: load_factor = size / capacity (cast to double!).
 //   - for probing, load factor CANNOT exceed 1.0 (every entry is in the array)
@@ -243,7 +211,8 @@ double ProbingHashTable::load_factor() const {
 // 8. resize()
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: images/probing_resize.png — before/after rehash
+// ? SEE DIAGRAM: resize() — Rehash and Clear Tombstones      →  images/cpp_diagrams.md
+// ? SEE DIAGRAM: Resize — Rehash OCCUPIED, Clear Tombstones  →  images/header_diagrams.md
 //
 // ! DISCUSSION: Resize is O(n) — every OCCUPIED entry must be rehashed.
 //   - save the old array, allocate a new larger prime array
@@ -252,21 +221,19 @@ double ProbingHashTable::load_factor() const {
 //   - after resize, probe sequences are shorter (lower load factor, no tombstones)
 //
 void ProbingHashTable::resize() {
-    int old_capacity = capacity_;               // save old size before changing
-    HashSlot* old_table = table_;               // save pointer to old array
+    // TODO: Step 1 — save old array
+    //   - save capacity_ and table_ before overwriting them
 
-    capacity_ = next_prime(old_capacity * 2);   // new capacity ~ 2x, always prime
-    table_ = new HashSlot[capacity_];           // allocate new empty slot array
-    size_ = 0;                                  // reset — insert() will re-increment
+    // TODO: Step 2 — allocate new array
+    //   - new capacity = next_prime(old_capacity * 2)
+    //   - allocate new HashSlot[capacity_]
+    //   - reset size_ = 0 (insert() will re-increment)
 
-    // Rehash only OCCUPIED entries — tombstones (DELETED) are cleared
-    for (int i = 0; i < old_capacity; ++i) {
-        if (old_table[i].status == SlotStatus::OCCUPIED) {
-            insert(old_table[i].key, old_table[i].value);  // rehash with new capacity_
-        }
-        // ? DELETED and EMPTY slots are simply not copied — tombstones cleared!
-    }
-    delete[] old_table;                         // free the old slot array
+    // TODO: Step 3 — rehash only OCCUPIED entries from old array
+    //   - loop through old array: if status == OCCUPIED, call insert(key, value)
+    //   - DELETED and EMPTY slots are simply not copied — tombstones cleared!
+
+    // TODO: Step 4 — free old array with delete[]
 }
 
 // ---------------------------------------------------------------------------
@@ -280,15 +247,9 @@ void ProbingHashTable::resize() {
 //   - after resize, notice: no tombstones, and keys moved to new positions
 //
 void ProbingHashTable::print() const {
-    for (int i = 0; i < capacity_; ++i) {
-        std::cout << "  [" << i << "]: ";
-        if (table_[i].status == SlotStatus::OCCUPIED) {
-            std::cout << "(" << table_[i].key << ", " << table_[i].value << ")";
-        } else if (table_[i].status == SlotStatus::DELETED) {
-            std::cout << "[deleted]";
-        } else {
-            std::cout << "[empty]";
-        }
-        std::cout << "\n";
-    }
+    // TODO: Loop through every slot [0, capacity_) and print its contents
+    //   - OCCUPIED: print "(key, value)"
+    //   - DELETED:  print "[deleted]"
+    //   - EMPTY:    print "[empty]"
+    //   - format: "  [index]: contents\n"
 }

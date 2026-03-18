@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+  <!-- Title -->
+  <text x="450" y="32" text-anchor="middle" fill="#1a1a1a" font-size="26" font-weight="bold">Load Factor Threshold — Why Resize at 0.75?</text>
+  <text x="450" y="53" text-anchor="middle" fill="#555" font-size="13">Average number of slots examined per search (linear probing): 1/2 * (1 + 1/(1-a))</text>
+  <!-- Y axis -->
+  <line x1="120" y1="70" x2="120" y2="320" stroke="#aaa" stroke-width="1.5"/>
+  <!-- X axis -->
+  <line x1="120" y1="320" x2="860" y2="320" stroke="#aaa" stroke-width="1.5"/>
+  <!-- Y axis label -->
+  <text transform="rotate(-90)" x="-195" y="28" text-anchor="middle" fill="#555" font-size="12">slots examined</text>
+  <!-- Gridlines + Y tick labels (chart y=70-320 = 250px, 250/12 = 20.83 px/probe) -->
+  <line x1="120" y1="320" x2="860" y2="320" stroke="#ddd" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="108" y="324" text-anchor="end" fill="#777" font-size="11">0</text>
+  <line x1="120" y1="278" x2="860" y2="278" stroke="#ddd" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="108" y="282" text-anchor="end" fill="#777" font-size="11">2</text>
+  <line x1="120" y1="237" x2="860" y2="237" stroke="#ddd" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="108" y="241" text-anchor="end" fill="#777" font-size="11">4</text>
+  <line x1="120" y1="195" x2="860" y2="195" stroke="#ddd" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="108" y="199" text-anchor="end" fill="#777" font-size="11">6</text>
+  <line x1="120" y1="153" x2="860" y2="153" stroke="#ddd" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="108" y="157" text-anchor="end" fill="#777" font-size="11">8</text>
+  <line x1="120" y1="112" x2="860" y2="112" stroke="#ddd" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="108" y="116" text-anchor="end" fill="#777" font-size="11">10</text>
+  <line x1="120" y1="70" x2="860" y2="70" stroke="#ddd" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="108" y="74" text-anchor="end" fill="#777" font-size="11">12</text>
+  <!-- a=0.25, avg=1.17, height=24px, top=296 -->
+  <rect x="180" y="296" width="80" height="24" rx="4" fill="#2ecc71"/>
+  <text x="220" y="291" text-anchor="middle" fill="#27ae60" font-size="12" font-weight="bold">~1.2</text>
+  <text x="220" y="338" text-anchor="middle" fill="#555" font-size="13">a = 0.25</text>
+  <!-- a=0.50, avg=1.5, height=31px, top=289 -->
+  <rect x="310" y="289" width="80" height="31" rx="4" fill="#2ecc71"/>
+  <text x="350" y="284" text-anchor="middle" fill="#27ae60" font-size="12" font-weight="bold">~1.5</text>
+  <text x="350" y="338" text-anchor="middle" fill="#555" font-size="13">a = 0.50</text>
+  <!-- a=0.75, avg=2.5, height=52px, top=268 — THRESHOLD -->
+  <rect x="440" y="268" width="80" height="52" rx="4" fill="#f39c12"/>
+  <text x="480" y="263" text-anchor="middle" fill="#e67e22" font-size="12" font-weight="bold">~2.5</text>
+  <text x="480" y="338" text-anchor="middle" fill="#f39c12" font-size="13" font-weight="bold">a = 0.75</text>
+  <rect x="448" y="348" width="64" height="18" rx="4" fill="#f39c12"/>
+  <text x="480" y="361" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">RESIZE HERE</text>
+  <!-- a=0.90, avg=5.5, height=115px, top=205 -->
+  <rect x="570" y="205" width="80" height="115" rx="4" fill="#e74c3c"/>
+  <text x="610" y="200" text-anchor="middle" fill="#c0392b" font-size="12" font-weight="bold">~5.5</text>
+  <text x="610" y="338" text-anchor="middle" fill="#555" font-size="13">a = 0.90</text>
+  <!-- a=0.95, avg=10.5, height=219px, top=101 -->
+  <rect x="700" y="101" width="80" height="219" rx="4" fill="#c0392b"/>
+  <text x="740" y="96" text-anchor="middle" fill="#c0392b" font-size="12" font-weight="bold">~10.5</text>
+  <text x="740" y="338" text-anchor="middle" fill="#555" font-size="13">a = 0.95</text>
+  <!-- Summary box -->
+  <rect x="60" y="383" width="780" height="30" rx="8" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="450" y="403" text-anchor="middle" fill="#555" font-size="13">Probes stay near O(1) below 0.75 -- beyond that, clustering causes probe counts to spike</text>
+</svg>

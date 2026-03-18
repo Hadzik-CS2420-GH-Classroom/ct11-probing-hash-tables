@@ -1,101 +1,89 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" font-family="sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 298" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
   <defs>
     <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#fab387"/>
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e67e22"/>
     </marker>
   </defs>
 
-  <rect width="900" height="380" rx="12" fill="#1e1e2e"/>
-
   <!-- Title -->
-  <text x="450" y="35" text-anchor="middle" fill="#cdd6f4" font-size="20" font-weight="bold">Primary Clustering — Why Probing Slows Down</text>
-  <text x="450" y="58" text-anchor="middle" fill="#a6adc8" font-size="14">Occupied runs grow and merge, making collisions more likely</text>
+  <text x="450" y="30" text-anchor="middle" fill="#1a1a1a" font-size="26" font-weight="bold">Primary Clustering — Why Probing Slows Down</text>
+  <text x="450" y="50" text-anchor="middle" fill="#555" font-size="13">Occupied runs grow and merge, making probe sequences longer</text>
 
-  <!-- Array of 11 slots -->
-  <!-- Slot 0: empty -->
-  <rect x="35" y="100" width="75" height="50" rx="5" fill="#6c7086" stroke="#585b70" stroke-width="1.5"/>
-  <text x="72" y="130" text-anchor="middle" fill="#1e1e2e" font-size="12">[empty]</text>
-  <text x="72" y="95" text-anchor="middle" fill="#a6adc8" font-size="11">0</text>
+  <!-- Cluster bracket ABOVE index numbers (slots 4–7, x=355–670) -->
+  <text x="512" y="66" text-anchor="middle" fill="#f39c12" font-size="12" font-weight="bold">cluster: 4 consecutive occupied slots</text>
+  <line x1="355" y1="70" x2="355" y2="78" stroke="#f39c12" stroke-width="2"/>
+  <line x1="670" y1="70" x2="670" y2="78" stroke="#f39c12" stroke-width="2"/>
+  <line x1="355" y1="70" x2="670" y2="70" stroke="#f39c12" stroke-width="2"/>
 
-  <!-- Slot 1: empty -->
-  <rect x="115" y="100" width="75" height="50" rx="5" fill="#6c7086" stroke="#585b70" stroke-width="1.5"/>
-  <text x="152" y="130" text-anchor="middle" fill="#1e1e2e" font-size="12">[empty]</text>
-  <text x="152" y="95" text-anchor="middle" fill="#a6adc8" font-size="11">1</text>
+  <!-- Index numbers -->
+  <text x="72"  y="91" text-anchor="middle" fill="#aaa" font-size="11">0</text>
+  <text x="152" y="91" text-anchor="middle" fill="#aaa" font-size="11">1</text>
+  <text x="232" y="91" text-anchor="middle" fill="#aaa" font-size="11">2</text>
+  <text x="312" y="91" text-anchor="middle" fill="#aaa" font-size="11">3</text>
+  <text x="392" y="91" text-anchor="middle" fill="#f39c12" font-size="11">4</text>
+  <text x="472" y="91" text-anchor="middle" fill="#f39c12" font-size="11">5</text>
+  <text x="552" y="91" text-anchor="middle" fill="#f39c12" font-size="11">6</text>
+  <text x="632" y="91" text-anchor="middle" fill="#f39c12" font-size="11">7</text>
+  <text x="712" y="91" text-anchor="middle" fill="#aaa" font-size="11">8</text>
+  <text x="792" y="91" text-anchor="middle" fill="#aaa" font-size="11">9</text>
 
-  <!-- Slot 2: empty -->
-  <rect x="195" y="100" width="75" height="50" rx="5" fill="#6c7086" stroke="#585b70" stroke-width="1.5"/>
-  <text x="232" y="130" text-anchor="middle" fill="#1e1e2e" font-size="12">[empty]</text>
-  <text x="232" y="95" text-anchor="middle" fill="#a6adc8" font-size="11">2</text>
+  <!-- ===== Slots y=97, h=38, bottom=135 ===== -->
+  <rect x="35"  y="97" width="75" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="72"  y="121" text-anchor="middle" fill="#bbb" font-size="12" font-style="italic">[empty]</text>
+  <rect x="115" y="97" width="75" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="152" y="121" text-anchor="middle" fill="#bbb" font-size="12" font-style="italic">[empty]</text>
+  <rect x="195" y="97" width="75" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="232" y="121" text-anchor="middle" fill="#bbb" font-size="12" font-style="italic">[empty]</text>
+  <rect x="275" y="97" width="75" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="312" y="121" text-anchor="middle" fill="#bbb" font-size="12" font-style="italic">[empty]</text>
 
-  <!-- Slot 3: empty -->
-  <rect x="275" y="100" width="75" height="50" rx="5" fill="#6c7086" stroke="#585b70" stroke-width="1.5"/>
-  <text x="312" y="130" text-anchor="middle" fill="#1e1e2e" font-size="12">[empty]</text>
-  <text x="312" y="95" text-anchor="middle" fill="#a6adc8" font-size="11">3</text>
+  <rect x="355" y="97" width="75" height="38" rx="5" fill="#2ecc71" stroke="#f39c12" stroke-width="2.5"/>
+  <text x="392" y="113" text-anchor="middle" fill="#fff" font-size="12" font-family="'Consolas',monospace">Alice</text>
+  <text x="392" y="127" text-anchor="middle" fill="#d5f5e3" font-size="10">95</text>
+  <rect x="435" y="97" width="75" height="38" rx="5" fill="#2ecc71" stroke="#f39c12" stroke-width="2.5"/>
+  <text x="472" y="113" text-anchor="middle" fill="#fff" font-size="12" font-family="'Consolas',monospace">Diana</text>
+  <text x="472" y="127" text-anchor="middle" fill="#d5f5e3" font-size="10">78</text>
+  <rect x="515" y="97" width="75" height="38" rx="5" fill="#2ecc71" stroke="#f39c12" stroke-width="2.5"/>
+  <text x="552" y="113" text-anchor="middle" fill="#fff" font-size="12" font-family="'Consolas',monospace">Eve</text>
+  <text x="552" y="127" text-anchor="middle" fill="#d5f5e3" font-size="10">88</text>
+  <rect x="595" y="97" width="75" height="38" rx="5" fill="#2ecc71" stroke="#f39c12" stroke-width="2.5"/>
+  <text x="632" y="113" text-anchor="middle" fill="#fff" font-size="12" font-family="'Consolas',monospace">Charlie</text>
+  <text x="632" y="127" text-anchor="middle" fill="#d5f5e3" font-size="10">91</text>
 
-  <!-- CLUSTER START -->
-  <!-- Slot 4: Alice (cluster start) -->
-  <rect x="355" y="100" width="75" height="50" rx="5" fill="#a6e3a1" stroke="#f9e2af" stroke-width="2.5"/>
-  <text x="392" y="122" text-anchor="middle" fill="#1e1e2e" font-size="11" font-family="monospace">Alice</text>
-  <text x="392" y="140" text-anchor="middle" fill="#1e1e2e" font-size="10">95</text>
-  <text x="392" y="95" text-anchor="middle" fill="#a6adc8" font-size="11">4</text>
+  <!-- Slot 8: first open -->
+  <rect x="675" y="97" width="75" height="38" rx="5" fill="#ecf0f1" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="712" y="121" text-anchor="middle" fill="#bbb" font-size="12" font-style="italic">[empty]</text>
+  <!-- Slot 9 -->
+  <rect x="755" y="97" width="75" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="792" y="121" text-anchor="middle" fill="#bbb" font-size="12" font-style="italic">[empty]</text>
 
-  <!-- Slot 5: Diana -->
-  <rect x="435" y="100" width="75" height="50" rx="5" fill="#a6e3a1" stroke="#f9e2af" stroke-width="2.5"/>
-  <text x="472" y="122" text-anchor="middle" fill="#1e1e2e" font-size="11" font-family="monospace">Diana</text>
-  <text x="472" y="140" text-anchor="middle" fill="#1e1e2e" font-size="10">78</text>
-  <text x="472" y="95" text-anchor="middle" fill="#a6adc8" font-size="11">5</text>
+  <!-- ===== Probe annotations below array (slot bottom=135) ===== -->
+  <text x="50" y="151" text-anchor="start" fill="#8e44ad" font-size="12" font-style="italic">New key: hash("Frank") = 4</text>
+  <text x="50" y="164" text-anchor="start" fill="#8e44ad" font-size="12" font-style="italic">probe forward until an open slot is found</text>
 
-  <!-- Slot 6: Eve -->
-  <rect x="515" y="100" width="75" height="50" rx="5" fill="#a6e3a1" stroke="#f9e2af" stroke-width="2.5"/>
-  <text x="552" y="122" text-anchor="middle" fill="#1e1e2e" font-size="11" font-family="monospace">Eve</text>
-  <text x="552" y="140" text-anchor="middle" fill="#1e1e2e" font-size="10">88</text>
-  <text x="552" y="95" text-anchor="middle" fill="#a6adc8" font-size="11">6</text>
+  <!-- Annotation columns -->
+  <text x="392" y="150" text-anchor="middle" fill="#e67e22" font-size="12" font-weight="bold">taken</text>
+  <line x1="419" y1="153" x2="444" y2="153" stroke="#e67e22" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
 
-  <!-- Slot 7: Charlie -->
-  <rect x="595" y="100" width="75" height="50" rx="5" fill="#a6e3a1" stroke="#f9e2af" stroke-width="2.5"/>
-  <text x="632" y="122" text-anchor="middle" fill="#1e1e2e" font-size="11" font-family="monospace">Charlie</text>
-  <text x="632" y="140" text-anchor="middle" fill="#1e1e2e" font-size="10">91</text>
-  <text x="632" y="95" text-anchor="middle" fill="#a6adc8" font-size="11">7</text>
-  <!-- CLUSTER END -->
+  <text x="472" y="150" text-anchor="middle" fill="#e67e22" font-size="12" font-weight="bold">taken</text>
+  <line x1="499" y1="153" x2="524" y2="153" stroke="#e67e22" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
 
-  <!-- Slot 8: empty (first open slot) -->
-  <rect x="675" y="100" width="75" height="50" rx="5" fill="#6c7086" stroke="#a6e3a1" stroke-width="3"/>
-  <text x="712" y="130" text-anchor="middle" fill="#1e1e2e" font-size="12">[empty]</text>
-  <text x="712" y="95" text-anchor="middle" fill="#a6adc8" font-size="11">8</text>
+  <text x="552" y="150" text-anchor="middle" fill="#e67e22" font-size="12" font-weight="bold">taken</text>
+  <line x1="579" y1="153" x2="604" y2="153" stroke="#e67e22" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
 
-  <!-- Slot 9: empty -->
-  <rect x="755" y="100" width="75" height="50" rx="5" fill="#6c7086" stroke="#585b70" stroke-width="1.5"/>
-  <text x="792" y="130" text-anchor="middle" fill="#1e1e2e" font-size="12">[empty]</text>
-  <text x="792" y="95" text-anchor="middle" fill="#a6adc8" font-size="11">9</text>
+  <text x="632" y="150" text-anchor="middle" fill="#e67e22" font-size="12" font-weight="bold">taken</text>
+  <line x1="659" y1="153" x2="684" y2="153" stroke="#e67e22" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
 
-  <!-- Cluster bracket -->
-  <line x1="355" y1="160" x2="355" y2="175" stroke="#f9e2af" stroke-width="2"/>
-  <line x1="670" y1="160" x2="670" y2="175" stroke="#f9e2af" stroke-width="2"/>
-  <line x1="355" y1="175" x2="670" y2="175" stroke="#f9e2af" stroke-width="2"/>
-  <line x1="512" y1="175" x2="512" y2="185" stroke="#f9e2af" stroke-width="2"/>
-  <text x="512" y="200" text-anchor="middle" fill="#f9e2af" font-size="13" font-weight="bold">Cluster: 4 consecutive occupied slots</text>
+  <text x="730" y="150" text-anchor="middle" fill="#27ae60" font-size="12" font-weight="bold">EMPTY ✓</text>
+  <text x="730" y="163" text-anchor="middle" fill="#27ae60" font-size="10">Frank inserted</text>
 
-  <!-- New insert hashing to slot 4 -->
-  <rect x="60" y="230" width="240" height="42" rx="8" fill="#313244" stroke="#f5c2e7" stroke-width="1.5"/>
-  <text x="180" y="256" text-anchor="middle" fill="#f5c2e7" font-size="14" font-family="monospace">hash("Frank") = 4</text>
-
-  <!-- Probe path: 4→5→6→7→8 -->
-  <path d="M300,251 L392,251 L392,160" stroke="#fab387" stroke-width="2" fill="none" stroke-dasharray="6,3"/>
-  <text x="392" y="250" text-anchor="middle" fill="#fab387" font-size="10" dy="-5">taken</text>
-  <path d="M392,165 Q412,180 472,165" stroke="#fab387" stroke-width="2" fill="none" marker-end="url(#arrowOrange)"/>
-  <text x="472" y="250" text-anchor="middle" fill="#fab387" font-size="10" dy="-5">taken</text>
-  <path d="M472,165 Q492,180 552,165" stroke="#fab387" stroke-width="2" fill="none" marker-end="url(#arrowOrange)"/>
-  <text x="552" y="250" text-anchor="middle" fill="#fab387" font-size="10" dy="-5">taken</text>
-  <path d="M552,165 Q572,180 632,165" stroke="#fab387" stroke-width="2" fill="none" marker-end="url(#arrowOrange)"/>
-  <text x="632" y="250" text-anchor="middle" fill="#fab387" font-size="10" dy="-5">taken</text>
-  <path d="M632,165 Q652,180 712,165" stroke="#fab387" stroke-width="2" fill="none" marker-end="url(#arrowOrange)"/>
-  <text x="712" y="167" text-anchor="middle" fill="#a6e3a1" font-size="11" font-weight="bold" dy="-10">insert!</text>
-
-  <!-- Count -->
-  <text x="450" y="290" text-anchor="middle" fill="#fab387" font-size="14" font-weight="bold">4 probes to find an open slot!</text>
+  <!-- Counter -->
+  <text x="512" y="214" text-anchor="middle" fill="#e67e22" font-size="13" font-weight="bold">4 probes to find an open slot — entire cluster scanned</text>
 
   <!-- Summary box -->
-  <rect x="60" y="310" width="780" height="55" rx="8" fill="#313244" stroke="#585b70" stroke-width="1.5"/>
-  <text x="450" y="333" text-anchor="middle" fill="#f9e2af" font-size="14" font-weight="bold">Primary Clustering: occupied runs grow and merge as the table fills</text>
-  <text x="450" y="353" text-anchor="middle" fill="#a6adc8" font-size="13">Any new key hashing into a cluster must probe through the ENTIRE cluster. This is why probing resizes at 0.75.</text>
+  <rect x="30" y="226" width="840" height="62" rx="8" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="450" y="246" text-anchor="middle" fill="#f39c12" font-size="13" font-weight="bold">Primary Clustering: any key hashing into a cluster must probe through the ENTIRE cluster</text>
+  <text x="450" y="263" text-anchor="middle" fill="#555" font-size="12">Clusters grow as more keys insert at their tails — runs merge, probe lengths spike.</text>
+  <text x="450" y="279" text-anchor="middle" fill="#555" font-size="12">This is why the table resizes at 0.75 load factor, before clusters get long.</text>
 </svg>

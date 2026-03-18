@@ -1,99 +1,174 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 530" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
   <defs>
-    <marker id="arrowY" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#f9e2af"/>
-    </marker>
-    <marker id="arrowR" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#f38ba8"/>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#f39c12"/>
     </marker>
   </defs>
 
-  <rect width="900" height="520" rx="12" fill="#1e1e2e"/>
-
   <!-- Title -->
-  <text x="450" y="35" text-anchor="middle" fill="#cdd6f4" font-size="20" font-weight="bold">Linear Probing — Search</text>
+  <text x="450" y="32" text-anchor="middle" fill="#1a1a1a" font-size="26" font-weight="bold">Linear Probing — Search</text>
+  <text x="450" y="52" text-anchor="middle" fill="#555" font-size="13">Three outcomes: key found, found after skipping a tombstone, or not found</text>
 
-  <!-- ===== SCENARIO 1: Search for Eve (FOUND) ===== -->
-  <text x="450" y="70" text-anchor="middle" fill="#a6e3a1" font-size="16" font-weight="bold">Scenario 1: search("Eve") — FOUND</text>
-  <text x="450" y="90" text-anchor="middle" fill="#a6adc8" font-size="13">hash("Eve") = 4 — probe forward until match</text>
+  <!-- ================================================================ -->
+  <!-- SCENARIO 1: search("Eve") — FOUND                                -->
+  <!-- Slots y=107, h=38, bottom=145                                    -->
+  <!-- ================================================================ -->
+  <text x="450" y="72" text-anchor="middle" fill="#27ae60" font-size="15" font-weight="bold">Scenario 1: search("Eve") — FOUND</text>
+  <text x="450" y="87" text-anchor="middle" fill="#555" font-size="12">hash("Eve") = 4 — probe forward until key matches or EMPTY is hit</text>
 
-  <!-- Array for scenario 1 -->
-  <!-- Slot 3 -->
-  <rect x="150" y="110" width="120" height="46" rx="6" fill="#a6e3a1" stroke="#585b70" stroke-width="1.5"/>
-  <text x="210" y="130" text-anchor="middle" fill="#1e1e2e" font-size="12" font-family="monospace">Charlie</text>
-  <text x="210" y="146" text-anchor="middle" fill="#1e1e2e" font-size="10">91</text>
-  <text x="210" y="105" text-anchor="middle" fill="#a6adc8" font-size="11">3</text>
+  <text x="90"  y="101" text-anchor="middle" fill="#aaa" font-size="11">0</text>
+  <text x="210" y="101" text-anchor="middle" fill="#aaa" font-size="11">1</text>
+  <text x="330" y="101" text-anchor="middle" fill="#aaa" font-size="11">2</text>
+  <text x="450" y="101" text-anchor="middle" fill="#aaa" font-size="11">3</text>
+  <text x="570" y="101" text-anchor="middle" fill="#aaa" font-size="11">4</text>
+  <text x="690" y="101" text-anchor="middle" fill="#aaa" font-size="11">5</text>
+  <text x="810" y="101" text-anchor="middle" fill="#aaa" font-size="11">6</text>
 
-  <!-- Slot 4: Alice -->
-  <rect x="280" y="110" width="120" height="46" rx="6" fill="#a6e3a1" stroke="#f9e2af" stroke-width="2.5"/>
-  <text x="340" y="130" text-anchor="middle" fill="#1e1e2e" font-size="12" font-family="monospace">Alice</text>
-  <text x="340" y="146" text-anchor="middle" fill="#1e1e2e" font-size="10">95</text>
-  <text x="340" y="105" text-anchor="middle" fill="#a6adc8" font-size="11">4</text>
+  <rect x="30"  y="107" width="120" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="90"  y="131" text-anchor="middle" fill="#bbb" font-size="13" font-style="italic">[empty]</text>
 
-  <!-- Slot 5: Eve -->
-  <rect x="410" y="110" width="120" height="46" rx="6" fill="#a6e3a1" stroke="#a6e3a1" stroke-width="3"/>
-  <text x="470" y="130" text-anchor="middle" fill="#1e1e2e" font-size="12" font-family="monospace">Eve</text>
-  <text x="470" y="146" text-anchor="middle" fill="#1e1e2e" font-size="10">88</text>
-  <text x="470" y="105" text-anchor="middle" fill="#a6adc8" font-size="11">5</text>
+  <rect x="150" y="107" width="120" height="38" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="210" y="123" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Bob</text>
+  <text x="210" y="137" text-anchor="middle" fill="#d5f5e3" font-size="11">82</text>
 
-  <!-- Slot 6: Diana -->
-  <rect x="540" y="110" width="120" height="46" rx="6" fill="#a6e3a1" stroke="#585b70" stroke-width="1.5"/>
-  <text x="600" y="130" text-anchor="middle" fill="#1e1e2e" font-size="12" font-family="monospace">Diana</text>
-  <text x="600" y="146" text-anchor="middle" fill="#1e1e2e" font-size="10">78</text>
-  <text x="600" y="105" text-anchor="middle" fill="#a6adc8" font-size="11">6</text>
+  <rect x="270" y="107" width="120" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="330" y="131" text-anchor="middle" fill="#bbb" font-size="13" font-style="italic">[empty]</text>
 
-  <!-- Annotations for scenario 1 -->
-  <text x="340" y="178" text-anchor="middle" fill="#f9e2af" font-size="12">Alice != Eve</text>
-  <text x="340" y="193" text-anchor="middle" fill="#f9e2af" font-size="11">keep probing</text>
+  <rect x="390" y="107" width="120" height="38" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="450" y="123" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Charlie</text>
+  <text x="450" y="137" text-anchor="middle" fill="#d5f5e3" font-size="11">91</text>
 
-  <!-- Arrow 4 → 5 -->
-  <path d="M370,195 Q390,210 440,195" stroke="#f9e2af" stroke-width="2" fill="none" marker-end="url(#arrowY)"/>
+  <!-- Slot 4: Alice — probed, no match -->
+  <rect x="510" y="107" width="120" height="38" rx="5" fill="#2ecc71" stroke="#f39c12" stroke-width="2.5"/>
+  <text x="570" y="123" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Alice</text>
+  <text x="570" y="137" text-anchor="middle" fill="#d5f5e3" font-size="11">95</text>
 
-  <text x="470" y="178" text-anchor="middle" fill="#a6e3a1" font-size="12" font-weight="bold">Eve == Eve</text>
-  <text x="470" y="193" text-anchor="middle" fill="#a6e3a1" font-size="11">FOUND! return &amp;value</text>
+  <!-- Slot 5: Eve — FOUND -->
+  <rect x="630" y="107" width="120" height="38" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="3"/>
+  <text x="690" y="123" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Eve</text>
+  <text x="690" y="137" text-anchor="middle" fill="#d5f5e3" font-size="11">88</text>
 
-  <!-- ===== SCENARIO 2: Search for Frank (NOT FOUND) ===== -->
-  <text x="450" y="250" text-anchor="middle" fill="#f38ba8" font-size="16" font-weight="bold">Scenario 2: search("Frank") — NOT FOUND</text>
-  <text x="450" y="270" text-anchor="middle" fill="#a6adc8" font-size="13">hash("Frank") = 2 — probe until hitting EMPTY</text>
+  <rect x="750" y="107" width="120" height="38" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="810" y="123" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Diana</text>
+  <text x="810" y="137" text-anchor="middle" fill="#d5f5e3" font-size="11">78</text>
 
-  <!-- Array for scenario 2 -->
-  <!-- Slot 1: Bob -->
-  <rect x="80" y="290" width="120" height="46" rx="6" fill="#a6e3a1" stroke="#585b70" stroke-width="1.5"/>
-  <text x="140" y="310" text-anchor="middle" fill="#1e1e2e" font-size="12" font-family="monospace">Bob</text>
-  <text x="140" y="326" text-anchor="middle" fill="#1e1e2e" font-size="10">82</text>
-  <text x="140" y="285" text-anchor="middle" fill="#a6adc8" font-size="11">1</text>
+  <!-- Annotations below S1 (slot bottom = 145, text baseline ≥ 160) -->
+  <text x="570" y="162" text-anchor="middle" fill="#f39c12" font-size="12" font-weight="bold">Alice ≠ Eve</text>
+  <line x1="617" y1="165" x2="644" y2="165" stroke="#f39c12" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
+  <text x="630" y="178" text-anchor="middle" fill="#f39c12" font-size="10">probe +1</text>
+  <text x="690" y="162" text-anchor="middle" fill="#27ae60" font-size="12" font-weight="bold">Eve == Eve ✓</text>
+  <text x="690" y="178" text-anchor="middle" fill="#27ae60" font-size="10">return &amp;88</text>
 
-  <!-- Slot 2: empty (Frank hashes here) -->
-  <rect x="210" y="290" width="120" height="46" rx="6" fill="#6c7086" stroke="#f38ba8" stroke-width="3"/>
-  <text x="270" y="315" text-anchor="middle" fill="#1e1e2e" font-size="12" font-weight="bold">[empty]</text>
-  <text x="270" y="285" text-anchor="middle" fill="#a6adc8" font-size="11">2</text>
+  <!-- ================================================================ -->
+  <!-- SCENARIO 2: search("Diana") — FOUND past tombstone               -->
+  <!-- Slots y=228, h=38, bottom=266                                    -->
+  <!-- ================================================================ -->
+  <text x="450" y="202" text-anchor="middle" fill="#8e44ad" font-size="15" font-weight="bold">Scenario 2: search("Diana") — FOUND past tombstone</text>
+  <text x="450" y="217" text-anchor="middle" fill="#555" font-size="12">hash("Diana") = 4 — Eve was deleted (slot 5 is now DELETED) — keep probing past it</text>
 
-  <!-- Slot 3: Charlie -->
-  <rect x="340" y="290" width="120" height="46" rx="6" fill="#a6e3a1" stroke="#585b70" stroke-width="1.5"/>
-  <text x="400" y="310" text-anchor="middle" fill="#1e1e2e" font-size="12" font-family="monospace">Charlie</text>
-  <text x="400" y="326" text-anchor="middle" fill="#1e1e2e" font-size="10">91</text>
-  <text x="400" y="285" text-anchor="middle" fill="#a6adc8" font-size="11">3</text>
+  <text x="90"  y="231" text-anchor="middle" fill="#aaa" font-size="11">0</text>
+  <text x="210" y="231" text-anchor="middle" fill="#aaa" font-size="11">1</text>
+  <text x="330" y="231" text-anchor="middle" fill="#aaa" font-size="11">2</text>
+  <text x="450" y="231" text-anchor="middle" fill="#aaa" font-size="11">3</text>
+  <text x="570" y="231" text-anchor="middle" fill="#aaa" font-size="11">4</text>
+  <text x="690" y="231" text-anchor="middle" fill="#aaa" font-size="11">5</text>
+  <text x="810" y="231" text-anchor="middle" fill="#aaa" font-size="11">6</text>
 
-  <!-- Slot 4: Alice -->
-  <rect x="470" y="290" width="120" height="46" rx="6" fill="#a6e3a1" stroke="#585b70" stroke-width="1.5"/>
-  <text x="530" y="310" text-anchor="middle" fill="#1e1e2e" font-size="12" font-family="monospace">Alice</text>
-  <text x="530" y="326" text-anchor="middle" fill="#1e1e2e" font-size="10">95</text>
-  <text x="530" y="285" text-anchor="middle" fill="#a6adc8" font-size="11">4</text>
+  <rect x="30"  y="237" width="120" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="90"  y="261" text-anchor="middle" fill="#bbb" font-size="13" font-style="italic">[empty]</text>
 
-  <!-- Slot 5: Eve -->
-  <rect x="600" y="290" width="120" height="46" rx="6" fill="#a6e3a1" stroke="#585b70" stroke-width="1.5"/>
-  <text x="660" y="310" text-anchor="middle" fill="#1e1e2e" font-size="12" font-family="monospace">Eve</text>
-  <text x="660" y="326" text-anchor="middle" fill="#1e1e2e" font-size="10">88</text>
-  <text x="660" y="285" text-anchor="middle" fill="#a6adc8" font-size="11">5</text>
+  <rect x="150" y="237" width="120" height="38" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="210" y="253" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Bob</text>
+  <text x="210" y="267" text-anchor="middle" fill="#d5f5e3" font-size="11">82</text>
 
-  <!-- Annotations for scenario 2 -->
-  <text x="270" y="358" text-anchor="middle" fill="#f38ba8" font-size="12" font-weight="bold">EMPTY!</text>
-  <text x="270" y="375" text-anchor="middle" fill="#f38ba8" font-size="11">STOP — key was never</text>
-  <text x="270" y="390" text-anchor="middle" fill="#f38ba8" font-size="11">inserted past this slot</text>
-  <text x="270" y="407" text-anchor="middle" fill="#f38ba8" font-size="11">return nullptr</text>
+  <rect x="270" y="237" width="120" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="330" y="261" text-anchor="middle" fill="#bbb" font-size="13" font-style="italic">[empty]</text>
 
-  <!-- Summary box -->
-  <rect x="60" y="440" width="780" height="60" rx="8" fill="#313244" stroke="#585b70" stroke-width="1.5"/>
-  <text x="450" y="465" text-anchor="middle" fill="#f9e2af" font-size="14" font-weight="bold">Search Rules: OCCUPIED (different key) = probe forward | EMPTY = stop, not found</text>
-  <text x="450" y="485" text-anchor="middle" fill="#a6adc8" font-size="13">DELETED (tombstone) = keep probing! The key might be further along.</text>
+  <rect x="390" y="237" width="120" height="38" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="450" y="253" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Charlie</text>
+  <text x="450" y="267" text-anchor="middle" fill="#d5f5e3" font-size="11">91</text>
+
+  <!-- Slot 4: Alice — probed, no match -->
+  <rect x="510" y="237" width="120" height="38" rx="5" fill="#2ecc71" stroke="#f39c12" stroke-width="2.5"/>
+  <text x="570" y="253" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Alice</text>
+  <text x="570" y="267" text-anchor="middle" fill="#d5f5e3" font-size="11">95</text>
+
+  <!-- Slot 5: DELETED tombstone -->
+  <rect x="630" y="237" width="120" height="38" rx="5" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="690" y="253" text-anchor="middle" fill="#fff" font-size="12" font-style="italic">[deleted]</text>
+  <text x="690" y="267" text-anchor="middle" fill="#fdebd0" font-size="10">DELETED</text>
+
+  <!-- Slot 6: Diana — FOUND -->
+  <rect x="750" y="237" width="120" height="38" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="3"/>
+  <text x="810" y="253" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Diana</text>
+  <text x="810" y="267" text-anchor="middle" fill="#d5f5e3" font-size="11">78</text>
+
+  <!-- Annotations below S2 (slot bottom = 275, text baseline ≥ 290) -->
+  <text x="570" y="292" text-anchor="middle" fill="#f39c12" font-size="12" font-weight="bold">Alice ≠ Diana</text>
+  <line x1="617" y1="295" x2="644" y2="295" stroke="#f39c12" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
+  <text x="630" y="308" text-anchor="middle" fill="#f39c12" font-size="10">probe +1</text>
+
+  <text x="690" y="292" text-anchor="middle" fill="#e67e22" font-size="12" font-weight="bold">DELETED — skip</text>
+  <line x1="737" y1="295" x2="764" y2="295" stroke="#f39c12" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
+  <text x="750" y="308" text-anchor="middle" fill="#f39c12" font-size="10">probe +1</text>
+
+  <text x="810" y="292" text-anchor="middle" fill="#27ae60" font-size="12" font-weight="bold">Diana == Diana ✓</text>
+  <text x="810" y="308" text-anchor="middle" fill="#27ae60" font-size="10">return &amp;78</text>
+
+  <!-- ================================================================ -->
+  <!-- SCENARIO 3: search("Frank") — NOT FOUND                          -->
+  <!-- Slots y=337, h=38, bottom=375                                    -->
+  <!-- ================================================================ -->
+  <text x="450" y="332" text-anchor="middle" fill="#e74c3c" font-size="15" font-weight="bold">Scenario 3: search("Frank") — NOT FOUND</text>
+  <text x="450" y="347" text-anchor="middle" fill="#555" font-size="12">hash("Frank") = 2 — slot 2 is EMPTY — Frank was never inserted past this point</text>
+
+  <text x="90"  y="361" text-anchor="middle" fill="#aaa" font-size="11">0</text>
+  <text x="210" y="361" text-anchor="middle" fill="#aaa" font-size="11">1</text>
+  <text x="330" y="361" text-anchor="middle" fill="#aaa" font-size="11">2</text>
+  <text x="450" y="361" text-anchor="middle" fill="#aaa" font-size="11">3</text>
+  <text x="570" y="361" text-anchor="middle" fill="#aaa" font-size="11">4</text>
+  <text x="690" y="361" text-anchor="middle" fill="#aaa" font-size="11">5</text>
+  <text x="810" y="361" text-anchor="middle" fill="#aaa" font-size="11">6</text>
+
+  <rect x="30"  y="367" width="120" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="90"  y="391" text-anchor="middle" fill="#bbb" font-size="13" font-style="italic">[empty]</text>
+
+  <rect x="150" y="367" width="120" height="38" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="210" y="383" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Bob</text>
+  <text x="210" y="397" text-anchor="middle" fill="#d5f5e3" font-size="11">82</text>
+
+  <!-- Slot 2: EMPTY — search stops (red border) -->
+  <rect x="270" y="367" width="120" height="38" rx="5" fill="#ecf0f1" stroke="#e74c3c" stroke-width="2.5"/>
+  <text x="330" y="391" text-anchor="middle" fill="#bbb" font-size="13" font-style="italic">[empty]</text>
+
+  <!-- Slots 3–6: faded (never reached) -->
+  <rect x="390" y="367" width="120" height="38" rx="5" fill="#d5dbdb" stroke="#bdc3c7" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="450" y="383" text-anchor="middle" fill="#aaa" font-size="13" font-family="'Consolas',monospace">Charlie</text>
+  <text x="450" y="397" text-anchor="middle" fill="#bbb" font-size="11">91</text>
+
+  <rect x="510" y="367" width="120" height="38" rx="5" fill="#d5dbdb" stroke="#bdc3c7" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="570" y="383" text-anchor="middle" fill="#aaa" font-size="13" font-family="'Consolas',monospace">Alice</text>
+  <text x="570" y="397" text-anchor="middle" fill="#bbb" font-size="11">95</text>
+
+  <rect x="630" y="367" width="120" height="38" rx="5" fill="#d5dbdb" stroke="#bdc3c7" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="690" y="388" text-anchor="middle" fill="#aaa" font-size="13" font-style="italic">[deleted]</text>
+
+  <rect x="750" y="367" width="120" height="38" rx="5" fill="#d5dbdb" stroke="#bdc3c7" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="810" y="383" text-anchor="middle" fill="#aaa" font-size="13" font-family="'Consolas',monospace">Diana</text>
+  <text x="810" y="397" text-anchor="middle" fill="#bbb" font-size="11">78</text>
+
+  <!-- Annotations below S3 (slot bottom = 405, text baseline ≥ 420) -->
+  <text x="330" y="420" text-anchor="middle" fill="#e74c3c" font-size="12" font-weight="bold">EMPTY — stop</text>
+  <text x="330" y="434" text-anchor="middle" fill="#e74c3c" font-size="11">Frank was never inserted past here</text>
+  <text x="330" y="448" text-anchor="middle" fill="#e74c3c" font-size="11">return nullptr</text>
+  <text x="645" y="424" text-anchor="middle" fill="#bbb" font-size="11" font-style="italic">never reached</text>
+
+  <!-- ================================================================ -->
+  <!-- Summary box                                                        -->
+  <!-- ================================================================ -->
+  <rect x="30" y="463" width="840" height="55" rx="8" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="450" y="481" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="bold">Search Rules (in probe order):</text>
+  <text x="450" y="496" text-anchor="middle" fill="#f39c12" font-size="12">OCCUPIED (different key) → probe +1   |   DELETED (tombstone) → probe +1 — key may still be ahead</text>
+  <text x="450" y="511" text-anchor="middle" fill="#e74c3c" font-size="12">EMPTY → stop, return nullptr — key was never inserted past this slot</text>
 </svg>

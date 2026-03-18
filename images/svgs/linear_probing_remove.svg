@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 336" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+  <defs>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#f39c12"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="450" y="32" text-anchor="middle" fill="#1a1a1a" font-size="26" font-weight="bold">Linear Probing — Remove</text>
+  <text x="450" y="52" text-anchor="middle" fill="#555" font-size="13">remove("Eve") — probe forward to find the key, then mark the slot DELETED</text>
+
+  <!-- ===== BEFORE array (slots y=92, h=38, bottom=130) ===== -->
+  <text x="30" y="72" text-anchor="start" fill="#888" font-size="12" font-weight="bold" font-style="italic">Before remove:</text>
+
+  <text x="90"  y="86" text-anchor="middle" fill="#aaa" font-size="11">0</text>
+  <text x="210" y="86" text-anchor="middle" fill="#aaa" font-size="11">1</text>
+  <text x="330" y="86" text-anchor="middle" fill="#aaa" font-size="11">2</text>
+  <text x="450" y="86" text-anchor="middle" fill="#aaa" font-size="11">3</text>
+  <text x="570" y="86" text-anchor="middle" fill="#aaa" font-size="11">4</text>
+  <text x="690" y="86" text-anchor="middle" fill="#aaa" font-size="11">5</text>
+  <text x="810" y="86" text-anchor="middle" fill="#aaa" font-size="11">6</text>
+
+  <rect x="30"  y="92" width="120" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="90"  y="116" text-anchor="middle" fill="#bbb" font-size="13" font-style="italic">[empty]</text>
+
+  <rect x="150" y="92" width="120" height="38" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="210" y="108" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Bob</text>
+  <text x="210" y="122" text-anchor="middle" fill="#d5f5e3" font-size="11">82</text>
+
+  <rect x="270" y="92" width="120" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="330" y="116" text-anchor="middle" fill="#bbb" font-size="13" font-style="italic">[empty]</text>
+
+  <rect x="390" y="92" width="120" height="38" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="450" y="108" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Charlie</text>
+  <text x="450" y="122" text-anchor="middle" fill="#d5f5e3" font-size="11">91</text>
+
+  <!-- Slot 4: Alice — probed, no match -->
+  <rect x="510" y="92" width="120" height="38" rx="5" fill="#2ecc71" stroke="#f39c12" stroke-width="2.5"/>
+  <text x="570" y="108" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Alice</text>
+  <text x="570" y="122" text-anchor="middle" fill="#d5f5e3" font-size="11">95</text>
+
+  <!-- Slot 5: Eve — match, will be removed -->
+  <rect x="630" y="92" width="120" height="38" rx="5" fill="#2ecc71" stroke="#e74c3c" stroke-width="2.5"/>
+  <text x="690" y="108" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Eve</text>
+  <text x="690" y="122" text-anchor="middle" fill="#d5f5e3" font-size="11">88</text>
+
+  <rect x="750" y="92" width="120" height="38" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="810" y="108" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Diana</text>
+  <text x="810" y="122" text-anchor="middle" fill="#d5f5e3" font-size="11">78</text>
+
+  <!-- ===== Probe annotations (slot bottom=130, text baseline ≥ 145) ===== -->
+  <text x="570" y="150" text-anchor="middle" fill="#f39c12" font-size="12" font-weight="bold">Alice ≠ Eve</text>
+  <line x1="617" y1="153" x2="644" y2="153" stroke="#f39c12" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
+
+  <text x="690" y="150" text-anchor="middle" fill="#e74c3c" font-size="12" font-weight="bold">Eve == Eve ✓</text>
+  <text x="690" y="165" text-anchor="middle" fill="#e74c3c" font-size="10">mark slot DELETED</text>
+
+  <!-- ===== AFTER array (slots y=200, h=38, bottom=238) ===== -->
+  <text x="30" y="184" text-anchor="start" fill="#888" font-size="12" font-weight="bold" font-style="italic">After remove:</text>
+
+  <text x="90"  y="196" text-anchor="middle" fill="#aaa" font-size="11">0</text>
+  <text x="210" y="196" text-anchor="middle" fill="#aaa" font-size="11">1</text>
+  <text x="330" y="196" text-anchor="middle" fill="#aaa" font-size="11">2</text>
+  <text x="450" y="196" text-anchor="middle" fill="#aaa" font-size="11">3</text>
+  <text x="570" y="196" text-anchor="middle" fill="#aaa" font-size="11">4</text>
+  <text x="690" y="196" text-anchor="middle" fill="#aaa" font-size="11">5</text>
+  <text x="810" y="196" text-anchor="middle" fill="#aaa" font-size="11">6</text>
+
+  <rect x="30"  y="202" width="120" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="90"  y="226" text-anchor="middle" fill="#bbb" font-size="13" font-style="italic">[empty]</text>
+
+  <rect x="150" y="202" width="120" height="38" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="210" y="218" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Bob</text>
+  <text x="210" y="232" text-anchor="middle" fill="#d5f5e3" font-size="11">82</text>
+
+  <rect x="270" y="202" width="120" height="38" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="330" y="226" text-anchor="middle" fill="#bbb" font-size="13" font-style="italic">[empty]</text>
+
+  <rect x="390" y="202" width="120" height="38" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="450" y="218" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Charlie</text>
+  <text x="450" y="232" text-anchor="middle" fill="#d5f5e3" font-size="11">91</text>
+
+  <rect x="510" y="202" width="120" height="38" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="570" y="218" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Alice</text>
+  <text x="570" y="232" text-anchor="middle" fill="#d5f5e3" font-size="11">95</text>
+
+  <!-- Slot 5: now DELETED -->
+  <rect x="630" y="202" width="120" height="38" rx="5" fill="#f39c12" stroke="#e67e22" stroke-width="2.5"/>
+  <text x="690" y="218" text-anchor="middle" fill="#fff" font-size="12" font-style="italic">[deleted]</text>
+  <text x="690" y="232" text-anchor="middle" fill="#fdebd0" font-size="10">DELETED</text>
+
+  <rect x="750" y="202" width="120" height="38" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="810" y="218" text-anchor="middle" fill="#fff" font-size="13" font-family="'Consolas',monospace">Diana</text>
+  <text x="810" y="232" text-anchor="middle" fill="#d5f5e3" font-size="11">78</text>
+
+  <!-- ===== Note box ===== -->
+  <rect x="30" y="254" width="840" height="68" rx="8" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="450" y="274" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="bold">remove() = search() + mark DELETED — not EMPTY</text>
+  <text x="450" y="291" text-anchor="middle" fill="#555" font-size="12">Setting the slot to EMPTY would break search for any key that probed past this slot.</text>
+  <text x="450" y="308" text-anchor="middle" fill="#e67e22" font-size="12">DELETED keeps the probe chain intact — future searches skip it, future inserts reuse it.</text>
+</svg>

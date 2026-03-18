@@ -6,16 +6,12 @@
 // HashSlot — one entry in a probing hash table
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: images/probing_table_overview.png — big picture: flat array of HashSlots
-// ? SEE DIAGRAM: images/slot_status_enum.png — the three states: EMPTY, OCCUPIED, DELETED
+// ? SEE DIAGRAM: Probing Hash Table — Flat Array of HashSlots  →  images/header_diagrams.md
+// ? SEE DIAGRAM: SlotStatus — Three States                     →  images/header_diagrams.md
 //
-// ! DISCUSSION: Why do we need THREE states instead of just "has data" / "no data"?
-//   - EMPTY means this slot has NEVER been used — a probe sequence can stop here
-//   - OCCUPIED means this slot holds a live entry — check the key or keep probing
-//   - DELETED means this slot USED to hold an entry that was removed (a "tombstone")
-//   - if we only had EMPTY and OCCUPIED, removing an entry would leave a gap
-//     that breaks probe sequences for keys inserted AFTER the removed one
-//   - DELETED tells search: "someone was here — keep probing, don't stop"
+// ! DISCUSSION: Why three states instead of two? (see "Slot Status Enum" in images/header_diagrams.md)
+//   Removing an entry can't leave EMPTY — it would break probe chains.
+//   DELETED (tombstone) tells search: "keep going, don't stop here."
 //
 
 enum class SlotStatus { EMPTY, OCCUPIED, DELETED };

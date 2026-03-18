@@ -7,9 +7,9 @@
 // ProbingHashTable — closed hashing / open addressing (linear probing)
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: images/probing_table_overview.png — flat array of HashSlots
-// ? SEE DIAGRAM: images/linear_probing_insert.png — collision resolved by scanning forward
-// ? SEE DIAGRAM: images/primary_clustering.png — occupied runs grow and merge
+// ? SEE DIAGRAM: Probing Hash Table — Flat Array of HashSlots  →  images/header_diagrams.md
+// ? SEE DIAGRAM: Probing vs. Chaining — Two Memory Layouts     →  images/header_diagrams.md
+// ? SEE DIAGRAM: Cache Locality — Why Probing Is Faster in Practice  →  images/header_diagrams.md
 //
 // ! DISCUSSION: Probing vs. Chaining — two different memory layouts.
 //   - ChainingHashTable uses ChainNode** — an array of pointers to linked lists
@@ -17,6 +17,7 @@
 //   - probing stores everything INSIDE the array itself — better cache locality
 //   - trade-off: probing is more sensitive to high load factors (clustering)
 //
+// ? SEE DIAGRAM: Load Factor Threshold — Why Resize at 0.75?  →  images/header_diagrams.md
 // ! DISCUSSION: Why a LOWER load factor threshold (0.75 vs 1.0)?
 //   - chaining can exceed 1.0 because chains can grow indefinitely
 //   - probing CANNOT exceed 1.0 — every entry must fit in the array
@@ -30,47 +31,55 @@
 //   - Prime table capacity to reduce clustering
 //   - MAX_LOAD_FACTOR = 0.75 — resize before the table gets too full
 //
-class ProbingHashTable {
+class ProbingHashTable
+{
 public:
-    explicit ProbingHashTable(int capacity = 7);    // 7 is prime — reduces hash
-                                                    // collisions vs a round number
-                                                    // like 8 or 10 (see hash())
+    // ! DISCUSSION: explicit — prevents the compiler from silently converting an int
+    //   into a ProbingHashTable. Without it, a function expecting a ProbingHashTable
+    //   could accidentally accept a bare int (e.g., foo(10) where foo takes a table).
+    //   explicit forces the caller to construct the object intentionally.
+    explicit ProbingHashTable(int capacity = 7); // 7 is prime — reduces hash
+                                                 // collisions vs a round number
+                                                 // like 8 or 10 (see hash())
     ~ProbingHashTable();
 
     // Rule of 5: no copy or move (dynamic resource, not needed for this CT)
-    ProbingHashTable(const ProbingHashTable&) = delete;
-    ProbingHashTable& operator=(const ProbingHashTable&) = delete;
-    ProbingHashTable(ProbingHashTable&&) = delete;
-    ProbingHashTable& operator=(ProbingHashTable&&) = delete;
+    ProbingHashTable(const ProbingHashTable &) = delete;
+    ProbingHashTable &operator=(const ProbingHashTable &) = delete;
+    ProbingHashTable(ProbingHashTable &&) = delete;
+    ProbingHashTable &operator=(ProbingHashTable &&) = delete;
 
-    void insert(const std::string& key, int value);  // add or update a key-value pair
-    int* search(const std::string& key) const;        // find value by key (nullptr if missing)
-    bool remove(const std::string& key);              // mark slot as DELETED (tombstone)
+    // ? SEE DIAGRAM: Linear Probing — Insert "Diana"  →  images/header_diagrams.md
+    void insert(const std::string &key, int value); // add or update a key-value pair
+    // ? SEE DIAGRAM: Linear Probing — Search          →  images/header_diagrams.md
+    int *search(const std::string &key) const; // find value by key (nullptr if missing)
+    // ? SEE DIAGRAM: Linear Probing — Remove           →  images/header_diagrams.md
+    bool remove(const std::string &key); // mark slot as DELETED (tombstone)
 
     // ! DISCUSSION: const after the parentheses — a promise not to modify the object.
     //   - search, hash, load_factor, print are const — they only READ data members
     //   - insert, remove, resize are NOT const — they CHANGE size_, table_, or capacity_
     //   - the compiler enforces this: a const method cannot modify any data member
 
-    size_t hash(const std::string& key) const;        // convert key to slot index [0, capacity_)
-    double load_factor() const;                       // size_ / capacity_ — fraction of table used
-    void resize();                                    // grow to next prime capacity and rehash all entries
-    void print() const;                               // display each slot's contents for debugging
+    size_t hash(const std::string &key) const; // convert key to slot index [0, capacity_)
+    double load_factor() const;                // size_ / capacity_ — fraction of table used
+    // ? SEE DIAGRAM: Resize — Rehash OCCUPIED, Clear Tombstones  →  images/header_diagrams.md
+    void resize();                             // grow to next prime capacity and rehash all entries
+    void print() const;                        // display each slot's contents for debugging
 
-    int size() const { return size_; }                // total live entries in the table
-    int capacity() const { return capacity_; }        // number of slots in the array
-    bool is_empty() const { return size_ == 0; }      // true when no entries stored
+    int size() const { return size_; }           // total live entries in the table
+    int capacity() const { return capacity_; }   // number of slots in the array
+    bool is_empty() const { return size_ == 0; } // true when no entries stored
 
 private:
     // ! DISCUSSION: A flat array of HashSlot structs (not pointers to chains).
     //   - each slot holds a key, value, and status directly in the array
     //   - no heap-allocated nodes, no next pointers — everything is contiguous
     //   - this is why probing has better cache performance than chaining
-    HashSlot* table_;           // flat array of HashSlot structs
-    int size_;                  // number of OCCUPIED entries (excludes DELETED)
-    int capacity_;              // total number of slots
+    HashSlot *table_; // flat array of HashSlot structs
+    int size_;        // number of OCCUPIED entries (excludes DELETED)
+    int capacity_;    // total number of slots
 
-    // ? SEE DIAGRAM: images/probing_resize.png — before/after resize
     // ? load factor = size_ / capacity_ — triggers resize when exceeded
     static constexpr double MAX_LOAD_FACTOR = 0.75;
     static int next_prime(int n);
