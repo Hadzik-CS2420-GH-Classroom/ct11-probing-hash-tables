@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+  <defs>
+    <marker id="arrowOrangeS" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e67e22"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="450" y="32" text-anchor="middle" fill="#1a1a1a" font-size="26" font-weight="bold">search() — Three Slot Outcomes</text>
+  <text x="450" y="52" text-anchor="middle" fill="#555" font-size="13">Hash to a starting index, then probe forward — EMPTY stops, DELETED keeps going</text>
+
+  <!-- ===== Code box (left) ===== -->
+  <rect x="30" y="62" width="440" height="254" rx="8" fill="#2c3e50" stroke="#1a252f" stroke-width="1.5"/>
+
+  <!-- Case 1 highlight band -->
+  <rect x="30" y="127" width="440" height="36" fill="#e74c3c20"/>
+  <!-- Case 2 highlight band -->
+  <rect x="30" y="180" width="440" height="50" fill="#2ecc7120"/>
+  <!-- Case 3 highlight band -->
+  <rect x="30" y="246" width="440" height="34" fill="#e67e2220"/>
+
+  <!-- Code lines -->
+  <text x="50" y="81"  fill="#95a5a6" font-size="11" font-family="'Consolas',monospace">// ProbingHashTable.cpp</text>
+  <text x="50" y="98"  fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">int* search(const string&amp; key) const {</text>
+  <text x="78" y="114" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">size_t index = hash(key);</text>
+  <text x="78" y="130" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">while (true) {</text>
+
+  <text x="106" y="145" fill="#e74c3c" font-size="12" font-family="'Consolas',monospace">// Case 1: EMPTY → not found</text>
+  <text x="106" y="161" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">if (status == EMPTY) {</text>
+  <text x="134" y="176" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">return nullptr; }</text>
+
+  <text x="106" y="193" fill="#2ecc71" font-size="12" font-family="'Consolas',monospace">// Case 2: OCCUPIED + key matches → found</text>
+  <text x="106" y="209" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">if (OCCUPIED &amp;&amp; key == key) {</text>
+  <text x="134" y="225" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">return &amp;table_[index].value; }</text>
+
+  <text x="106" y="258" fill="#f39c12" font-size="12" font-family="'Consolas',monospace">// Case 3: OCCUPIED (diff) or DELETED → probe</text>
+  <text x="106" y="274" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">index = (index + 1) % capacity_;</text>
+  <text x="78" y="290" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">}</text>
+  <text x="50" y="306" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">}</text>
+
+  <!-- ===== Right panel — three case outcomes ===== -->
+
+  <!-- Case 1: EMPTY — not found -->
+  <rect x="490" y="65" width="370" height="74" rx="7" fill="#fdedec" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="675" y="83" text-anchor="middle" fill="#e74c3c" font-size="13" font-weight="bold">Case 1 — EMPTY</text>
+  <rect x="505" y="90" width="80" height="34" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="545" y="113" text-anchor="middle" fill="#bbb" font-size="11" font-style="italic">[empty]</text>
+  <text x="610" y="105" text-anchor="start" fill="#e74c3c" font-size="12" font-weight="bold">→ NOT FOUND</text>
+  <text x="610" y="121" text-anchor="start" fill="#e74c3c" font-size="11">return nullptr</text>
+  <text x="610" y="134" text-anchor="start" fill="#777" font-size="10">slot was never used — stop</text>
+
+  <!-- Case 2: OCCUPIED + key matches — found -->
+  <rect x="490" y="149" width="370" height="78" rx="7" fill="#eafaf1" stroke="#2ecc71" stroke-width="1.5"/>
+  <text x="675" y="167" text-anchor="middle" fill="#27ae60" font-size="13" font-weight="bold">Case 2 — OCCUPIED, key matches</text>
+  <rect x="505" y="174" width="120" height="34" rx="5" fill="#2ecc71" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="565" y="192" text-anchor="middle" fill="#fff" font-size="12" font-family="'Consolas',monospace">Alice, 95</text>
+  <text x="565" y="204" text-anchor="middle" fill="#d5f5e3" font-size="9">OCCUPIED</text>
+  <text x="640" y="191" text-anchor="start" fill="#27ae60" font-size="12" font-weight="bold">→ FOUND</text>
+  <text x="640" y="207" text-anchor="start" fill="#27ae60" font-size="11">return &amp;value</text>
+
+  <!-- Case 3: OCCUPIED (different) or DELETED — keep probing -->
+  <rect x="490" y="237" width="370" height="78" rx="7" fill="#fef9e7" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="675" y="255" text-anchor="middle" fill="#e67e22" font-size="13" font-weight="bold">Case 3 — OCCUPIED (diff) or DELETED</text>
+  <rect x="505" y="263" width="110" height="34" rx="5" fill="#2ecc71" stroke="#e67e22" stroke-width="2.5"/>
+  <text x="560" y="281" text-anchor="middle" fill="#fff" font-size="12" font-family="'Consolas',monospace">Bob, 82</text>
+  <text x="560" y="293" text-anchor="middle" fill="#d5f5e3" font-size="9">OCCUPIED</text>
+  <rect x="645" y="263" width="90" height="34" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="690" y="283" text-anchor="middle" fill="#bbb" font-size="11" font-style="italic">next slot…</text>
+  <line x1="617" y1="280" x2="643" y2="280" stroke="#e67e22" stroke-width="2" marker-end="url(#arrowOrangeS)"/>
+  <text x="745" y="278" text-anchor="start" fill="#e67e22" font-size="12" font-weight="bold">→ index + 1</text>
+  <text x="745" y="292" text-anchor="start" fill="#e67e22" font-size="11">% capacity_</text>
+
+  <!-- Note box -->
+  <rect x="30" y="328" width="840" height="26" rx="8" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="450" y="345" text-anchor="middle" fill="#555" font-size="12">DELETED means "keep probing" — someone was here, so the key might be past this slot</text>
+</svg>

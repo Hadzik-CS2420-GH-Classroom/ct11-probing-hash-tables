@@ -7,9 +7,9 @@
 // ProbingHashTable — closed hashing / open addressing (linear probing)
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: Probing Hash Table — Flat Array of HashSlots  →  images/diagrams.md
-// ? SEE DIAGRAM: Probing vs. Chaining — Two Memory Layouts     →  images/diagrams.md
-// ? SEE DIAGRAM: Cache Locality — Why Probing Is Faster in Practice  →  images/diagrams.md
+// ? SEE DIAGRAM: Probing Hash Table — Flat Array of HashSlots  →  images/header_diagrams.md
+// ? SEE DIAGRAM: Probing vs. Chaining — Two Memory Layouts     →  images/header_diagrams.md
+// ? SEE DIAGRAM: Cache Locality — Why Probing Is Faster in Practice  →  images/header_diagrams.md
 //
 // ! DISCUSSION: Probing vs. Chaining — two different memory layouts.
 //   - ChainingHashTable uses ChainNode** — an array of pointers to linked lists
@@ -17,7 +17,7 @@
 //   - probing stores everything INSIDE the array itself — better cache locality
 //   - trade-off: probing is more sensitive to high load factors (clustering)
 //
-// ? SEE DIAGRAM: Load Factor Threshold — Why Resize at 0.75?  →  images/diagrams.md
+// ? SEE DIAGRAM: Load Factor Threshold — Why Resize at 0.75?  →  images/header_diagrams.md
 // ! DISCUSSION: Why a LOWER load factor threshold (0.75 vs 1.0)?
 //   - chaining can exceed 1.0 because chains can grow indefinitely
 //   - probing CANNOT exceed 1.0 — every entry must fit in the array
@@ -49,11 +49,11 @@ public:
     ProbingHashTable(ProbingHashTable &&) = delete;
     ProbingHashTable &operator=(ProbingHashTable &&) = delete;
 
-    // ? SEE DIAGRAM: Linear Probing — Insert "Diana"  →  images/diagrams.md
+    // ? SEE DIAGRAM: Linear Probing — Insert "Diana"  →  images/header_diagrams.md
     void insert(const std::string &key, int value); // add or update a key-value pair
-    // ? SEE DIAGRAM: Linear Probing — Search          →  images/diagrams.md
+    // ? SEE DIAGRAM: Linear Probing — Search          →  images/header_diagrams.md
     int *search(const std::string &key) const; // find value by key (nullptr if missing)
-    // ? SEE DIAGRAM: Linear Probing — Remove           →  images/diagrams.md
+    // ? SEE DIAGRAM: Linear Probing — Remove           →  images/header_diagrams.md
     bool remove(const std::string &key); // mark slot as DELETED (tombstone)
 
     // ! DISCUSSION: const after the parentheses — a promise not to modify the object.
@@ -63,6 +63,7 @@ public:
 
     size_t hash(const std::string &key) const; // convert key to slot index [0, capacity_)
     double load_factor() const;                // size_ / capacity_ — fraction of table used
+    // ? SEE DIAGRAM: Resize — Rehash OCCUPIED, Clear Tombstones  →  images/header_diagrams.md
     void resize();                             // grow to next prime capacity and rehash all entries
     void print() const;                        // display each slot's contents for debugging
 

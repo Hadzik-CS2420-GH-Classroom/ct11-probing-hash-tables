@@ -16,10 +16,10 @@
 
   <text x="50" y="82"  fill="#95a5a6" font-size="11" font-family="'Consolas',monospace">// ProbingHashTable.cpp</text>
   <text x="50" y="101" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">ProbingHashTable(int capacity)</text>
-  <text x="50" y="118" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">    : size_(0), capacity_(capacity) {</text>
-  <text x="50" y="138" fill="#f39c12" font-size="12" font-family="'Consolas',monospace" font-weight="bold">    table_ = new HashSlot[capacity_];</text>
-  <text x="50" y="157" fill="#7f8c8d" font-size="12" font-family="'Consolas',monospace">    // default ctor runs for each slot:</text>
-  <text x="50" y="174" fill="#7f8c8d" font-size="12" font-family="'Consolas',monospace">    //   status=EMPTY, key="", value=0</text>
+  <text x="78" y="118" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">: size_(0), capacity_(capacity) {</text>
+  <text x="78" y="138" fill="#f39c12" font-size="12" font-family="'Consolas',monospace" font-weight="bold">table_ = new HashSlot[capacity_];</text>
+  <text x="78" y="157" fill="#7f8c8d" font-size="12" font-family="'Consolas',monospace">// default ctor runs for each slot:</text>
+  <text x="78" y="174" fill="#7f8c8d" font-size="12" font-family="'Consolas',monospace">//   status=EMPTY, key="", value=0</text>
   <text x="50" y="195" fill="#ecf0f1" font-size="12" font-family="'Consolas',monospace">}</text>
 
   <!-- ===== Stack frame grid (right) ===== -->

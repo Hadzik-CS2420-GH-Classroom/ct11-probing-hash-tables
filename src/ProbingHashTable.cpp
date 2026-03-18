@@ -36,7 +36,7 @@ int ProbingHashTable::next_prime(int n) {
 // 1. Constructor
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: Constructor — Allocating the Slot Array  →  images/diagrams.md
+// ? SEE DIAGRAM: Constructor — Allocating the Slot Array  →  images/cpp_diagrams.md
 //
 // ! DISCUSSION: The slot array — new HashSlot[capacity_]
 //   - new allocates a contiguous array of HashSlot structs on the heap
@@ -74,7 +74,7 @@ ProbingHashTable::~ProbingHashTable() {
 // 3. hash() — custom hash function                             [same as CT10]
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: Linear Probing — Insert "Diana"  →  images/diagrams.md
+// ? SEE DIAGRAM: Linear Probing — Insert "Diana"  →  images/header_diagrams.md
 //
 // ! DISCUSSION: Same algorithm as ChainingHashTable — the hash function
 //   doesn't care how collisions are resolved.
@@ -98,9 +98,9 @@ size_t ProbingHashTable::hash(const std::string& key) const {
 // 4. insert() — add or update a key-value pair
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: insert() — Three Probe Outcomes              →  images/diagrams.md
-// ? SEE DIAGRAM: Linear Probing — Insert "Diana"              →  images/diagrams.md
-// ? SEE DIAGRAM: Primary Clustering — Why Probing Slows Down  →  images/diagrams.md
+// ? SEE DIAGRAM: insert() — Three Probe Outcomes              →  images/cpp_diagrams.md
+// ? SEE DIAGRAM: Linear Probing — Insert "Diana"              →  images/header_diagrams.md
+// ? SEE DIAGRAM: Primary Clustering — Why Probing Slows Down  →  images/cpp_diagrams.md
 //
 // ! DISCUSSION: Check load factor BEFORE inserting (not after, like chaining).
 //   - probing cannot work when the table is full — there's nowhere to probe to
@@ -119,7 +119,7 @@ void ProbingHashTable::insert(const std::string& key, int value) {
         resize();
     }
 
-    size_t index = hash(key);
+    size_t index = hash(key);           // ? starting slot — probe forward from here
 
     // ? Linear probe: step forward one slot at a time, wrapping around
     while (true) {
@@ -148,8 +148,9 @@ void ProbingHashTable::insert(const std::string& key, int value) {
 // 5. search() — find a value by key
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: Linear Probing — Search  →  images/diagrams.md
-// ? SEE DIAGRAM: Tombstone Pattern — Why DELETED, Not EMPTY  →  images/diagrams.md
+// ? SEE DIAGRAM: search() — Three Slot Outcomes              →  images/cpp_diagrams.md
+// ? SEE DIAGRAM: Linear Probing — Search                     →  images/header_diagrams.md
+// ? SEE DIAGRAM: Tombstone Pattern — Why DELETED, Not EMPTY  →  images/cpp_diagrams.md
 //
 // ! DISCUSSION: Three slot states mean three different actions during search.
 //   - OCCUPIED + matching key → FOUND — return pointer to the value
@@ -188,7 +189,8 @@ int* ProbingHashTable::search(const std::string& key) const {
 // 6. remove() — mark a slot as DELETED (tombstone)
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: Tombstone Pattern — Why DELETED, Not EMPTY  →  images/diagrams.md
+// ? SEE DIAGRAM: remove() — Three Slot Outcomes              →  images/cpp_diagrams.md
+// ? SEE DIAGRAM: Tombstone Pattern — Why DELETED, Not EMPTY  →  images/cpp_diagrams.md
 //
 // ! DISCUSSION: Why not set the slot to EMPTY?
 //   - setting to EMPTY would break the probe sequence for keys that were
@@ -229,7 +231,7 @@ bool ProbingHashTable::remove(const std::string& key) {
 // 7. load_factor()                                             [same as CT10]
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: Resize — Rehash OCCUPIED, Clear Tombstones  →  images/diagrams.md
+// ? SEE DIAGRAM: Resize — Rehash OCCUPIED, Clear Tombstones  →  images/header_diagrams.md
 //
 // ! DISCUSSION: load_factor = size / capacity (cast to double!).
 //   - for probing, load factor CANNOT exceed 1.0 (every entry is in the array)
@@ -246,7 +248,8 @@ double ProbingHashTable::load_factor() const {
 // 8. resize()
 // ---------------------------------------------------------------------------
 //
-// ? SEE DIAGRAM: Resize — Rehash OCCUPIED, Clear Tombstones  →  images/diagrams.md
+// ? SEE DIAGRAM: resize() — Rehash and Clear Tombstones      →  images/cpp_diagrams.md
+// ? SEE DIAGRAM: Resize — Rehash OCCUPIED, Clear Tombstones  →  images/header_diagrams.md
 //
 // ! DISCUSSION: Resize is O(n) — every OCCUPIED entry must be rehashed.
 //   - save the old array, allocate a new larger prime array
