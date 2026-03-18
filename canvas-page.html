@@ -1,0 +1,353 @@
+<!-- Canvas LMS HTML Fragment — paste into the Rich Content Editor (HTML view) -->
+
+<h2>👨‍💻 Code-Together 11: Probing Hash Tables</h2>
+
+<h3>&#x1F3AF; Overview</h3>
+<p>An in-class code-together activity introducing <strong>linear probing (closed hashing / open addressing)</strong> &mdash; the second collision resolution strategy after CT10&#x2019;s separate chaining. Students build a <code>ProbingHashTable</code> that stores entries directly in a flat array, resolves collisions by scanning forward one slot at a time, and uses <strong>tombstone deletion</strong> to preserve probe sequences. The activity covers load factor monitoring with a lower threshold (0.75 vs chaining&#x2019;s 1.0) and resizing with rehashing that clears tombstones. The scenario continues the professor&#x2019;s grade book: student names are keys, integer grades are values.</p>
+
+<h3>&#x1F4D6; Learning Objectives</h3>
+<p>By completing this activity, you will be able to:</p>
+<ul>
+    <li>Implement <strong>linear probing (closed hashing)</strong>: collisions resolved by scanning forward to the next open slot in a flat array</li>
+    <li>Explain why probing uses a <strong>lower load factor threshold</strong> (0.75 vs 1.0) &mdash; primary clustering makes probe sequences longer as the table fills</li>
+    <li>Implement <strong>tombstone deletion</strong>: removed entries are marked DELETED rather than EMPTY so probe sequences for other keys are not broken</li>
+    <li>Explain the <strong>three slot states</strong> (EMPTY, OCCUPIED, DELETED) and how each affects insert, search, and remove operations</li>
+    <li>Implement <strong>resize with tombstone cleanup</strong>: only OCCUPIED entries are rehashed, clearing all tombstones for a clean table</li>
+    <li>Compare <strong>probing vs chaining</strong> trade-offs: cache locality vs clustering sensitivity, flat array vs pointer chains</li>
+</ul>
+
+<h3>&#x1F680; Getting Started</h3>
+
+<h4>Step 1: Accept the Assignment</h4>
+<p>Click the button below to create your personal repository:</p>
+<p><a style="display: inline-block; padding: 10px 24px; font-size: 1em; font-weight: 600; color: #fff; background-color: #0b874b; border-radius: 4px; text-decoration: none;" href="PLACEHOLDER_GITHUB_CLASSROOM_LINK" target="_blank" rel="noopener">Accept Assignment on GitHub</a></p>
+
+<div style="padding: 14px 18px; border-radius: 4px; margin-bottom: 16px; background-color: #fcf8e3; border: 1px solid #faebcc; color: #8a6d3b;">
+    <strong>Repository Access Issue?</strong><br />
+    If you don&#x2019;t see the repository after accepting, check your email for the GitHub invite.
+</div>
+
+<h4>Step 2: Clone in Visual Studio</h4>
+<ol>
+    <li>Open <strong>Visual Studio</strong></li>
+    <li>On the start window, click <strong>&#x201C;Clone a repository&#x201D;</strong></li>
+    <li>Paste your repository URL (from GitHub) into the <strong>Repository location</strong> field</li>
+    <li>Choose a local path and click <strong>Clone</strong></li>
+    <li>Visual Studio should automatically detect the CMake project and configure it</li>
+</ol>
+
+<div style="padding: 14px 18px; border-radius: 4px; margin-bottom: 16px; background-color: #d9edf7; border: 1px solid #bce8f1; color: #31708f;">
+    Follow the <strong>Troubleshooting</strong> section at the bottom if CMake does not configure automatically.
+</div>
+
+<h4>Step 3: Wait for CMake Configuration</h4>
+<p>Visual Studio will automatically run CMake. Watch the <strong>Output</strong> window (<em>View &rarr; Output</em>, select <em>&#x201C;Show output from: CMake&#x201D;</em>) until you see:</p>
+<pre style="background-color: #1e1e1e; color: #d4d4d4; padding: 16px 20px; border-radius: 4px; overflow-x: auto; font-family: 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace; font-size: 0.875em; line-height: 1.6;">CMake generation finished.</pre>
+
+<h3>&#x1F4DD; What You&#x2019;ll Do</h3>
+<p>Open each source file and complete the <code>TODO</code> comments. Each TODO tells you what to write, and the <strong>DISCUSSION</strong> comments explain the &#x201C;why&#x201D; behind the code. We&#x2019;ll work through these together in class.</p>
+
+<h3>&#x1F4DA; Teaching Order</h3>
+<p>Work through the files in order:</p>
+
+<h4>1. <code>HashSlot.h</code> &mdash; The slot structure</h4>
+<p>Walk through the HashSlot struct and SlotStatus enum. Understand why three states are needed.</p>
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5; font-weight: 700;">Section</th>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5; font-weight: 700;">What You&#x2019;ll Learn</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">SlotStatus enum</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">EMPTY (never used), OCCUPIED (live entry), DELETED (tombstone) &mdash; three states that control probing behavior</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">HashSlot struct</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Key, value, and status fields; default constructor sets status to EMPTY</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>2. <code>ProbingHashTable.h</code> &mdash; Class declaration</h4>
+<p>Compare to CT10&#x2019;s ChainingHashTable.h. Highlight the key differences.</p>
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5; font-weight: 700;">Section</th>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5; font-weight: 700;">What You&#x2019;ll Learn</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>HashSlot*</code> vs <code>ChainNode**</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Flat array of structs vs array of linked list pointers &mdash; everything lives in the array itself</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>MAX_LOAD_FACTOR = 0.75</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Lower threshold than chaining&#x2019;s 1.0 because primary clustering worsens as the table fills</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Same interface</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">insert, search, remove, hash, load_factor, resize, print &mdash; same operations, different internals</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>3. <code>ProbingHashTable.cpp</code> &mdash; Linear probing implementation (0 TODOs)</h4>
+<p>All code is given &mdash; students follow along as the instructor walks through each method.</p>
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5; font-weight: 700;">Section</th>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5; font-weight: 700;">What You&#x2019;ll Learn</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">1. Constructor</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Allocate <code>HashSlot</code> array; default constructor sets every slot to EMPTY</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">2. Destructor</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Simple <code>delete[] table_</code> &mdash; no chains to walk (contrast with chaining)</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">3. <code>hash()</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Same multiply-and-add algorithm (&#xd7;31) as CT10; hash function doesn&#x2019;t care about collision strategy</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">4. <code>insert()</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Resize before inserting if load factor would exceed 0.75; probe forward with <code>(index + 1) % capacity_</code> until finding EMPTY, DELETED, or matching key</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">5. <code>search()</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Probe forward: OCCUPIED + match = found, DELETED = keep probing, EMPTY = not found</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">6. <code>remove()</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Find the key, set status to DELETED (tombstone); explain why EMPTY would break probe chains</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">7. <code>load_factor()</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Same formula as CT10, lower threshold; discuss clustering impact at high load factors</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">8. <code>resize()</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Save old array, allocate new prime-sized array, rehash only OCCUPIED entries &mdash; tombstones are cleared</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">9. <code>print()</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Display each slot: entry, [empty], or [deleted]</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>4. <code>main.cpp</code> &mdash; Professor&#x2019;s Grade Book (8 TODOs)</h4>
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5; font-weight: 700;">Section</th>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5; font-weight: 700;">What You&#x2019;ll Learn</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">TODO 1 &mdash; Insert students</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Add 5 students with grades; observe how collisions create consecutive occupied slots</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">TODO 2 &mdash; Print table</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">View slot layout and load factor; notice primary clustering (consecutive occupied slots)</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">TODO 3 &mdash; Search</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Look up Charlie (found) and Frank (not found &mdash; hits EMPTY); <code>int*</code> vs <code>nullptr</code></td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">TODO 4 &mdash; Update</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Update Bob&#x2019;s grade via insert with existing key</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">TODO 5 &mdash; Remove</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Remove Diana; slot becomes [deleted] tombstone</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">TODO 6 &mdash; Search past tombstone</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Search for Eve probes past Diana&#x2019;s tombstone &mdash; proves DELETED doesn&#x2019;t break the chain</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">TODO 7 &mdash; Resize</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Insert Frank and Grace; triggers resize at 0.75 threshold; tombstones cleared</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">TODO 8 &mdash; Final print</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Clean table after resize: no tombstones, lower load factor, new positions</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>&#x1F5BC;&#xFE0F; Diagrams</h3>
+<p>Sixteen diagrams are included in the <code>images/</code> folder and referenced in the source code comments. These help visualize what&#x2019;s happening:</p>
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5; font-weight: 700;">Diagram</th>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5; font-weight: 700;">Shows</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>slot_status_enum</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">The three slot states: EMPTY, OCCUPIED, DELETED and how each affects probing</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>probing_table_overview</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Flat array layout with HashSlot structs; contrast with chaining&#x2019;s bucket-and-chain structure</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>constructor_allocation</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Constructor creating the HashSlot array; all slots initialized to EMPTY</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>linear_probing_insert</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Collision at index 4, probing forward to find open slot at index 5</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>insert_implementation</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Code walkthrough of the insert method&#x2019;s probing loop and slot assignment</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>linear_probing_search</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Search probing past occupied slots; found vs not found (EMPTY stops the search)</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>search_implementation</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Code walkthrough of the search method&#x2019;s three-state logic</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>tombstone_pattern</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Why DELETED is needed: removing with EMPTY would break a probe sequence for a later key</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>linear_probing_remove</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Remove sets slot to DELETED; search still finds entries past the tombstone</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>remove_implementation</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Code walkthrough of the remove method&#x2019;s find-and-mark logic</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>primary_clustering</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Consecutive occupied slots grow and merge, making collisions more likely</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>load_factor_threshold</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Why probing uses 0.75 threshold: probe lengths spike as load factor approaches 1.0</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>probing_resize</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Before/after resize: entries rehashed into larger table, tombstones disappear</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>resize_implementation</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Code walkthrough of save-old, allocate-new, rehash-occupied, delete-old pattern</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>cache_locality</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Probing&#x2019;s contiguous memory vs chaining&#x2019;s scattered heap nodes</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>probing_vs_chaining</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Side-by-side comparison of both strategies: trade-offs summary</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>&#x1F4CA; Grading (30 points)</h3>
+<p>Your code is auto-graded by GitHub Classroom when you push. Tests check that each TODO produces the correct output.</p>
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; background-color: #f5f5f5; font-weight: 700;">Category</th>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; background-color: #f5f5f5; font-weight: 700;">Points</th>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; background-color: #f5f5f5; font-weight: 700;">What is tested</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Build</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">2</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Project compiles without errors</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>hash()</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">3</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Consistent results, values within range [0, capacity)</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Probing insert</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">4</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Linear probing finds open slot, handles duplicates, handles collisions</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Probing search</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">4</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Finds existing keys, returns nullptr for missing, handles collisions</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Probing remove (tombstone)</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">5</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Sets tombstone, doesn&#x2019;t break probe sequences, returns false for missing</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Probing resize</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">4</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Triggers on high load, all entries survive, tombstones cleared</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Tombstone correctness</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">5</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Search probes past tombstone, insert reuses tombstone slot, multiple tombstones</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Print</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">3</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Handles empty table, shows entries, shows tombstones</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px; font-weight: 700; background-color: #f5f5f5;"><strong>Total</strong></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px; font-weight: 700; background-color: #f5f5f5;"><strong>30</strong></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px; background-color: #f5f5f5;"></td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>&#x1F527; Troubleshooting</h3>
+
+<h4>CMake does not configure automatically</h4>
+<ol>
+    <li>Make sure you have <strong>Desktop development with C++</strong> workload installed in Visual Studio</li>
+    <li>Go to <em>Project &rarr; CMake Settings</em> and ensure the configuration is correct</li>
+    <li>Try <em>Project &rarr; Delete Cache and Reconfigure</em></li>
+    <li>Verify that <code>CMakeLists.txt</code> is in the root of your cloned repository</li>
+</ol>
+
+<h4>Tests fail to build</h4>
+<ul>
+    <li>Google Test is fetched automatically via CMake&#x2019;s <code>FetchContent</code> &mdash; make sure you have an internet connection during the first build</li>
+    <li>Do <strong>not</strong> modify header files in the <code>include/</code> folder</li>
+</ul>
+
+<h4>Running the Program</h4>
+<ol>
+    <li>In Visual Studio, select <code>ct11-probing-hash-tables.exe</code> as the startup item from the dropdown</li>
+    <li>Press <strong>Ctrl+F5</strong> to run without debugging</li>
+    <li>You should see output from each section as you complete the TODOs</li>
+</ol>
+
+<div style="padding: 14px 18px; border-radius: 4px; margin-bottom: 16px; background-color: #dff0d8; border: 1px solid #d6e9c6; color: #3c763d;">
+    <strong>Tip:</strong> Look for the <code>// ! DISCUSSION:</code> comments in each file &mdash; these explain the &#x201C;why&#x201D; behind each concept. The <code>// ? SEE DIAGRAM:</code> comments point you to visual aids in the <code>images/</code> folder.
+</div>
