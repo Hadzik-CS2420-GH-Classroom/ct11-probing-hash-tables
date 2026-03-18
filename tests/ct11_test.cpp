@@ -270,12 +270,15 @@ TEST(ProbingResize, TombstonesCleared) {
     EXPECT_EQ(table.size(), 2);
 
     // Insert enough to trigger resize (need size+1 / capacity > 0.75)
-    // size=2, capacity=7: need (2+1)/7=0.43 — still under
-    // Add more entries to push past threshold
+    // size=2 after removes, capacity=7
+    // Eve:   (2+1)/7=0.43 → no resize, size=3
+    // Frank: (3+1)/7=0.57 → no resize, size=4
+    // Grace: (4+1)/7=0.71 → no resize, size=5
+    // Hank:  (5+1)/7=0.86 > 0.75 → resize triggered!
     table.insert("Eve", 88);
     table.insert("Frank", 73);
     table.insert("Grace", 96);
-    // size=5, capacity=7: (5+1)/7=0.86 > 0.75 → resize triggered on Grace's insert
+    table.insert("Hank", 65);
 
     EXPECT_GT(table.capacity(), 7);
 
@@ -285,6 +288,7 @@ TEST(ProbingResize, TombstonesCleared) {
     EXPECT_NE(table.search("Eve"), nullptr);
     EXPECT_NE(table.search("Frank"), nullptr);
     EXPECT_NE(table.search("Grace"), nullptr);
+    EXPECT_NE(table.search("Hank"), nullptr);
 
     // Removed entries should still be gone
     EXPECT_EQ(table.search("Alice"), nullptr);
