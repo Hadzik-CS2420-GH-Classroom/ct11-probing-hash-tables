@@ -1,0 +1,263 @@
+name: Autograding Tests
+on:
+  - push
+  - repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Build Project
+      continue-on-error: true
+      run: |
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+        cmake --build build --config Release
+
+    - name: Build Check (2 points)
+      id: build
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Build Check (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            echo "Build successful"
+          else
+            echo "Build failed" && exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    # ==================== Hash Function Tests (4 points) ====================
+
+    - name: Hash Consistent Results (2 points)
+      id: hash-consistent
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Hash Consistent Results (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=HashFunction.ConsistentResults
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    - name: Hash Within Range (2 points)
+      id: hash-range
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Hash Within Range (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=HashFunction.WithinRange
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    # ==================== Insert Tests (6 points) ====================
+
+    - name: Insert Basic (2 points)
+      id: insert-basic
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Insert Basic (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=ProbingInsert.BasicInsert
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    - name: Insert Update Existing Key (2 points)
+      id: insert-update
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Insert Update Existing Key (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=ProbingInsert.UpdateExistingKey
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    - name: Insert Handles Collisions Via Probing (2 points)
+      id: insert-collisions
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Insert Handles Collisions Via Probing (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=ProbingInsert.HandlesCollisionsViaProbing
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    # ==================== Search Tests (4 points) ====================
+
+    - name: Search Finds Existing Key (2 points)
+      id: search-finds
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Search Finds Existing Key (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=ProbingSearch.FindsExistingKey
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    - name: Search Finds After Collision (2 points)
+      id: search-collision
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Search Finds After Collision (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=ProbingSearch.FindsAfterCollision
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    # ==================== Remove / Tombstone Tests (8 points) ====================
+
+    - name: Remove Sets Tombstone (2 points)
+      id: remove-tombstone
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Remove Sets Tombstone (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=ProbingRemove.SetsTombstone
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    - name: Remove Does Not Break Search (2 points)
+      id: remove-doesnt-break
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Remove Does Not Break Search (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=ProbingRemove.DoesNotBreakSearch
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    - name: Remove Returns False For Missing (2 points)
+      id: remove-missing
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Remove Returns False For Missing (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=ProbingRemove.ReturnsFalseForMissing
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    - name: Tombstone Search Probes Past (2 points)
+      id: tombstone-search
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Tombstone Search Probes Past (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=Tombstone.SearchProbesPastTombstone
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    # ==================== Resize Tests (6 points) ====================
+
+    - name: Resize Triggers On High Load Factor (3 points)
+      id: resize-triggers
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Resize Triggers On High Load Factor (3 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=ProbingResize.TriggersOnHighLoadFactor
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 3
+
+    - name: Resize Tombstones Cleared (3 points)
+      id: resize-tombstones
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Resize Tombstones Cleared (3 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=ProbingResize.TombstonesCleared
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 3
+
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        BUILD_RESULTS:              "${{steps.build.outputs.result}}"
+        HASH-CONSISTENT_RESULTS:    "${{steps.hash-consistent.outputs.result}}"
+        HASH-RANGE_RESULTS:         "${{steps.hash-range.outputs.result}}"
+        INSERT-BASIC_RESULTS:       "${{steps.insert-basic.outputs.result}}"
+        INSERT-UPDATE_RESULTS:      "${{steps.insert-update.outputs.result}}"
+        INSERT-COLLISIONS_RESULTS:  "${{steps.insert-collisions.outputs.result}}"
+        SEARCH-FINDS_RESULTS:       "${{steps.search-finds.outputs.result}}"
+        SEARCH-COLLISION_RESULTS:   "${{steps.search-collision.outputs.result}}"
+        REMOVE-TOMBSTONE_RESULTS:   "${{steps.remove-tombstone.outputs.result}}"
+        REMOVE-DOESNT-BREAK_RESULTS: "${{steps.remove-doesnt-break.outputs.result}}"
+        REMOVE-MISSING_RESULTS:     "${{steps.remove-missing.outputs.result}}"
+        TOMBSTONE-SEARCH_RESULTS:   "${{steps.tombstone-search.outputs.result}}"
+        RESIZE-TRIGGERS_RESULTS:    "${{steps.resize-triggers.outputs.result}}"
+        RESIZE-TOMBSTONES_RESULTS:  "${{steps.resize-tombstones.outputs.result}}"
+      with:
+        runners: build,hash-consistent,hash-range,insert-basic,insert-update,insert-collisions,search-finds,search-collision,remove-tombstone,remove-doesnt-break,remove-missing,tombstone-search,resize-triggers,resize-tombstones
