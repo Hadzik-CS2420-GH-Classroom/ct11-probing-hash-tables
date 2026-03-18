@@ -21,7 +21,7 @@ int main() {
               << ", capacity=" << grade_book.capacity() << "\n\n";
 
     // -----------------------------------------------------------------------
-    // TODO 1: Insert five student grades into the probing table
+    // 1. Insert five student grades into the probing table
     // -----------------------------------------------------------------------
     //
     // ! DISCUSSION: Same five students as CT10 — but now collisions are
@@ -38,7 +38,7 @@ int main() {
     std::cout << "  Inserted 5 students (size=" << grade_book.size() << ")\n";
 
     // -----------------------------------------------------------------------
-    // TODO 2: Print the table to see the slot layout (notice clustering)
+    // 2. Print the table to see the slot layout (notice clustering)
     // -----------------------------------------------------------------------
     //
     // ! DISCUSSION: Compare this output to CT10's chaining table.
@@ -51,7 +51,7 @@ int main() {
     std::cout << "  Load factor: " << grade_book.load_factor() << "\n";
 
     // -----------------------------------------------------------------------
-    // TODO 3: Search for existing and missing students
+    // 3. Search for existing and missing students
     // -----------------------------------------------------------------------
     //
     // ! DISCUSSION: Search probes forward from the hash index.
@@ -72,7 +72,7 @@ int main() {
     }
 
     // -----------------------------------------------------------------------
-    // TODO 4: Update Bob's grade (insert with existing key)
+    // 4. Update Bob's grade (insert with existing key)
     // -----------------------------------------------------------------------
     //
     // ! DISCUSSION: Inserting a duplicate key updates the value — no duplicates.
@@ -85,7 +85,7 @@ int main() {
     std::cout << "  Bob's updated grade: " << *grade << "\n";
 
     // -----------------------------------------------------------------------
-    // TODO 5: Remove Diana — demonstrate tombstone pattern
+    // 5. Remove Diana — demonstrate tombstone pattern
     // -----------------------------------------------------------------------
     //
     // ? SEE DIAGRAM: Tombstone Pattern — Why DELETED, Not EMPTY  →  images/cpp_diagrams.md
@@ -103,7 +103,7 @@ int main() {
     grade_book.print();
 
     // -----------------------------------------------------------------------
-    // TODO 6: Search for Eve — probes past Diana's tombstone
+    // 6. Search for Eve — probes past Diana's tombstone
     // -----------------------------------------------------------------------
     //
     // ! DISCUSSION: Eve's hash index may be before Diana's old slot.
@@ -121,7 +121,7 @@ int main() {
     }
 
     // -----------------------------------------------------------------------
-    // TODO 7: Insert Frank and Grace — trigger resize, tombstones cleared
+    // 7. Insert Frank and Grace — trigger resize, tombstones cleared
     // -----------------------------------------------------------------------
     //
     // ? SEE DIAGRAM: Resize — Rehash OCCUPIED, Clear Tombstones  →  images/header_diagrams.md
@@ -147,7 +147,7 @@ int main() {
               << ", load_factor=" << grade_book.load_factor() << "\n";
 
     // -----------------------------------------------------------------------
-    // TODO 8: Final print showing clean table after resize
+    // 8. Final print showing clean table after resize
     // -----------------------------------------------------------------------
     //
     // ! DISCUSSION: Notice the differences after resize.
