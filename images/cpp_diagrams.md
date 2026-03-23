@@ -50,3 +50,10 @@ Code-block diagrams referenced from `ProbingHashTable.cpp`.
 *`ProbingHashTable.cpp::resize()` — code alongside the three steps: save old, rehash OCCUPIED, free old*
 
 ![resize() — Rehash and Clear Tombstones](svgs/resize_implementation.svg)
+
+---
+
+## 8. Insert + Tombstone Trap — Duplicate Key Bug
+*`ProbingHashTable.cpp::insert()` — why stopping at a DELETED slot without checking further can create duplicate keys*
+
+![Insert + Tombstone Trap — Duplicate Key Bug](svgs/insert_tombstone_trap.svg)

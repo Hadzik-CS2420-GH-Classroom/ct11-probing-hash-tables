@@ -108,8 +108,20 @@ size_t ProbingHashTable::hash(const std::string& key) const {
 //   - chaining can insert first because chains can always grow (just add a node)
 //   - probing must ensure there's room BEFORE attempting the probe sequence
 //
-// ! DISCUSSION: Three outcomes when probing forward:
-//   - EMPTY or DELETED slot → place the new entry here, set to OCCUPIED
+// ? SEE DIAGRAM: Insert + Tombstone Trap                      →  images/cpp_diagrams.md
+//
+// ! DISCUSSION: Why we can't just stop at the first DELETED slot:
+//   - if a key was inserted PAST a slot that is now DELETED, stopping at the
+//     tombstone would place a DUPLICATE without finding the existing entry
+//   - example: Bob at slot 2, Eve at slot 3 (collision). Remove Bob (slot 2 = DELETED).
+//     Insert Eve again -- hash gives slot 2 (DELETED). If we stop here, Eve is
+//     at BOTH slot 2 AND slot 3. search/remove will find the wrong one.
+//   - FIX: remember the first tombstone as a candidate, but keep probing until
+//     we find the key (update it) or hit EMPTY (key doesn't exist, use the tombstone)
+//
+// ! DISCUSSION: Four outcomes when probing forward:
+//   - EMPTY slot → key not in table. Use saved tombstone if we passed one, else use this slot.
+//   - DELETED slot → save its position (first time only), keep probing for duplicate
 //   - OCCUPIED slot with the SAME key → update the value (no duplicate keys)
 //   - OCCUPIED slot with a DIFFERENT key → keep probing: (index + 1) % capacity_
 //
@@ -119,13 +131,17 @@ void ProbingHashTable::insert(const std::string& key, int value) {
         resize();
     }
 
-    size_t index = hash(key);           // ? starting slot — probe forward from here
+    size_t index = hash(key);           // ? starting slot -- probe forward from here
+    int first_deleted = -1;             // ? remember first tombstone we pass
 
     // ? Linear probe: step forward one slot at a time, wrapping around
     while (true) {
-        // ── Case 1: EMPTY or DELETED — place entry here ──
-        if (table_[index].status == SlotStatus::EMPTY ||
-            table_[index].status == SlotStatus::DELETED) {
+        // ── Case 1: EMPTY — key is definitely not in the table ──
+        if (table_[index].status == SlotStatus::EMPTY) {
+            // If we passed a tombstone, reuse that slot (closer to hash position)
+            if (first_deleted != -1) {
+                index = first_deleted;
+            }
             table_[index].key = key;
             table_[index].value = value;
             table_[index].status = SlotStatus::OCCUPIED;
@@ -133,13 +149,20 @@ void ProbingHashTable::insert(const std::string& key, int value) {
             return;
         }
 
-        // ── Case 2: OCCUPIED with same key — update value ──
-        if (table_[index].key == key) {
-            table_[index].value = value;        // key exists — update its value
+        // ── Case 2: DELETED — save position, keep probing for duplicate ──
+        if (table_[index].status == SlotStatus::DELETED) {
+            if (first_deleted == -1) {
+                first_deleted = index;  // ? save first tombstone as candidate
+            }
+            // do NOT place the entry here yet -- the key might exist further along
+        }
+        // ── Case 3: OCCUPIED with same key — update value ──
+        else if (table_[index].key == key) {
+            table_[index].value = value;        // key exists -- update its value
             return;                             // done, size doesn't change
         }
 
-        // ── Case 3: OCCUPIED with different key — keep probing ──
+        // ── Case 4: OCCUPIED with different key, or saved DELETED — keep probing ──
         index = (index + 1) % capacity_;        // ? wrap around to slot 0 if needed
     }
 }
