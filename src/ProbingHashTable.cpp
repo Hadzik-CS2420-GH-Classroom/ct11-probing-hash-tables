@@ -110,8 +110,20 @@ size_t ProbingHashTable::hash(const std::string& key) const {
 //   - chaining can insert first because chains can always grow (just add a node)
 //   - probing must ensure there's room BEFORE attempting the probe sequence
 //
-// ! DISCUSSION: Three outcomes when probing forward:
-//   - EMPTY or DELETED slot → place the new entry here, set to OCCUPIED
+// ? SEE DIAGRAM: Insert + Tombstone Trap                      →  images/cpp_diagrams.md
+//
+// ! DISCUSSION: Why we can't just stop at the first DELETED slot:
+//   - if a key was inserted PAST a slot that is now DELETED, stopping at the
+//     tombstone would place a DUPLICATE without finding the existing entry
+//   - example: Bob at slot 2, Eve at slot 3 (collision). Remove Bob (slot 2 = DELETED).
+//     Insert Eve again -- hash gives slot 2 (DELETED). If we stop here, Eve is
+//     at BOTH slot 2 AND slot 3. search/remove will find the wrong one.
+//   - FIX: remember the first tombstone as a candidate, but keep probing until
+//     we find the key (update it) or hit EMPTY (key doesn't exist, use the tombstone)
+//
+// ! DISCUSSION: Four outcomes when probing forward:
+//   - EMPTY slot → key not in table. Use saved tombstone if we passed one, else use this slot.
+//   - DELETED slot → save its position (first time only), keep probing for duplicate
 //   - OCCUPIED slot with the SAME key → update the value (no duplicate keys)
 //   - OCCUPIED slot with a DIFFERENT key → keep probing: (index + 1) % capacity_
 //
@@ -121,12 +133,15 @@ void ProbingHashTable::insert(const std::string& key, int value) {
     //   - if so, call resize()
 
     // TODO: Hash the key to get the starting index
+    // TODO: Declare int first_deleted = -1 to remember the first tombstone
 
     // TODO: Linear probe — loop until you find a place for the entry
-    //   - Case 1: EMPTY or DELETED slot → place the entry here
+    //   - Case 1: EMPTY → key not in table
+    //     if first_deleted != -1, use that index instead (reuse tombstone)
     //     set key, value, status = OCCUPIED, increment size_, return
-    //   - Case 2: OCCUPIED with same key → update the value, return
-    //   - Case 3: OCCUPIED with different key → advance: (index + 1) % capacity_
+    //   - Case 2: DELETED → if first_deleted == -1, save this index. Keep probing!
+    //   - Case 3: OCCUPIED with same key → update the value, return
+    //   - Case 4: OCCUPIED with different key → advance: (index + 1) % capacity_
 }
 
 // ---------------------------------------------------------------------------
