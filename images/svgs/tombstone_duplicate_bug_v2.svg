@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 1260" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+
+  <!-- Title -->
+  <text x="460" y="32" text-anchor="middle" fill="#1a1a1a" font-size="24" font-weight="bold">The Tombstone Duplicate Bug</text>
+  <text x="460" y="54" text-anchor="middle" fill="#777" font-size="13">What goes wrong when insert() stops at a tombstone without checking for an existing duplicate further along?</text>
+
+  <!-- ===== STEP 1: Setup ===== -->
+  <rect x="20" y="70" width="880" height="130" rx="10" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+  <rect x="20" y="70" width="880" height="28" rx="10" fill="#1565c0"/>
+  <rect x="20" y="84" width="880" height="14" fill="#1565c0"/>
+  <text x="460" y="90" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">Step 1: Initial State &#x2014; Alice and Bob both hash to slot 3</text>
+
+  <text x="40" y="118" fill="#555" font-size="12">insert("Bob", 42) &#x2192; hash = 3 &#x2192; slot 3 is EMPTY &#x2192; place Bob at slot 3</text>
+  <text x="40" y="138" fill="#555" font-size="12">insert("Alice", 88) &#x2192; hash = 3 &#x2192; slot 3 is OCCUPIED (Bob) &#x2192; probe to slot 4 &#x2192; place Alice at slot 4</text>
+
+  <!-- Table -->
+  <text x="105" y="168" text-anchor="middle" fill="#aaa" font-size="10">0</text>
+  <text x="205" y="168" fill="#aaa" font-size="10" text-anchor="middle">1</text>
+  <text x="305" y="168" fill="#aaa" font-size="10" text-anchor="middle">2</text>
+  <text x="405" y="168" fill="#aaa" font-size="10" text-anchor="middle">3</text>
+  <text x="505" y="168" fill="#aaa" font-size="10" text-anchor="middle">4</text>
+  <text x="605" y="168" fill="#aaa" font-size="10" text-anchor="middle">5</text>
+  <text x="705" y="168" fill="#aaa" font-size="10" text-anchor="middle">6</text>
+
+  <rect x="60" y="174" width="90" height="20" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <rect x="160" y="174" width="90" height="20" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <rect x="260" y="174" width="90" height="20" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <rect x="360" y="174" width="90" height="20" rx="4" fill="#3498db" stroke="#2980b9" stroke-width="1.5"/>
+  <text x="405" y="188" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">Bob: 42</text>
+  <rect x="460" y="174" width="90" height="20" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="505" y="188" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">Alice: 88</text>
+  <rect x="560" y="174" width="90" height="20" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <rect x="660" y="174" width="90" height="20" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+
+  <!-- ===== STEP 2: Remove Bob ===== -->
+  <rect x="20" y="210" width="880" height="100" rx="10" fill="#fff" stroke="#f39c12" stroke-width="2"/>
+  <rect x="20" y="210" width="880" height="28" rx="10" fill="#f39c12"/>
+  <rect x="20" y="224" width="880" height="14" fill="#f39c12"/>
+  <text x="460" y="230" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">Step 2: Remove Bob &#x2014; slot 3 becomes a tombstone (DELETED)</text>
+
+  <text x="40" y="258" fill="#555" font-size="12">remove("Bob") &#x2192; find Bob at slot 3 &#x2192; mark as DELETED (not EMPTY! otherwise Alice's probe chain breaks)</text>
+
+  <rect x="60" y="274" width="90" height="20" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <rect x="160" y="274" width="90" height="20" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <rect x="260" y="274" width="90" height="20" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <rect x="360" y="274" width="90" height="20" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="405" y="288" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">&#x1FAA6; DELETED</text>
+  <rect x="460" y="274" width="90" height="20" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="505" y="288" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">Alice: 88</text>
+  <rect x="560" y="274" width="90" height="20" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <rect x="660" y="274" width="90" height="20" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+
+  <!-- ===== STEP 3: THE BUG ===== -->
+  <rect x="20" y="326" width="880" height="200" rx="10" fill="#fff" stroke="#c62828" stroke-width="2.5"/>
+  <rect x="20" y="326" width="880" height="28" rx="10" fill="#c62828"/>
+  <rect x="20" y="340" width="880" height="14" fill="#c62828"/>
+  <text x="460" y="346" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">&#x274C; THE BUG: insert("Alice", 99) &#x2014; stops at tombstone</text>
+
+  <text x="40" y="376" fill="#555" font-size="12">insert("Alice", 99) &#x2192; hash = 3 &#x2192; slot 3 is DELETED</text>
+  <text x="40" y="396" fill="#c62828" font-size="12" font-weight="bold">Buggy code: "DELETED means available!" &#x2192; places Alice at slot 3 WITHOUT checking slot 4</text>
+
+  <!-- Buggy result table -->
+  <text x="40" y="424" fill="#c62828" font-size="13" font-weight="bold">Result: TWO Alices!</text>
+  <rect x="60" y="434" width="90" height="24" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <rect x="160" y="434" width="90" height="24" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <rect x="260" y="434" width="90" height="24" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <rect x="360" y="434" width="90" height="24" rx="4" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+  <text x="405" y="450" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">Alice: 99</text>
+  <rect x="460" y="434" width="90" height="24" rx="4" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+  <text x="505" y="450" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">Alice: 88</text>
+  <rect x="560" y="434" width="90" height="24" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <rect x="660" y="434" width="90" height="24" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+
+  <!-- Bug consequences -->
+  <rect x="40" y="470" width="840" height="44" rx="6" fill="#fce4ec"/>
+  <text x="60" y="488" fill="#c62828" font-size="12" font-weight="bold">&#x26A0; Consequences:</text>
+  <text x="190" y="488" fill="#555" font-size="11">size_ is wrong (incremented twice for same key)</text>
+  <text x="510" y="488" fill="#555" font-size="11">|  search("Alice") finds slot 3 (stale value 99)</text>
+  <text x="60" y="506" fill="#555" font-size="11">remove("Alice") only removes slot 3 &#x2014; slot 4's Alice becomes a ghost entry that can never be found or removed</text>
+
+  <!-- ===== STEP 4: THE FIX ===== -->
+  <rect x="20" y="540" width="880" height="200" rx="10" fill="#fff" stroke="#2e7d32" stroke-width="2.5"/>
+  <rect x="20" y="540" width="880" height="28" rx="10" fill="#2e7d32"/>
+  <rect x="20" y="554" width="880" height="14" fill="#2e7d32"/>
+  <text x="460" y="560" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">&#x2714; THE FIX: Remember the tombstone, but keep probing</text>
+
+  <text x="40" y="590" fill="#555" font-size="12">insert("Alice", 99) &#x2192; hash = 3 &#x2192; slot 3 is DELETED &#x2192; save first_deleted = 3, <tspan fill="#2e7d32" font-weight="bold">keep probing!</tspan></text>
+  <text x="40" y="610" fill="#555" font-size="12">Probe slot 4 &#x2192; OCCUPIED, key = "Alice" &#x2192; <tspan fill="#2e7d32" font-weight="bold">found existing entry! Update value to 99.</tspan></text>
+
+  <!-- Fixed result table -->
+  <text x="40" y="638" fill="#2e7d32" font-size="13" font-weight="bold">Result: One Alice, updated correctly</text>
+  <rect x="60" y="648" width="90" height="24" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <rect x="160" y="648" width="90" height="24" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <rect x="260" y="648" width="90" height="24" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <rect x="360" y="648" width="90" height="24" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="405" y="664" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">&#x1FAA6; DELETED</text>
+  <rect x="460" y="648" width="90" height="24" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <text x="505" y="664" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">Alice: 99</text>
+  <rect x="560" y="648" width="90" height="24" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <rect x="660" y="648" width="90" height="24" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+
+  <!-- Code pattern -->
+  <rect x="40" y="684" width="840" height="44" rx="6" fill="#e8f5e9"/>
+  <text x="60" y="702" fill="#1b5e20" font-size="12" font-weight="bold">The Pattern:</text>
+  <text x="150" y="702" fill="#555" font-size="11" font-family="Consolas, monospace">int first_deleted = -1;</text>
+  <text x="400" y="702" fill="#888" font-size="11">// remember tombstone position</text>
+  <text x="60" y="720" fill="#555" font-size="11" font-family="Consolas, monospace">if (DELETED &amp;&amp; first_deleted == -1) first_deleted = index;  // save it, but DON'T stop — keep probing for duplicate</text>
+
+  <!-- ===== KEY TAKEAWAY ===== -->
+  <rect x="20" y="754" width="880" height="52" rx="10" fill="#f4ecf7"/>
+  <text x="460" y="776" text-anchor="middle" fill="#4a148c" font-size="14" font-weight="bold">Key Rule: A tombstone means "someone WAS here" &#x2014; the key you're looking for might still be ahead.</text>
+  <text x="460" y="796" text-anchor="middle" fill="#888" font-size="12">Only stop probing at EMPTY (never used) or when you find the key. Tombstones are pass-through, not endpoints.</text>
+
+  <!-- ===== CODE COMPARISON ===== -->
+  <text x="460" y="840" text-anchor="middle" fill="#1a1a1a" font-size="20" font-weight="bold">Code: Before vs After</text>
+
+  <!-- BUGGY CODE (left) -->
+  <rect x="20" y="856" width="430" height="380" rx="10" fill="#1e1e2e" stroke="#c62828" stroke-width="2"/>
+  <rect x="20" y="856" width="430" height="26" rx="10" fill="#c62828"/>
+  <rect x="20" y="870" width="430" height="12" fill="#c62828"/>
+  <text x="235" y="874" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">&#x274C; BUGGY: Stops at first DELETED slot</text>
+
+  <text x="35" y="904" fill="#cba6f7" font-size="10.5" font-family="Consolas, monospace">void</text>
+  <text x="68" y="904" fill="#89dceb" font-size="10.5" font-family="Consolas, monospace">insert</text>
+  <text x="104" y="904" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">(string&amp; key, int value) {</text>
+
+  <text x="45" y="922" fill="#6c7086" font-size="10" font-family="Consolas, monospace" font-style="italic">// resize check...</text>
+  <text x="45" y="938" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">size_t index = hash(key);</text>
+
+  <text x="45" y="960" fill="#cba6f7" font-size="10.5" font-family="Consolas, monospace">while</text>
+  <text x="78" y="960" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">(true) {</text>
+
+  <text x="55" y="980" fill="#cba6f7" font-size="10.5" font-family="Consolas, monospace">if</text>
+  <text x="70" y="980" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">(status == EMPTY</text>
+  <text x="55" y="996" fill="#f38ba8" font-size="10.5" font-family="Consolas, monospace" font-weight="bold">    || status == DELETED</text>
+  <text x="230" y="996" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">) {</text>
+
+  <text x="65" y="1016" fill="#6c7086" font-size="10" font-family="Consolas, monospace" font-style="italic">// place entry here immediately</text>
+  <text x="65" y="1032" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">table_[index] = {key, value, OCC};</text>
+  <text x="65" y="1048" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">++size_;</text>
+  <text x="65" y="1064" fill="#cba6f7" font-size="10.5" font-family="Consolas, monospace">return;</text>
+  <text x="55" y="1080" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">}</text>
+
+  <text x="55" y="1100" fill="#cba6f7" font-size="10.5" font-family="Consolas, monospace">if</text>
+  <text x="70" y="1100" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">(key == table_[index].key) {</text>
+  <text x="65" y="1116" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">table_[index].value = value;</text>
+  <text x="65" y="1132" fill="#cba6f7" font-size="10.5" font-family="Consolas, monospace">return;</text>
+  <text x="55" y="1148" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">}</text>
+  <text x="55" y="1166" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">index = (index + 1) % capacity_;</text>
+  <text x="45" y="1182" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">}</text>
+  <text x="35" y="1198" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">}</text>
+
+  <rect x="30" y="1206" width="410" height="24" rx="4" fill="#3d1f1f"/>
+  <text x="235" y="1222" text-anchor="middle" fill="#f38ba8" font-size="10" font-weight="bold">BUG: DELETED treated same as EMPTY &#x2014; never checks for duplicate past tombstone</text>
+
+  <!-- FIXED CODE (right) -->
+  <rect x="470" y="856" width="430" height="380" rx="10" fill="#1e1e2e" stroke="#2e7d32" stroke-width="2"/>
+  <rect x="470" y="856" width="430" height="26" rx="10" fill="#2e7d32"/>
+  <rect x="470" y="870" width="430" height="12" fill="#2e7d32"/>
+  <text x="685" y="874" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">&#x2714; FIXED: Remember tombstone, keep probing</text>
+
+  <text x="485" y="904" fill="#cba6f7" font-size="10.5" font-family="Consolas, monospace">void</text>
+  <text x="518" y="904" fill="#89dceb" font-size="10.5" font-family="Consolas, monospace">insert</text>
+  <text x="554" y="904" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">(string&amp; key, int value) {</text>
+
+  <text x="495" y="922" fill="#6c7086" font-size="10" font-family="Consolas, monospace" font-style="italic">// resize check...</text>
+  <text x="495" y="938" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">size_t index = hash(key);</text>
+  <text x="495" y="954" fill="#a6e3a1" font-size="10.5" font-family="Consolas, monospace" font-weight="bold">int first_deleted = -1;</text>
+
+  <text x="495" y="974" fill="#cba6f7" font-size="10.5" font-family="Consolas, monospace">while</text>
+  <text x="528" y="974" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">(true) {</text>
+
+  <text x="505" y="994" fill="#cba6f7" font-size="10.5" font-family="Consolas, monospace">if</text>
+  <text x="520" y="994" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">(status == EMPTY) {</text>
+  <text x="515" y="1010" fill="#a6e3a1" font-size="10.5" font-family="Consolas, monospace" font-weight="bold">if (first_deleted != -1)</text>
+  <text x="515" y="1026" fill="#a6e3a1" font-size="10.5" font-family="Consolas, monospace" font-weight="bold">  index = first_deleted;</text>
+  <text x="515" y="1042" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">table_[index] = {key, val, OCC};</text>
+  <text x="515" y="1058" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">++size_; return;</text>
+  <text x="505" y="1074" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">}</text>
+
+  <text x="505" y="1094" fill="#a6e3a1" font-size="10.5" font-family="Consolas, monospace" font-weight="bold">if (status == DELETED) {</text>
+  <text x="515" y="1110" fill="#a6e3a1" font-size="10.5" font-family="Consolas, monospace" font-weight="bold">  if (first_deleted == -1)</text>
+  <text x="515" y="1126" fill="#a6e3a1" font-size="10.5" font-family="Consolas, monospace" font-weight="bold">    first_deleted = index;</text>
+  <text x="505" y="1142" fill="#a6e3a1" font-size="10.5" font-family="Consolas, monospace" font-weight="bold">}</text>
+  <text x="505" y="1158" fill="#cba6f7" font-size="10.5" font-family="Consolas, monospace">else if</text>
+  <text x="555" y="1158" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">(key == table_[index].key)</text>
+  <text x="515" y="1174" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">{ table_[index].value = val; return; }</text>
+
+  <text x="505" y="1194" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">index = (index + 1) % capacity_;</text>
+  <text x="485" y="1210" fill="#cdd6f4" font-size="10.5" font-family="Consolas, monospace">} }</text>
+
+  <rect x="480" y="1206" width="410" height="24" rx="4" fill="#1a3d1a"/>
+  <text x="685" y="1222" text-anchor="middle" fill="#a6e3a1" font-size="10" font-weight="bold">FIX: DELETED saves position but keeps probing &#x2014; only stops at EMPTY or matching key</text>
+
+  <!-- Bottom label -->
+  <rect x="20" y="1244" width="880" height="10" rx="5" fill="#f4ecf7"/>
+</svg>
